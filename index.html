@@ -79,7 +79,31 @@ tr.picked td{background:#e9f6f2 !important}
 .basecard .tag{font-size:11.5px;font-weight:700;color:var(--amalfi)}
 tr.base-dim td{opacity:.42}
 .basenote{border-left:4px solid var(--amalfi);background:#eaf3f7;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:13.5px}
-@media print{.nav{display:none}section.trip{break-inside:avoid;box-shadow:none}.map{height:320px}.controls,.basecards,.shortlist .clr,input.pick{display:none}.shortlist{border-width:1px}tr.base-dim{display:none}}
+@media print{.nav{display:none}section.trip{break-inside:avoid;box-shadow:none}.map{height:320px}.controls,.basecards,.shortlist .clr,input.pick,.bctl,.b-toggle,.b-prog-bar{display:none}.shortlist{border-width:1px}tr.base-dim{display:none}.b-row.off{display:none}}
+.bctl{display:flex;gap:8px;margin:8px 0;flex-wrap:wrap}
+.bbtn{border:1px solid var(--crete);background:var(--crete);color:#fff;border-radius:8px;padding:9px 15px;font-size:13px;font-weight:700;cursor:pointer;min-height:42px}
+.bbtn.ghost{background:#fff;color:var(--crete)}
+.builder{margin:10px 0}
+.b-prog{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:10px}
+.b-prog-h{font-size:13.5px;margin-bottom:6px;color:#33414d}
+.b-prog-bar{height:8px;background:#eef2f6;border-radius:999px;overflow:hidden}
+.b-prog-bar span{display:block;height:100%;background:var(--crete);transition:width .25s}
+.b-day{border:1px solid var(--line);border-radius:10px;margin:8px 0;overflow:hidden;background:#fff}
+.b-day-h{background:#f2f6f8;padding:8px 12px;font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:8px}
+.b-dot{width:12px;height:12px;border-radius:50%;display:inline-block;flex:none}
+.b-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-top:1px solid var(--line)}
+.b-row .b-nm{flex:1;font-size:13.5px;min-width:0}
+.b-row.off{opacity:.6;background:#fcfdfe}
+.b-toggle{flex:none;min-width:78px;min-height:42px;border-radius:8px;border:1px solid var(--crete);background:#fff;color:var(--crete);font-weight:700;font-size:13px;cursor:pointer}
+.b-toggle.on{background:#eef6f2;border-color:#2a9d8f;color:#1c5b4c}
+.b-locked{flex:none;font-size:12px;color:#2a9d8f;font-weight:700;padding:0 10px}
+.b-lock{font-size:11px;background:#2a9d8f;color:#fff;border-radius:999px;padding:1px 7px;font-weight:700}
+.b-chip{font-size:11px;background:#eef2f6;border-radius:999px;padding:1px 7px;color:#5b6672}
+.leftdo li{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0}
+.leftdo .ld-nm{flex:1;min-width:180px}
+.ld-chip{flex:none;color:#fff;font-weight:700;font-size:11px;min-width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center}
+.b-nudge{margin-top:10px}
+@media(max-width:640px){.b-row{flex-wrap:wrap}.b-toggle{min-width:70px}}
 </style>
 </head><body>
 
@@ -93,6 +117,7 @@ tr.base-dim td{opacity:.42}
 
 <nav class="nav"><div class="wrap">
 <a href="#crete">Crete</a>
+<a href="#crete-build">Build your week</a>
 <a href="#crete-mountain">High-altitude tavernas</a>
 <a href="#crete-map">Crete map</a>
 <a href="#amalfi">Vienna to Amalfi</a>
@@ -140,7 +165,7 @@ tr.base-dim td{opacity:.42}
 <div class="callout c-info"><strong>Booking refinements from the 19 Jul re-verify.</strong> Balos boat: full Balos+Gramvousa sailing departs Kissamos 10:35 (be at port by 09:55), the EUR 1 Balos fee is 13-plus only so the boys skip it, and the boat takes CARD ONLY. Limnoupolis: the reduced fare is HEIGHT-based 110-155 cm - the 8-year-old pays EUR 20, the 5-year-old is FREE if under 110 cm; slides start 11:00 (pools 10:00), afternoon tickets from 15:00 are cheaper. Mylos tou Kerata: online form answers same-day requests only after 18:00 - book a day ahead (+30 28210 68578). Dounias: no closures beyond Mon+Tue; Wed-Sat lunches all work. Car hire: no late-July shortage signals, EUR 220-380 ballpark holds. No strikes announced for the window. Platanias is under a water-shortage emergency (fourth dry year) - expect hotel conservation measures.</div>
 
 <h3>Day by day</h3>
-<div class="days"><div class="day"><div class="d-h"><span>Day 0, Tue 21 Jul</span> - Arrive easy</div><p>Land 18:35, collect car (confirm the desk covers an evening arrival and delay), fit boosters before leaving the car park, Platanias by ~20:00. Quick swim if the pool is open, dinner on the strip (Vegera). Buy water, snacks, sunscreen.</p></div><div class="day"><div class="d-h"><span>Day 1, Wed 22 Jul</span> - 39-degree water day plus Chania by night</div><p><span class='lab'>Anchor:</span> hotel beach and pools, water shoes on. Nobody heroic 13:00-17:00.</p><p><span class='lab'>Evening:</span> drive or taxi (EUR 25 fixed) to Chania Venetian harbour ~18:00, walk the sea wall to the lighthouse, dinner at Tamam or Tholos.</p></div><div class="day"><div class="d-h"><span>Day 2, Thu 23 Jul</span> - Balos and Gramvousa by boat</div><p><span class='lab'>Anchor:</span> Cretan Daily Cruises from Kissamos port. Adult EUR 45 / child 3-12 EUR 27 plus EUR 1 pp eco-fee. Be there 40 min before sailing (~10:20).</p><p><span class='lab'>Why by boat:</span> the drive-in is 8 km of rough gravel that voids rental insurance, then an exposed cliff path.</p></div><div class="day"><div class="d-h"><span>Day 3, Fri 24 Jul</span> - Water park, or a mountain-taverna lunch</div><p><span class='lab'>Anchor:</span> Limnoupolis, Varypetro (~15-20 min). ~EUR 27.50 adult / EUR 20 child July peak. Go at opening.</p><p><span class='lab'>Cool-day swap:</span> Botanical Park (EUR 8 adult / EUR 4 child), or drive up to one of the high-altitude tavernas below for a long lunch in cool mountain air.</p></div><div class="day"><div class="d-h"><span>Day 4, Sat 25 Jul</span> - Elafonisi, the pink lagoon</div><p><span class='lab'>Anchor:</span> Elafonisi (~1 h 15-1 h 30 southwest via Topolia gorge, paved). Knee-deep warm lagoon over pink sand. Leave 7:45-8:00.</p><p><span class='lab'>Plan B (wind):</span> sheltered Agioi Apostoloi coves or Kournas Lake pedal boats.</p></div><div class="day"><div class="d-h"><span>Day 5, Sun 26 Jul</span> - Pool morning, fly 15:45</div><p>Slow breakfast, final pool, check out. Leave Platanias ~13:00, fuel full-to-full, return by ~13:45, terminal by 14:00. Home in Vienna 17:15. Do not plan an excursion today.</p></div></div>
+<div class="days"><div class="day"><div class="d-h"><span>Day 0, Tue 21 Jul</span> - Arrive easy</div><p>Land 18:35, collect car (confirm the desk covers an evening arrival and delay), fit boosters before leaving the car park, Platanias by ~20:00. Quick swim if the pool is open, dinner on the strip (Vegera). Buy water, snacks, sunscreen.</p></div><div class="day"><div class="d-h"><span>Day 1, Wed 22 Jul</span> - 39-degree water day plus Chania by night</div><p><span class='lab'>Anchor:</span> hotel beach and pools, water shoes on. Nobody heroic 13:00-17:00.</p><p><span class='lab'>Evening:</span> drive or taxi (EUR 25 fixed) to Chania Venetian harbor ~18:00, walk the sea wall to the lighthouse, dinner at Tamam or Tholos.</p></div><div class="day"><div class="d-h"><span>Day 2, Thu 23 Jul</span> - Balos and Gramvousa by boat</div><p><span class='lab'>Anchor:</span> Cretan Daily Cruises from Kissamos port. Adult EUR 45 / child 3-12 EUR 27 plus EUR 1 pp eco-fee. Be there 40 min before sailing (~10:20).</p><p><span class='lab'>Why by boat:</span> the drive-in is 8 km of rough gravel that voids rental insurance, then an exposed cliff path.</p></div><div class="day"><div class="d-h"><span>Day 3, Fri 24 Jul</span> - Water park, or a mountain-taverna lunch</div><p><span class='lab'>Anchor:</span> Limnoupolis, Varypetro (~15-20 min). ~EUR 27.50 adult / EUR 20 child July peak. Go at opening.</p><p><span class='lab'>Cool-day swap:</span> Botanical Park (EUR 8 adult / EUR 4 child), or drive up to one of the high-altitude tavernas below for a long lunch in cool mountain air.</p></div><div class="day"><div class="d-h"><span>Day 4, Sat 25 Jul</span> - Elafonisi, the pink lagoon</div><p><span class='lab'>Anchor:</span> Elafonisi (~1 h 15-1 h 30 southwest via Topolia gorge, paved). Knee-deep warm lagoon over pink sand. Leave 7:45-8:00.</p><p><span class='lab'>Plan B (wind):</span> sheltered Agioi Apostoloi coves or Kournas Lake pedal boats.</p></div><div class="day"><div class="d-h"><span>Day 5, Sun 26 Jul</span> - Pool morning, fly 15:45</div><p>Slow breakfast, final pool, check out. Leave Platanias ~13:00, fuel full-to-full, return by ~13:45, terminal by 14:00. Home in Vienna 17:15. Do not plan an excursion today.</p></div></div>
 
 <h3 id="crete-mountain">High-altitude tavernas by rental car</h3>
 <div class="callout c-warn"><strong>Road surface is the safety-critical field.</strong> A standard Greek rental CDW is voided on dirt and gravel roads (the textbook Balos exclusion). Stay on asphalt. Of the 17 options below, 16 are fully paved with no insurance concern and 1 carries a gravel-road risk (Milia, whose final ~2.4 km is dirt). Two routing notes to hold: for the Zourva tavernas take the Therisso approach (two of three research passes found the Meskla to Zourva link is dirt), and park on the asphalt to walk any short final driveway. The original twelve entries were road-checked across three independent passes; the five added on 18 July (found by a systematic OSM elevation sweep of 582 restaurants around Platanias) carry their own verification badges, including two in Elos that sit on your Elafonisi route and cost zero extra driving.</div>
@@ -188,15 +213,15 @@ tr.base-dim td{opacity:.42}
 <tr><td><strong>Vegera</strong></td><td>Platanias</td><td>Easy family standby, Greek and international mix</td></tr>
 <tr><td><strong>Haroupia</strong></td><td>Ano Platanias (old village)</td><td>Traditional west-Cretan food, evening views</td></tr>
 <tr><td><strong>Tamam</strong></td><td>Chania old town</td><td>In an old hammam; kids options, famously welcoming</td></tr>
-<tr><td><strong>Tholos / Ela / Pallas</strong></td><td>Chania old town</td><td>Venetian-ruin courtyards and harbour sunset; children portions</td></tr>
+<tr><td><strong>Tholos / Ela / Pallas</strong></td><td>Chania old town</td><td>Venetian-ruin courtyards and harbor sunset; children portions</td></tr>
 </tbody></table></div>
 
 
 <h3>More Crete options - weather and mood spares (round-3, 18 Jul)</h3>
-<p class="sub">Nothing here displaces an anchor; these are the verified swaps and add-ons. The top pick: Captain Nestor's 17:00 glass-bottom cruise bolts onto the Chania-harbour evening you already have planned, zero extra driving.</p>
+<p class="sub">Nothing here displaces an anchor; these are the verified swaps and add-ons. The top pick: Captain Nestor's 17:00 glass-bottom cruise bolts onto the Chania-harbor evening you already have planned, zero extra driving.</p>
 <div class="table-wrap"><table class="dt">
 <thead><tr><th>Option</th><th>What / why bother</th><th>Logistics</th><th>Price</th><th>Confidence</th></tr></thead><tbody>
-<tr><td><strong>Captain Nestor glass-bottom boat (Chania old harbour)</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=Captain%20Nestor%20glass-bottom%20boat%2C%20Crete" target="_blank" rel="noopener">map</a> <a href="https://www.captainnestor.gr/" target="_blank" rel="noopener">site</a><div class="sub">glass-bottom boat trip</div></td><td>Glass-bottom boat from Chania&#x27;s Venetian harbour. 1h Lazaretta cruise with fish-feeding show and 35-min swim stop, departures 11:00 and 17:00, EUR 15/person. Longer 3.5h trip at 13:00 to Thodorou nature reserve + Lazaretta, EUR 40/person: wild kri-kri goats, a sunken WWII Junkers 52 visible through the glass bottom, 2h swim time with a tender boat for non-swimmers and kids. Sunset 1h trip 19:30, EUR 20 with a drink.<div class="sub">Slots straight onto the Chania-harbour evening already in the plan for near-zero extra logistics; the 17:00 1h cruise is the safe pick for the 5-year-old, and the crashed-plane-through-the-glass is catnip for an 8-year-old. Cheaper and calmer than repeating a big boat day after Balos.</div></td><td>Departs 5 Kountouriotou St, Chania old harbour. Drive Platanias to Chania 20-30 min padded plus harbour parking hassle; walk-up or book direct. Child fares not listed on the operator site [verify]. Aggregators (CheckYeti/GetYourGuide) list the long trip from EUR 30, own site says EUR 40 - trust the own-site number.</td><td>EUR 15 (1h), EUR 40 (3.5h), EUR 20 (sunset) per person, 2026 own-site rates; child price [verify]</td><td><span class="badge b-green">Own-site confirmed</span></td></tr>
+<tr><td><strong>Captain Nestor glass-bottom boat (Chania old harbor)</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=Captain%20Nestor%20glass-bottom%20boat%2C%20Crete" target="_blank" rel="noopener">map</a> <a href="https://www.captainnestor.gr/" target="_blank" rel="noopener">site</a><div class="sub">glass-bottom boat trip</div></td><td>Glass-bottom boat from Chania&#x27;s Venetian harbor. 1h Lazaretta cruise with fish-feeding show and 35-min swim stop, departures 11:00 and 17:00, EUR 15/person. Longer 3.5h trip at 13:00 to Thodorou nature reserve + Lazaretta, EUR 40/person: wild kri-kri goats, a sunken WWII Junkers 52 visible through the glass bottom, 2h swim time with a tender boat for non-swimmers and kids. Sunset 1h trip 19:30, EUR 20 with a drink.<div class="sub">Slots straight onto the Chania-harbor evening already in the plan for near-zero extra logistics; the 17:00 1h cruise is the safe pick for the 5-year-old, and the crashed-plane-through-the-glass is catnip for an 8-year-old. Cheaper and calmer than repeating a big boat day after Balos.</div></td><td>Departs 5 Kountouriotou St, Chania old harbor. Drive Platanias to Chania 20-30 min padded plus harbor parking hassle; walk-up or book direct. Child fares not listed on the operator site [verify]. Aggregators (CheckYeti/GetYourGuide) list the long trip from EUR 30, own site says EUR 40 - trust the own-site number.</td><td>EUR 15 (1h), EUR 40 (3.5h), EUR 20 (sunset) per person, 2026 own-site rates; child price [verify]</td><td><span class="badge b-green">Own-site confirmed</span></td></tr>
 <tr><td><strong>Lake Kournas pedal boats</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=Lake%20Kournas%20pedal%20boats%2C%20Crete" target="_blank" rel="noopener">map</a> <a href="https://www.salutbyebye.com/en/visit-crete/lake-kournas-crete/" target="_blank" rel="noopener">site</a><div class="sub">lake pedal boats</div></td><td>Crete&#x27;s only freshwater lake, ringed by mountains. Multiple lakeside vendors rent classic pedal boats and pedal boats with built-in slides for EUR 10-16 per hour (2026, no single official operator so exact vendor price [verify] on arrival); canoes also available. Terrapins/turtles surface on the far shore away from the rental strip; ducks, geese, shallow standing areas for kids, family tavernas on the shore (Georgia&#x27;s recommended).<div class="sub">The one thing nothing in the current plan offers: calm, wave-free fresh water plus a turtle hunt. The slide pedal boat is a guaranteed hit with both boys and it is a half-day, not a full-day commitment like Elafonisi.</div></td><td>About 45 km east of Platanias via the A90; 40 min raw, plan 55-70 min padded. Go early (around 09:00) - tour groups arrive late morning and boats queue; parking is taverna-managed, free-ish with a purchase. Pairs naturally with Aptera (same direction) for one east-of-Chania day. Water shoes for the muddy bottom.</td><td>Lake free; pedal boat EUR 10-16/hr (2026)</td><td><span class="badge b-green">Multi-source</span></td></tr>
 <tr><td><strong>Falassarna beach (Pachia Ammos) late afternoon</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=Falassarna%20beach%2C%20Crete" target="_blank" rel="noopener">map</a> <a href="https://cretetales.com/falassarna-beach/" target="_blank" rel="noopener">site</a><div class="sub">beach, sunset</div></td><td>Wide west-facing sandy bay, one of Crete&#x27;s most famous sunset beaches. Main Pachia Ammos section is organized: sunbeds EUR 15-25 per set of two with umbrella (2025 rates, [verify] 2026), entry and parking free. Shallow gradual entry near shore on calm days; can get waves when the wind is up - keep the 5-year-old in the shallows.<div class="sub">Arrive 17:00-ish for golden light, empty-ing beach and the sunset show without the midday roasting. Honest verdict: Elafonisi already covers the epic-west-coast slot, so treat Falassarna as the sunset-plus-sandcastles alternative if the Elafonisi day gets cut, or a second west run only if the family loved the first.</div></td><td>About 40 km west of Platanias; 40 min raw, plan 55-70 min padded (winding descent at the end). Free parking lots behind the beach. Tavernas up the hill; bring layers, it cools after sunset. Check wind forecast - a strong west swell kills it for the 5-year-old.</td><td>Free entry/parking; sunbeds EUR 15-25/set (2025) [verify]</td><td><span class="badge b-green">Multi-source</span></td></tr>
 <tr><td><strong>Stavros beach (Zorba the Greek bay), Akrotiri</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=Stavros%20beach%2C%20Crete" target="_blank" rel="noopener">map</a> <a href="https://seazetheday.gr/attractions/crete/stavros-beach/" target="_blank" rel="noopener">site</a><div class="sub">beach, sheltered lagoon</div></td><td>Near-circular natural lagoon under the mountain where the 1964 Zorba the Greek sirtaki finale was filmed. Sheltered, shallow, wave-free water - the calmest swimming option in the Chania area. Free beach, free (limited) parking at the entrance, sunbed sections plus tavernas in the village (Almyriki popular for fish).<div class="sub">The best pure toddler-and-up swim water within 40 minutes: shallower and more sheltered than anything else in the plan, so it is the recovery-day beach after a big Balos or Elafonisi day. Parents get the movie-trivia backdrop; kids get a giant warm pool.</div></td><td>About 30 km northeast via Chania and the Akrotiri peninsula; 35 min raw, plan 45-60 min padded. Arrive before 10:30 or after 16:00 in July - parking is the constraint, not space on the sand. No entry cost, no booking.</td><td>Free; sunbeds optional [verify]</td><td><span class="badge b-green">Multi-source</span></td></tr>
@@ -205,8 +230,14 @@ tr.base-dim td{opacity:.42}
 <tr><td><strong>Omega Divers guided family snorkel boat trip</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=Omega%20Divers%20guided%20family%20snorkel%20boat%20trip%2C%20Crete" target="_blank" rel="noopener">map</a> <a href="https://www.omegadivers.com/boat-trip-and-snorkeling-in-chania/" target="_blank" rel="noopener">site</a><div class="sub">snorkel taster</div></td><td>3.5h PADI-licensed guided snorkeling boat trip in sheltered 0-5 m spots east of Chania: pro gear (kids&#x27; masks, fins, optional wetsuit), flotation aids for beginners, SUP to play on, certified guides, underwater photos, DAN insurance. Own site confirms family/kids/beginner suitability; aggregator listings state minimum age 3 and price from EUR 85/person - neither number is on the operator&#x27;s own page, so both [verify] by email before booking.<div class="sub">The only supervised in-the-water wildlife option on the list and the flotation-aid setup makes it viable for the 5-year-old. Honest verdict: at ~EUR 85/head it is the priciest per hour here - book it only if the boys are fish-mad after the glass-bottom trip; otherwise DIY snorkeling in the Stavros lagoon with EUR 15 supermarket masks covers 80% of the experience for 5% of the cost.</div></td><td>Base in the Plaka/Almyrida area, Apokoronas (28250 phone prefix; exact meeting point and hotel-pickup coverage for Platanias [verify]); ~40 km east, plan 50-65 min padded if self-driving. Contact info@omegadivers.com, +30 28250 31412. Blue Adventures Diving (blueadventures.gr, Chania town, free transfers + snack) is the fallback operator if Omega&#x27;s pickup does not reach Platanias.</td><td>From EUR 85/person (aggregator, 2026) [verify]; min age 3 (aggregator) [verify]</td><td><span class="badge b-amber">Aggregator only</span></td></tr>
 </tbody></table></div>
 
+<h3 id="crete-build">Build your Crete week</h3>
+<p class="sub">Tick stops to build the plan. The map below reroutes as you go, like a sat-nav. The hotel and the confirmed Thursday boat are always in. Saved on this device.</p>
+<div class="bctl"><button id="creteAddAll" class="bbtn">Add all recommended</button><button id="cretePlanClear" class="bbtn ghost">Clear plan</button></div>
+<div class="builder" id="creteBuilder"></div>
+<div class="shortlist leftdo" id="creteLeftToDo"></div>
+
 <h3 id="crete-map">Crete map</h3>
-<p class="sub">Green pins: paved mountain tavernas. Red pin: gravel-risk (Milia). Blue: day anchors. Gold: your hotel. Tap a pin for the note and a Navigate link.</p>
+<p class="sub">Pins with a day number in a day color are stops in your plan; a hollow + is a recommended stop you have not added yet (tap Add above). Green pins are paved tavernas, red is the gravel-risk one. The colored line is your out-and-back route from the hotel each day. Tap any pin for a Navigate link.</p>
 <div id="mapCrete" class="map"></div>
 
 <h3>Budget (family of 4)</h3>
@@ -387,6 +418,7 @@ tr.base-dim td{opacity:.42}
 
 <script>
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let creteMap=null;
 function buildMap(divId, stops, fallbackCenter, fallbackZoom){
   const map=L.map(divId,{scrollWheelZoom:false});
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
@@ -402,15 +434,16 @@ function buildMap(divId, stops, fallbackCenter, fallbackZoom){
   }));
   group.addTo(map);
   if(stops.length) map.fitBounds(group.getBounds().pad(0.2)); else map.setView(fallbackCenter||[46,12],fallbackZoom||5);
+  if(divId==='mapCrete') creteMap=map;
   return byId;
 }
 const creteStops=[
-{color:'#e9c46a',id:'',name:`Porto Platanias Beach Resort (your base)`,lat:35.5127,lon:23.9425,note:`Hotel, Platanias`,gmaps:`https://www.google.com/maps/search/?api=1&query=Porto%20Platanias%20Beach%20Resort%2C%20Crete`},
-{color:'#457b9d',id:'',name:`Chania Venetian harbour`,lat:35.5178,lon:24.0176,note:`Evening walk, dinner`,gmaps:`https://www.google.com/maps/search/?api=1&query=Chania%20Venetian%20harbour%2C%20Crete`},
-{color:'#457b9d',id:'',name:`Kissamos port (Balos and Gramvousa boat)`,lat:35.4936,lon:23.656,note:`Cruise departs here`,gmaps:`https://www.google.com/maps/search/?api=1&query=Kissamos%20port%2C%20Crete`},
-{color:'#457b9d',id:'',name:`Elafonisi pink lagoon`,lat:35.2717,lon:23.539,note:`Best swim for a 5-year-old`,gmaps:`https://www.google.com/maps/search/?api=1&query=Elafonisi%20pink%20lagoon%2C%20Crete`},
-{color:'#457b9d',id:'',name:`Limnoupolis water park`,lat:35.479,lon:23.986,note:`Varypetro, ~15-20 min`,gmaps:`https://www.google.com/maps/search/?api=1&query=Limnoupolis%20water%20park%2C%20Crete`},
-{color:'#457b9d',id:'',name:`Botanical Park and Gardens`,lat:35.4058,lon:23.926,note:`Fournes, cool-day option`,gmaps:`https://www.google.com/maps/search/?api=1&query=Botanical%20Park%20and%20Gardens%2C%20Crete`},
+{color:'#e9c46a',id:'anchor-hotel',name:`Porto Platanias Beach Resort (your base)`,lat:35.5127,lon:23.9425,note:`Hotel, Platanias`,gmaps:`https://www.google.com/maps/search/?api=1&query=Porto%20Platanias%20Beach%20Resort%2C%20Crete`},
+{color:'#457b9d',id:'anchor-chania',name:`Chania Venetian harbor`,lat:35.5178,lon:24.0176,note:`Evening walk, dinner`,gmaps:`https://www.google.com/maps/search/?api=1&query=Chania%20Venetian%20harbor%2C%20Crete`},
+{color:'#457b9d',id:'anchor-kissamos',name:`Kissamos port (Balos and Gramvousa boat)`,lat:35.4936,lon:23.656,note:`Cruise departs here`,gmaps:`https://www.google.com/maps/search/?api=1&query=Kissamos%20port%2C%20Crete`},
+{color:'#457b9d',id:'anchor-elafonisi',name:`Elafonisi pink lagoon`,lat:35.2717,lon:23.539,note:`Best swim for a 5-year-old`,gmaps:`https://www.google.com/maps/search/?api=1&query=Elafonisi%20pink%20lagoon%2C%20Crete`},
+{color:'#457b9d',id:'anchor-limnoupolis',name:`Limnoupolis water park`,lat:35.479,lon:23.986,note:`Varypetro, ~15-20 min`,gmaps:`https://www.google.com/maps/search/?api=1&query=Limnoupolis%20water%20park%2C%20Crete`},
+{color:'#457b9d',id:'anchor-botanical',name:`Botanical Park and Gardens`,lat:35.4058,lon:23.926,note:`Fournes, cool-day option`,gmaps:`https://www.google.com/maps/search/?api=1&query=Botanical%20Park%20and%20Gardens%2C%20Crete`},
 {color:'#2a9d8f',id:'dounias-ntounias',name:`Dounias (Ntounias)`,lat:35.40919,lon:24.0148,note:`Drakona (Keramia) - paved`,gmaps:`https://www.google.com/maps/search/?api=1&query=Dounias%2C%20Drakona%2C%20Crete`},
 {color:'#2a9d8f',id:'taverna-leventogiannis',name:`Taverna Leventogiannis`,lat:35.4256,lon:24.0086,note:`Therisso (Theriso) - paved`,gmaps:`https://www.google.com/maps/search/?api=1&query=Taverna%20Leventogiannis%2C%20Therisso%2C%20Crete`},
 {color:'#2a9d8f',id:'taverna-antartis-andartis-giannikakis',name:`Taverna Antartis (Andartis) - Giannikakis`,lat:35.4256,lon:24.009,note:`Therisso (Theriso) - paved`,gmaps:`https://www.google.com/maps/search/?api=1&query=Taverna%20Antartis%2C%20Therisso%2C%20Crete`},
@@ -427,7 +460,12 @@ const creteStops=[
 {color:'#2a9d8f',id:'o-tzaneris-i-archontissa',name:`O Tzaneris & i Archontissa`,lat:35.40875,lon:24.02257,note:`Drakona (Keramia) - paved`,gmaps:`https://www.google.com/maps/search/?api=1&query=O%20Tzaneris%20%26%20i%20Archontissa%2C%20Drakona%2C%20Crete`},
 {color:'#2a9d8f',id:'kastanofolia-taverna',name:`Kastanofolia Taverna`,lat:35.36201,lon:23.63733,note:`Elos (chestnut village, Elafonisi road) - paved`,gmaps:`https://www.google.com/maps/search/?api=1&query=Kastanofolia%20Taverna%2C%20Elos%2C%20Crete`},
 {color:'#2a9d8f',id:'filoxenia-restaurant',name:`Filoxenia Restaurant`,lat:35.36189,lon:23.63711,note:`Elos (Elafonisi road) - paved`,gmaps:`https://www.google.com/maps/search/?api=1&query=Filoxenia%20Restaurant%2C%20Elos%2C%20Crete`},
-{color:'#2a9d8f',id:'taverna-temenia',name:`Taverna Temenia`,lat:35.29536,lon:23.75493,note:`Temenia (Sougia road) - paved`,gmaps:`https://www.google.com/maps/search/?api=1&query=Taverna%20Temenia%2C%20Crete`}
+{color:'#2a9d8f',id:'taverna-temenia',name:`Taverna Temenia`,lat:35.29536,lon:23.75493,note:`Temenia (Sougia road) - paved`,gmaps:`https://www.google.com/maps/search/?api=1&query=Taverna%20Temenia%2C%20Crete`},
+{color:'#e9c46a',id:'xtra-captain-nestor-glass-bottom-boat-chania-',name:`Captain Nestor glass-bottom boat (Chania old harbor)`,lat:35.5176,lon:24.018,note:`glass-bottom boat trip`,gmaps:`https://www.google.com/maps/search/?api=1&query=Captain%20Nestor%20glass-bottom%20boat%2C%20Crete`},
+{color:'#e9c46a',id:'xtra-lake-kournas-pedal-boats',name:`Lake Kournas pedal boats`,lat:35.3312,lon:24.2771,note:`lake pedal boats`,gmaps:`https://www.google.com/maps/search/?api=1&query=Lake%20Kournas%20pedal%20boats%2C%20Crete`},
+{color:'#e9c46a',id:'xtra-stavros-beach-zorba-the-greek-bay-akroti',name:`Stavros beach (Zorba the Greek bay), Akrotiri`,lat:35.591,lon:24.0956,note:`beach, sheltered lagoon`,gmaps:`https://www.google.com/maps/search/?api=1&query=Stavros%20beach%2C%20Crete`},
+{color:'#e9c46a',id:'xtra-ancient-aptera-archaeological-site',name:`Ancient Aptera archaeological site`,lat:35.4622,lon:24.1409,note:`ruins, short cultural stop`,gmaps:`https://www.google.com/maps/search/?api=1&query=Ancient%20Aptera%20archaeological%20site%2C%20Crete`},
+{color:'#e9c46a',id:'xtra-meli-pap-beehive-garden-tour-polemarhi-v',name:`Meli Pap beehive garden tour, Polemarhi village`,lat:35.464,lon:23.809,note:`honey farm visit`,gmaps:`https://www.google.com/maps/search/?api=1&query=Meli%20Pap%20beehive%20garden%20tour%2C%20Polemarhi%20village%2C%20Crete`}
 ];
 const coastStops=[
 {color:'#e63946',id:'base-positano',name:`HOTEL: Hotel Le Agavi`,lat:40.6254,lon:14.4795,note:`Positano (west side, above Fornillo)`,gmaps:`https://www.google.com/maps/search/?api=1&query=Hotel%20Le%20Agavi%2C%20Positano%2C%20Italy`},
@@ -489,7 +527,7 @@ buildMap('mapCorr', corrStops, [45,13], 5);
 
 /* ---------- persistent choice state ---------- */
 const KEY='demczuk-itinerary-v2';
-let state={cretePicks:{},amalfiPicks:{},base:'sorrento',filters:{elev:'500',drive:'999',paved:true}};
+let state={cretePicks:{},amalfiPicks:{},base:'sorrento',filters:{elev:'500',drive:'999',paved:true},cretePlan:{}};
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&typeof s==='object')state=Object.assign(state,s);}catch(e){}
 function saveState(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
 
@@ -507,7 +545,7 @@ function renderShortlist(listName, slotsDivId, emptyId, slotOptions){
     const b=document.createElement('strong'); b.textContent=p.name; li.appendChild(b);
     const sel=document.createElement('select'); sel.className='slot';
     slotOptions.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;if(p.slot===s)o.selected=true;sel.appendChild(o);});
-    sel.addEventListener('change',()=>{p.slot=sel.value;saveState();});
+    sel.addEventListener('change',()=>{p.slot=sel.value;saveState();rerouteCrete();planRender();});
     li.appendChild(sel);
     if(p.book){const d=document.createElement('div');d.className='sub';d.textContent=p.book;li.appendChild(d);}
     ul.appendChild(li);
@@ -527,10 +565,10 @@ document.querySelectorAll('input.pick').forEach(cb=>{
     const tr=cb.closest('tr');
     if(cb.checked){state[listName][id]={name:cb.dataset.name,book:cb.dataset.book,slot:'unslotted'};tr.classList.add('picked');}
     else{delete state[listName][id];tr.classList.remove('picked');}
-    saveState();renderAllShortlists();
+    saveState();renderAllShortlists();rerouteCrete();planRender();
   });
 });
-document.getElementById('creteClear').addEventListener('click',()=>{state.cretePicks={};saveState();syncPickBoxes();renderAllShortlists();});
+document.getElementById('creteClear').addEventListener('click',()=>{state.cretePicks={};saveState();syncPickBoxes();renderAllShortlists();rerouteCrete();planRender();});
 document.getElementById('amalfiClear').addEventListener('click',()=>{state.amalfiPicks={};saveState();syncPickBoxes();renderAllShortlists();});
 function syncPickBoxes(){
   document.querySelectorAll('input.pick').forEach(cb=>{
@@ -549,11 +587,13 @@ function applyCreteFilters(){
     total++;
     const ok=(+tr.dataset.elev>=minE)&&(+tr.dataset.drive<=maxD)&&(!pavedOnly||tr.dataset.paved==='1');
     tr.classList.toggle('row-hidden',!ok);
-    (creteMarkers[tr.dataset.id]||[]).forEach(m=>m.setOpacity(ok?1:0.15));
+    const picked=!!state.cretePicks[tr.dataset.id];
+    (creteMarkers[tr.dataset.id]||[]).forEach(m=>m.setOpacity((ok||picked)?1:0.15));
     if(ok)shown++;
   });
   fC.textContent=shown+' of '+total+' shown';
   state.filters={elev:fE.value,drive:fD.value,paved:fP.checked};saveState();
+  rerouteCrete();
 }
 [fE,fD,fP].forEach(el=>el.addEventListener('change',applyCreteFilters));
 
@@ -582,10 +622,145 @@ cardS.addEventListener('click',()=>setBase('sorrento'));
 cardP.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')setBase('positano');});
 cardS.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')setBase('sorrento');});
 
+/* ---------- Crete plan builder (tick-to-build, sat-nav reroute) ---------- */
+const CRETE_PLAN=[
+{id:'anchor-hotel',name:`Porto Platanias Beach Resort (your base)`,lat:35.5127,lon:23.9425,day:0,kind:'anchor',booked:true,rec:true,note:`Hotel, Platanias`,why:`Your base and the start of every day's route.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Porto%20Platanias%20Beach%20Resort%2C%20Crete`},
+{id:'anchor-chania',name:`Chania Venetian harbor`,lat:35.5178,lon:24.0176,day:1,kind:'anchor',booked:false,rec:true,note:`Evening walk, dinner`,why:`Venetian harbor, lighthouse walk and dinner, the big-group evening.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Chania%20Venetian%20harbor%2C%20Crete`},
+{id:'anchor-kissamos',name:`Kissamos port (Balos and Gramvousa boat)`,lat:35.4936,lon:23.656,day:2,kind:'anchor',booked:true,rec:true,note:`Cruise departs here`,why:`The Balos and Gramvousa cruise sails from here. Thursday is weather-confirmed.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Kissamos%20port%2C%20Crete`},
+{id:'anchor-elafonisi',name:`Elafonisi pink lagoon`,lat:35.2717,lon:23.539,day:4,kind:'anchor',booked:false,rec:true,note:`Best swim for a 5-year-old`,why:`Pink-sand lagoon, warm and shallow. Wind-flagged, check the Saturday note.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Elafonisi%20pink%20lagoon%2C%20Crete`},
+{id:'anchor-limnoupolis',name:`Limnoupolis water park`,lat:35.479,lon:23.986,day:3,kind:'optional',booked:false,rec:true,note:`Varypetro, ~15-20 min`,why:`Water park at Varypetro, the easy Friday option. Go at opening.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Limnoupolis%20water%20park%2C%20Crete`},
+{id:'anchor-botanical',name:`Botanical Park and Gardens`,lat:35.4058,lon:23.926,day:3,kind:'optional',booked:false,rec:false,note:`Fournes, cool-day option`,why:`Shady gardens near Fournes, a cool-day swap.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Botanical%20Park%20and%20Gardens%2C%20Crete`},
+{id:'xtra-captain-nestor-glass-bottom-boat-chania-',name:`Captain Nestor glass-bottom boat (Chania old harbor)`,lat:35.5176,lon:24.018,day:1,kind:'optional',booked:false,rec:true,note:`glass-bottom boat trip`,why:`Slots straight onto the Chania-harbor evening already in the plan for near-zero extra logistics; the 17:00 1h cruise is the safe pick for the 5-year-old, and the crashed-plane-through-the-glass is catnip for an 8-year-old`,gmaps:`https://www.google.com/maps/search/?api=1&query=Captain%20Nestor%20glass-bottom%20boat%2C%20Crete`},
+{id:'xtra-lake-kournas-pedal-boats',name:`Lake Kournas pedal boats`,lat:35.3312,lon:24.2771,day:4,kind:'optional',booked:false,rec:true,note:`lake pedal boats`,why:`The one thing nothing in the current plan offers: calm, wave-free fresh water plus a turtle hunt`,gmaps:`https://www.google.com/maps/search/?api=1&query=Lake%20Kournas%20pedal%20boats%2C%20Crete`},
+{id:'xtra-stavros-beach-zorba-the-greek-bay-akroti',name:`Stavros beach (Zorba the Greek bay), Akrotiri`,lat:35.591,lon:24.0956,day:2,kind:'optional',booked:false,rec:false,note:`beach, sheltered lagoon`,why:`The best pure toddler-and-up swim water within 40 minutes: shallower and more sheltered than anything else in the plan, so it is the recovery-day beach after a big Balos or Elafonisi day`,gmaps:`https://www.google.com/maps/search/?api=1&query=Stavros%20beach%2C%20Crete`},
+{id:'xtra-ancient-aptera-archaeological-site',name:`Ancient Aptera archaeological site`,lat:35.4622,lon:24.1409,day:3,kind:'optional',booked:false,rec:false,note:`ruins, short cultural stop`,why:`Cheapest culture hit of the week and genuinely kid-compatible if capped at 60-90 min: cisterns feel like caves, bunkers feel like forts, and it is directly en route to Kournas so it costs almost no extra driving`,gmaps:`https://www.google.com/maps/search/?api=1&query=Ancient%20Aptera%20archaeological%20site%2C%20Crete`},
+{id:'xtra-meli-pap-beehive-garden-tour-polemarhi-v',name:`Meli Pap beehive garden tour, Polemarhi village`,lat:35.464,lon:23.809,day:3,kind:'optional',booked:false,rec:false,note:`honey farm visit`,why:`The most interactive thing on this list for the boys - suiting up and holding a frame beats watching`,gmaps:`https://www.google.com/maps/search/?api=1&query=Meli%20Pap%20beehive%20garden%20tour%2C%20Polemarhi%20village%2C%20Crete`}
+];
+const planById={}; CRETE_PLAN.forEach(e=>{planById[e.id]=e;});
+const stopById={}; creteStops.forEach(s=>{if(s.id)stopById[s.id]=s;});
+const DAY_LABEL=['Tue 21 - arrive','Wed 22 - water day plus Chania','Thu 23 - Balos boat','Fri 24 - waterpark or mountains','Sat 25 - Elafonisi','Sun 26 - fly home'];
+const DAY_COLOR=['#8a97a5','#457b9d','#2a9d8f','#e59315','#6a4c93','#8a97a5'];
+const SLOT_TO_DAY=[null,1,2,3,4,4];
+const slotDay=slot=>{const i=CRETE_SLOTS.indexOf(slot);return i<0?null:SLOT_TO_DAY[i];};
+const isAdded=e=>!!(state.cretePlan[e.id]||e.booked);
+const HOTEL=CRETE_PLAN.find(e=>e.id==='anchor-hotel')||{lat:35.5127,lon:23.9425};
+let creteRoute=creteMap?L.layerGroup().addTo(creteMap):null;
+
+function planPin(e,added){
+  const bg=e.id==='anchor-hotel'?'#e9c46a':(DAY_COLOR[e.day]||'#8a97a5');
+  const lbl=e.id==='anchor-hotel'?'H':(e.day>0?String(e.day):'.');
+  return L.divIcon({className:'',iconSize:[26,26],iconAnchor:[13,13],
+    html:added
+      ? `<div style="background:${bg};color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:bold 12px sans-serif;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)">${esc(lbl)}</div>`
+      : `<div style="width:22px;height:22px;border-radius:50%;border:2px dashed ${bg};background:rgba(255,255,255,.82);color:${bg};display:flex;align-items:center;justify-content:center;font:bold 14px sans-serif">+</div>`});
+}
+
+function rerouteCrete(){
+  if(!creteMap||!creteRoute) return;
+  const geo=[];
+  CRETE_PLAN.forEach(e=>{
+    const added=isAdded(e), ms=creteMarkers[e.id]||[];
+    ms.forEach(m=>{m.setOpacity(added?1:0.4);m.setIcon(planPin(e,added));});
+    if(added) geo.push({day:e.day,lat:e.lat,lon:e.lon,kind:e.kind});
+  });
+  Object.keys(state.cretePicks).forEach(id=>{
+    (creteMarkers[id]||[]).forEach(m=>m.setOpacity(1));
+    const d=slotDay(state.cretePicks[id].slot), s=stopById[id];
+    if(d!=null&&s) geo.push({day:d,lat:s.lat,lon:s.lon,kind:'meal'});
+  });
+  creteRoute.clearLayers();
+  const rank={anchor:0,optional:1,meal:2};
+  for(let d=1;d<=5;d++){
+    const day=geo.filter(g=>g.day===d).sort((a,b)=>rank[a.kind]-rank[b.kind]);
+    if(!day.length) continue;
+    const pts=[[HOTEL.lat,HOTEL.lon],...day.map(g=>[g.lat,g.lon]),[HOTEL.lat,HOTEL.lon]];
+    if(pts.length<3) continue;
+    L.polyline(pts,{color:DAY_COLOR[d],weight:3,opacity:.8,lineCap:'round',lineJoin:'round'}).addTo(creteRoute);
+  }
+}
+
+function renderCreteBuilder(){
+  const box=document.getElementById('creteBuilder'); if(!box) return; box.textContent='';
+  const rec=CRETE_PLAN.filter(e=>e.rec||e.kind==='anchor');
+  const recLeft=rec.filter(e=>!isAdded(e)).length;
+  const slottedPicks=Object.keys(state.cretePicks).filter(id=>slotDay(state.cretePicks[id].slot)!=null).length;
+  const added=CRETE_PLAN.filter(isAdded).length+slottedPicks;
+  const pct=rec.length?Math.round(100*(rec.length-recLeft)/rec.length):100;
+  const prog=document.createElement('div'); prog.className='b-prog';
+  prog.innerHTML=`<div class="b-prog-h"><strong>${added}</strong> stops in your plan, <strong>${recLeft}</strong> recommended left to do</div><div class="b-prog-bar"><span style="width:${pct}%"></span></div>`;
+  box.appendChild(prog);
+  for(let d=0;d<=5;d++){
+    const items=CRETE_PLAN.filter(e=>e.day===d);
+    const picks=Object.keys(state.cretePicks).filter(id=>slotDay(state.cretePicks[id].slot)===d);
+    if(!items.length&&!picks.length) continue;
+    const grp=document.createElement('div'); grp.className='b-day';
+    const h=document.createElement('div'); h.className='b-day-h';
+    h.innerHTML=`<span class="b-dot" style="background:${DAY_COLOR[d]}"></span>${esc(DAY_LABEL[d])}`;
+    grp.appendChild(h);
+    items.forEach(e=>{
+      const on=isAdded(e), row=document.createElement('div'); row.className='b-row'+(on?'':' off');
+      const nm=document.createElement('div'); nm.className='b-nm';
+      nm.innerHTML=`<strong>${esc(e.name)}</strong>${e.booked?' <span class="b-lock">booked</span>':''}<div class="sub">${esc(e.why||e.note)}</div>`;
+      row.appendChild(nm);
+      if(e.booked){const l=document.createElement('span');l.className='b-locked';l.textContent='in plan';row.appendChild(l);}
+      else{const b=document.createElement('button');b.className='b-toggle'+(on?' on':'');b.textContent=on?'Remove':'Add';b.dataset.toggle=e.id;row.appendChild(b);}
+      grp.appendChild(row);
+    });
+    picks.forEach(id=>{
+      const p=state.cretePicks[id], row=document.createElement('div'); row.className='b-row';
+      const nm=document.createElement('div'); nm.className='b-nm';
+      nm.innerHTML=`<strong>${esc(p.name)}</strong> <span class="b-chip">taverna</span><div class="sub">${esc(p.slot)}</div>`;
+      row.appendChild(nm);
+      const b=document.createElement('button'); b.className='b-toggle on'; b.textContent='Remove'; b.dataset.unpick=id; row.appendChild(b);
+      grp.appendChild(row);
+    });
+    box.appendChild(grp);
+  }
+}
+
+function renderLeftToDo(){
+  const box=document.getElementById('creteLeftToDo'); if(!box) return; box.textContent='';
+  const h=document.createElement('h4'); h.textContent='Recommended, left to do'; box.appendChild(h);
+  const left=CRETE_PLAN.filter(e=>(e.rec||e.kind==='anchor')&&!isAdded(e));
+  if(!left.length){const p=document.createElement('p');p.className='empty';p.textContent='All recommended stops are in your plan.';box.appendChild(p);}
+  else{
+    const ul=document.createElement('ul');
+    left.forEach(e=>{
+      const li=document.createElement('li');
+      li.innerHTML=`<span class="ld-chip" style="background:${DAY_COLOR[e.day]}">${e.day>0?e.day:'.'}</span><span class="ld-nm"><strong>${esc(e.name)}</strong> <span class="sub">${esc(e.why||e.note)}</span></span>`;
+      const b=document.createElement('button'); b.className='b-toggle'; b.textContent='Add'; b.dataset.toggle=e.id; li.appendChild(b);
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+  }
+  const nud=document.createElement('p'); nud.className='sub b-nudge';
+  nud.innerHTML='Two calls to make: <a href="#crete-mountain">pick a mountain taverna</a> for the Friday swap, or keep Limnoupolis; and Elafonisi versus a Plan-B beach (Kournas or Stavros) on Saturday, see the wind note above.';
+  box.appendChild(nud);
+}
+
+function planRender(){renderCreteBuilder();renderLeftToDo();}
+function planAdd(id){const e=planById[id];if(e&&!e.booked){state.cretePlan[id]=true;saveState();planRender();rerouteCrete();}}
+function planRemove(id){delete state.cretePlan[id];saveState();planRender();rerouteCrete();}
+document.getElementById('creteBuilder').addEventListener('click',ev=>{
+  const t=ev.target.closest('button'); if(!t) return;
+  if(t.dataset.toggle){isAdded(planById[t.dataset.toggle])?planRemove(t.dataset.toggle):planAdd(t.dataset.toggle);}
+  else if(t.dataset.unpick){delete state.cretePicks[t.dataset.unpick];saveState();syncPickBoxes();renderAllShortlists();planRender();rerouteCrete();}
+});
+document.getElementById('creteLeftToDo').addEventListener('click',ev=>{
+  const t=ev.target.closest('button'); if(t&&t.dataset.toggle) planAdd(t.dataset.toggle);
+});
+document.getElementById('creteAddAll').addEventListener('click',()=>{
+  CRETE_PLAN.forEach(e=>{if((e.rec||e.kind==='anchor')&&!e.booked)state.cretePlan[e.id]=true;});
+  saveState();planRender();rerouteCrete();
+});
+document.getElementById('cretePlanClear').addEventListener('click',()=>{state.cretePlan={};saveState();planRender();rerouteCrete();});
+
 /* ---------- init ---------- */
 applyCreteFilters();
 applyBase();
 renderAllShortlists();
+planRender();
+rerouteCrete();
 </script>
 
 <!-- confirmed-bookings:start -->
