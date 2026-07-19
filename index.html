@@ -2,6 +2,10 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="build-stamp" content="20260719-2217">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Demczuk Family - Crete plus Amalfi 2026</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -761,6 +765,30 @@ applyBase();
 renderAllShortlists();
 planRender();
 rerouteCrete();
+</script>
+
+<script>
+/* Guards: forward-only stamp compare, sessionStorage + ?v loop guard, offline/local no-op. */
+(function(){
+  try{
+    var meta=document.querySelector('meta[name="build-stamp"]');
+    if(!meta) return;
+    var here=(meta.getAttribute('content')||'').trim();
+    if(!/^[0-9]{8}-[0-9]{4}$/.test(here)) return;
+    fetch('version.txt?_='+Date.now(),{cache:'no-store'}).then(function(r){
+      return r.ok?r.text():null;
+    }).then(function(t){
+      if(t==null) return;
+      var latest=t.trim();
+      if(!/^[0-9]{8}-[0-9]{4}$/.test(latest)) return;
+      if(latest<=here) return;
+      if((new URLSearchParams(location.search)).get('v')===latest) return;
+      var flag='freshcheck:'+latest;
+      try{ if(sessionStorage.getItem(flag)) return; sessionStorage.setItem(flag,'1'); }catch(e){}
+      location.replace(location.pathname+'?v='+latest+location.hash);
+    }).catch(function(){});
+  }catch(e){}
+})();
 </script>
 
 <!-- confirmed-bookings:start -->
