@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="build-stamp" content="20260719-2223">
+<meta name="build-stamp" content="20260719-2238">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -768,9 +768,11 @@ rerouteCrete();
 </script>
 
 <script>
-/* Self-update on the bare URL. Forward-only stamp compare, ?v + sessionStorage loop
-   guards, non-http(s) and offline no-op, 4s bounded fetch so a hung mobile socket
-   cannot yank a reload minutes later. */
+/* Self-update on the bare URL. If version.txt names a newer stamp, VERIFY the edge is
+   actually serving that build (a second no-store fetch of this page) before navigating,
+   so a CDN edge that still holds the old HTML can never strand a visitor on a stale ?v
+   URL. Guards: forward-only compare, ?v loop guard, non-http(s)/offline no-op, bounded
+   fetch. No sessionStorage flag - the ?v guard alone prevents loops and preserves retry. */
 (function(){
   try{
     if(location.protocol!=='http:'&&location.protocol!=='https:') return;
@@ -778,19 +780,19 @@ rerouteCrete();
     if(!meta) return;
     var here=(meta.getAttribute('content')||'').trim();
     if(!/^[0-9]{8}-[0-9]{4}$/.test(here)) return;
-    var opts={cache:'no-store'};
-    try{ if(typeof AbortSignal!=='undefined'&&AbortSignal.timeout){opts.signal=AbortSignal.timeout(4000);} }catch(e){}
-    fetch('version.txt?_='+Date.now(),opts).then(function(r){
-      return r.ok?r.text():null;
-    }).then(function(t){
+    var onV=(new URLSearchParams(location.search)).get('v');
+    function o(){var x={cache:'no-store'};try{if(typeof AbortSignal!=='undefined'&&AbortSignal.timeout)x.signal=AbortSignal.timeout(5000);}catch(e){}return x;}
+    fetch('version.txt?_='+Date.now(),o()).then(function(r){return r.ok?r.text():null;}).then(function(t){
       if(t==null) return;
       var latest=t.trim();
       if(!/^[0-9]{8}-[0-9]{4}$/.test(latest)) return;
       if(latest<=here) return;
-      if((new URLSearchParams(location.search)).get('v')===latest) return;
-      var flag='freshcheck:'+latest;
-      try{ if(sessionStorage.getItem(flag)) return; sessionStorage.setItem(flag,'1'); }catch(e){}
-      location.replace(location.pathname+'?v='+latest+location.hash);
+      if(onV===latest) return;
+      return fetch(location.pathname+'?_='+Date.now(),o()).then(function(r){return r.ok?r.text():null;}).then(function(doc){
+        if(doc && doc.indexOf('content="'+latest+'"')!==-1){
+          location.replace(location.pathname+'?v='+latest+location.hash);
+        }
+      });
     }).catch(function(){});
   }catch(e){}
 })();
