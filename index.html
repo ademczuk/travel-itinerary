@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="build-stamp" content="20260719-2217">
+<meta name="build-stamp" content="20260719-2223">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -768,14 +768,19 @@ rerouteCrete();
 </script>
 
 <script>
-/* Guards: forward-only stamp compare, sessionStorage + ?v loop guard, offline/local no-op. */
+/* Self-update on the bare URL. Forward-only stamp compare, ?v + sessionStorage loop
+   guards, non-http(s) and offline no-op, 4s bounded fetch so a hung mobile socket
+   cannot yank a reload minutes later. */
 (function(){
   try{
+    if(location.protocol!=='http:'&&location.protocol!=='https:') return;
     var meta=document.querySelector('meta[name="build-stamp"]');
     if(!meta) return;
     var here=(meta.getAttribute('content')||'').trim();
     if(!/^[0-9]{8}-[0-9]{4}$/.test(here)) return;
-    fetch('version.txt?_='+Date.now(),{cache:'no-store'}).then(function(r){
+    var opts={cache:'no-store'};
+    try{ if(typeof AbortSignal!=='undefined'&&AbortSignal.timeout){opts.signal=AbortSignal.timeout(4000);} }catch(e){}
+    fetch('version.txt?_='+Date.now(),opts).then(function(r){
       return r.ok?r.text():null;
     }).then(function(t){
       if(t==null) return;
