@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="build-stamp" content="20260720-1734">
+<meta name="build-stamp" content="20260720-1833">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -83,7 +83,7 @@ tr.picked td{background:#e9f6f2 !important}
 .basecard .tag{font-size:11.5px;font-weight:700;color:var(--amalfi)}
 tr.base-dim td{opacity:.42}
 .basenote{border-left:4px solid var(--amalfi);background:#eaf3f7;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:13.5px}
-@media print{.nav{display:none}section.trip{break-inside:avoid;box-shadow:none}.map{height:320px}.controls,.basecards,.shortlist .clr,input.pick,.bctl,.b-toggle,.b-prog-bar{display:none}.shortlist{border-width:1px}tr.base-dim{display:none}.b-row.off{display:none}}
+@media print{.nav,.tabbar{display:none}section.trip{break-inside:avoid;box-shadow:none}section.trip-hidden{display:block !important}.map{height:320px}.controls,.basecards,.shortlist .clr,input.pick,.bctl,.b-toggle,.b-prog-bar{display:none}.shortlist{border-width:1px}tr.base-dim{display:none}.b-row.off{display:none}}
 .bctl{display:flex;gap:8px;margin:8px 0;flex-wrap:wrap}
 .bbtn{border:1px solid var(--crete);background:var(--crete);color:#fff;border-radius:8px;padding:9px 15px;font-size:13px;font-weight:700;cursor:pointer;min-height:42px}
 .bbtn.ghost{background:#fff;color:var(--crete)}
@@ -108,6 +108,17 @@ tr.base-dim td{opacity:.42}
 .ld-chip{flex:none;color:#fff;font-weight:700;font-size:11px;min-width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center}
 .b-nudge{margin-top:10px}
 @media(max-width:640px){.b-row{flex-wrap:wrap}.b-toggle{min-width:70px}}
+/* trip tabs */
+.tabbar{position:sticky;top:0;z-index:600;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.tabbar .wrap{display:flex;gap:8px;padding-top:8px;padding-bottom:0}
+.tab{flex:1 1 0;min-height:50px;border:1px solid var(--line);border-bottom:none;border-radius:10px 10px 0 0;background:#eef2f6;color:var(--muted);font-weight:800;font-size:16px;cursor:pointer;padding:7px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15}
+.tab.active{background:#fff;color:var(--ink);border-color:var(--crete);border-width:2px 2px 0;box-shadow:0 -2px 0 var(--crete) inset}
+.tab[data-tab="amalfi"].active{border-color:var(--amalfi);box-shadow:0 -2px 0 var(--amalfi) inset}
+.tab-sub{font-size:11.5px;font-weight:600;color:var(--muted);margin-top:2px}
+.nav{position:static;top:auto}
+section.trip-hidden{display:none}
+.nav a.nav-hidden{display:none}
+@media(max-width:640px){.tab{font-size:14px;min-height:48px}.tab-sub{font-size:10.5px}}
 </style>
 </head><body>
 
@@ -116,20 +127,25 @@ tr.base-dim td{opacity:.42}
 <p>Two family trips, planned with the boring stuff checked. Crete 21-26 July (booked) and the Vienna to Amalfi EV road trip ~3-10 August (planning).</p>
 <p style="font-size:13px">Plan researched 16 July 2026, taverna sweep updated 18 July. Prices, hours and rules change - re-verify anything marked [verify] before you pay or drive.</p>
 <p style="font-size:13.5px;background:rgba(255,255,255,.14);border-radius:8px;padding:6px 10px;display:inline-block">STATUS 19 Jul: T-minus-2. Book NOW: hire car (CHQ, two boosters on the booking), Balos cruise for Thu 23 (at port 09:55, card only), Mylos a day ahead. Thursday boat day is GREEN. Saturday Elafonisi carries a wind flag (27 km/h) plus a fire-corridor advisory - swap to Friday or go by 09:00; final weather call lands Monday evening.</p>
-<p style="font-size:13px">This page is interactive: filter the Crete tavernas, tick picks into day slots, and choose your Amalfi base - the tables and maps adapt, and your choices are saved on this device.</p>
+<p style="font-size:13px">Two trips, two tabs - tap <strong>Crete</strong> or <strong>Amalfi Coast</strong> below to switch. Each is interactive: filter the tavernas, tick places into day and night slots, choose your Amalfi base - the tables and maps adapt, and your choices are saved on this device.</p>
 </div></header>
 
+<div class="tabbar"><div class="wrap">
+<button class="tab" data-tab="crete" type="button">Crete <span class="tab-sub">21-26 Jul, booked</span></button>
+<button class="tab" data-tab="amalfi" type="button">Amalfi Coast <span class="tab-sub">~3-10 Aug, planning</span></button>
+</div></div>
 <nav class="nav"><div class="wrap">
-<a href="#crete">Crete</a>
-<a href="#crete-build">Build your week</a>
-<a href="#crete-mountain">High-altitude tavernas</a>
-<a href="#crete-map">Crete map</a>
-<a href="#amalfi">Vienna to Amalfi</a>
-<a href="#coast-hotels">Coast hotels</a>
-<a href="#corridor-hotels">Corridor chargers</a>
-<a href="#amalfi-eat">Amalfi dining</a>
-<a href="#sorrento-eat">Sorrento dining</a>
-<a href="#coast-map">Coast map</a>
+<a href="#crete" data-trip="crete">Crete</a>
+<a href="#crete-build" data-trip="crete">Build your week</a>
+<a href="#crete-mountain" data-trip="crete">High-altitude tavernas</a>
+<a href="#creteEatTable" data-trip="crete">Dining</a>
+<a href="#crete-map" data-trip="crete">Crete map</a>
+<a href="#amalfi" data-trip="amalfi">Vienna to Amalfi</a>
+<a href="#coast-hotels" data-trip="amalfi">Coast hotels</a>
+<a href="#corridor-hotels" data-trip="amalfi">Corridor chargers</a>
+<a href="#amalfi-eat" data-trip="amalfi">Amalfi dining</a>
+<a href="#sorrento-eat" data-trip="amalfi">Sorrento dining</a>
+<a href="#coast-map" data-trip="amalfi">Coast map</a>
 </div></nav>
 
 <div class="wrap">
@@ -140,7 +156,7 @@ tr.base-dim td{opacity:.42}
 <span><span class="badge b-grey">grey</span> single-pass, verify</span>
 </div>
 
-<section class="trip crete" id="crete">
+<section class="trip crete" id="crete" data-trip="crete">
 <h2>Trip 1 - Crete, Platanias</h2>
 <p class="lede">Tue 21 to Sun 26 July 2026. Booked. Focus: high-altitude mountain tavernas you drive the hired car up to.</p>
 
@@ -270,7 +286,7 @@ tr.base-dim td{opacity:.42}
 
 </section>
 
-<section class="trip amalfi" id="amalfi">
+<section class="trip amalfi" id="amalfi" data-trip="amalfi">
 <h2>Trip 2 - Vienna to Positano and the Amalfi Coast</h2>
 <p class="lede">Enyaq vRS road trip, ~Mon 3 to Mon 10 August 2026. Planning. Focus: coast dining, and charger-equipped hotels in both directions.</p>
 
@@ -427,6 +443,7 @@ tr.base-dim td{opacity:.42}
 <script>
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let creteMap=null;
+const MAPS={}, MAP_FIT={};   // handles + refit closures, for the tab switcher
 function buildMap(divId, stops, fallbackCenter, fallbackZoom){
   const map=L.map(divId,{scrollWheelZoom:false});
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
@@ -443,6 +460,9 @@ function buildMap(divId, stops, fallbackCenter, fallbackZoom){
   group.addTo(map);
   if(stops.length) map.fitBounds(group.getBounds().pad(0.2)); else map.setView(fallbackCenter||[46,12],fallbackZoom||5);
   if(divId==='mapCrete') creteMap=map;
+  MAPS[divId]=map;
+  // a map built inside a hidden tab renders at 0 height; the tab switcher calls this to fix it
+  MAP_FIT[divId]=()=>{ map.invalidateSize(); if(stops.length) map.fitBounds(group.getBounds().pad(0.2)); };
   return byId;
 }
 const creteStops=[
@@ -544,7 +564,7 @@ buildMap('mapCorr', corrStops, [45,13], 5);
 
 /* ---------- persistent choice state ---------- */
 const KEY='demczuk-itinerary-v2';
-let state={cretePicks:{},amalfiPicks:{},base:'sorrento',filters:{elev:'500',drive:'999',paved:true},cretePlan:{}};
+let state={cretePicks:{},amalfiPicks:{},base:'sorrento',filters:{elev:'500',drive:'999',paved:true},cretePlan:{},tab:'crete'};
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&typeof s==='object')state=Object.assign(state,s);}catch(e){}
 function saveState(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
 
@@ -772,12 +792,30 @@ document.getElementById('creteAddAll').addEventListener('click',()=>{
 });
 document.getElementById('cretePlanClear').addEventListener('click',()=>{state.cretePlan={};saveState();planRender();rerouteCrete();});
 
+/* ---------- trip tabs (Crete / Amalfi) ---------- */
+function setTrip(t, toTop){
+  if(t!=='crete'&&t!=='amalfi') t='crete';
+  state.tab=t; saveState();
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));
+  document.querySelectorAll('section.trip').forEach(s=>s.classList.toggle('trip-hidden',s.dataset.trip&&s.dataset.trip!==t));
+  document.querySelectorAll('.nav a[data-trip]').forEach(a=>a.classList.toggle('nav-hidden',a.dataset.trip!==t));
+  // maps that were sized while hidden need a resize + refit once their tab is visible
+  requestAnimationFrame(()=>{Object.keys(MAP_FIT).forEach(id=>{const el=document.getElementById(id);if(el&&!el.closest('.trip-hidden'))MAP_FIT[id]();});});
+  if(toTop) window.scrollTo({top:0});
+}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setTrip(b.dataset.tab,true)));
+document.querySelectorAll('.nav a[data-trip]').forEach(a=>a.addEventListener('click',ev=>{
+  const trip=a.dataset.trip, tgt=document.getElementById(a.getAttribute('href').slice(1));
+  if(trip!==state.tab){ ev.preventDefault(); setTrip(trip); if(tgt) requestAnimationFrame(()=>tgt.scrollIntoView({behavior:'smooth',block:'start'})); }
+}));
+
 /* ---------- init ---------- */
 applyCreteFilters();
 applyBase();
 renderAllShortlists();
 planRender();
 rerouteCrete();
+setTrip(state.tab);
 </script>
 
 <script>
