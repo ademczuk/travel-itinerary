@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="build-stamp" content="20260802-1224">
+<meta name="build-stamp" content="20260802-1225">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -117,6 +117,17 @@ tr.base-dim td{opacity:.42}
 .ld-chip{flex:none;color:#fff;font-weight:700;font-size:11px;min-width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center}
 .b-nudge{margin-top:10px}
 @media(max-width:640px){.b-row{flex-wrap:wrap}.b-toggle{min-width:70px}}
+/* Phone tap targets. This page gets used one-handed in a car, and the Crete debrief said
+   slotting a restaurant into a meal was hard. A 17px checkbox and an 11px select in a
+   118px box are the reason. Grow both on small screens; 44px is the usable minimum. */
+@media(max-width:640px){
+  input.pick{width:26px;height:26px}
+  td:has(> input.pick){padding:10px 8px}
+  select.rowslot{max-width:100%;width:100%;font-size:15px;padding:9px 8px;margin-top:8px;
+                 border-width:2px;border-color:#2a9d8f;color:var(--ink);font-weight:600}
+  .backbtn{font-size:15px;padding:9px 14px}
+  table.dt td,table.dt th{padding-top:11px;padding-bottom:11px}
+}
 /* trip switching: the live trip owns the page; archived trips are a foot-of-page
    link and a slim return bar, so they cost almost no vertical space */
 .tabbar{display:none;position:sticky;top:0;z-index:600;background:#f3f4f6;border-bottom:1px solid var(--line)}
