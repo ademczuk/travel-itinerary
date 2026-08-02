@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="build-stamp" content="20260725-1342">
+<meta name="build-stamp" content="20260802-1006">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -66,6 +66,12 @@ footer{color:var(--muted);font-size:12.5px;margin-top:22px;text-align:center;lin
 .controls .count{color:var(--muted);margin-left:auto}
 tr.row-hidden{display:none}
 input.pick{width:17px;height:17px;accent-color:#2a9d8f;cursor:pointer}
+select.rowslot{display:block;margin-top:5px;max-width:118px;font-size:11px;padding:2px 3px;border:1px solid var(--line);border-radius:6px;background:#fff;color:#444;cursor:pointer}
+select.rowslot.slotted{border-color:#2a9d8f;background:#e9f6f2;color:#1d6f5f;font-weight:600}
+.arch-strip{background:#4a4a4a;color:#fff;border-radius:8px;padding:8px 12px;font-size:13.5px;margin:8px 0;display:inline-block}
+.arch-banner{border-radius:8px;padding:10px 14px;font-size:13.5px;margin:0 0 14px;border-left:5px solid}
+.arch-banner.arch-done{background:#eef6ee;border-color:#3a7d44;color:#274e2d}
+.arch-banner.arch-cancelled{background:#f6efee;border-color:#9c5148;color:#5d3630}
 tr.picked td{background:#e9f6f2 !important}
 .shortlist{border:2px solid #2a9d8f;border-radius:12px;padding:14px 16px;margin:14px 0;background:#f4fbf9}
 .shortlist h4{margin:0 0 8px;font-size:15px;color:#1c5b4c}
@@ -83,7 +89,7 @@ tr.picked td{background:#e9f6f2 !important}
 .basecard .tag{font-size:11.5px;font-weight:700;color:var(--amalfi)}
 tr.base-dim td{opacity:.42}
 .basenote{border-left:4px solid var(--amalfi);background:#eaf3f7;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:13.5px}
-@media print{.nav,.tabbar{display:none}section.trip{break-inside:avoid;box-shadow:none}section.trip-hidden{display:block !important}.map{height:320px}.controls,.basecards,.shortlist .clr,input.pick,.bctl,.b-toggle,.b-prog-bar{display:none}.shortlist{border-width:1px}tr.base-dim{display:none}.b-row.off{display:none}}
+@media print{.nav,.tabbar,select.rowslot{display:none}.arch-banner,.arch-strip{break-inside:avoid}section.trip{break-inside:avoid;box-shadow:none}section.trip-hidden{display:block !important}.map{height:320px}.controls,.basecards,.shortlist .clr,input.pick,.bctl,.b-toggle,.b-prog-bar{display:none}.shortlist{border-width:1px}tr.base-dim{display:none}.b-row.off{display:none}}
 .bctl{display:flex;gap:8px;margin:8px 0;flex-wrap:wrap}
 .bbtn{border:1px solid var(--crete);background:var(--crete);color:#fff;border-radius:8px;padding:9px 15px;font-size:13px;font-weight:700;cursor:pointer;min-height:42px}
 .bbtn.ghost{background:#fff;color:var(--crete)}
@@ -124,15 +130,14 @@ section.trip-hidden{display:none}
 
 <header class="top"><div class="wrap">
 <h1>Demczuk Family - Crete plus Amalfi 2026</h1>
-<p>Two family trips, planned with the boring stuff checked. Crete 21-26 July (booked) and the Vienna to Amalfi EV road trip ~3-10 August (planning).</p>
-<p style="font-size:13px">Plan researched 16 July 2026, taverna sweep updated 18 July. Prices, hours and rules change - re-verify anything marked [verify] before you pay or drive.</p>
-<p style="font-size:13.5px;background:rgba(255,255,255,.14);border-radius:8px;padding:6px 10px;display:inline-block">STATUS 19 Jul: T-minus-2. Book NOW: hire car (CHQ, two boosters on the booking), Balos cruise for Thu 23 (at port 09:55, card only), Mylos a day ahead. Thursday boat day is GREEN. Saturday Elafonisi carries a wind flag (27 km/h) plus a fire-corridor advisory - swap to Friday or go by 09:00; final weather call lands Monday evening.</p>
-<p style="font-size:13px">Two trips, two tabs - tap <strong>Crete</strong> or <strong>Amalfi Coast</strong> below to switch. Each is interactive: filter the tavernas, tick places into day and night slots, choose your Amalfi base - the tables and maps adapt, and your choices are saved on this device.</p>
+<div class="arch-strip">ARCHIVED - the Crete trip is complete (21-26 Jul 2026) and the Amalfi road trip was cancelled. This page stays up as the family record; nothing here needs booking or re-checking.</div>
+<p style="font-size:13px">Everything below is kept exactly as planned, plus what the family actually did. Highlights from the real trip: dinner at Mylos tou Kerata (the standout), lunch at Tamam in Chania old town (park at Parking Apollon), Caravella in Paleochora for lunch, and quiet Ammoudia Beach.</p>
+<p style="font-size:13px">Two trips, two tabs. The interactive bits still work if you want to browse - tick places, slot them into days - and choices stay saved on this device.</p>
 </div></header>
 
 <div class="tabbar"><div class="wrap">
-<button class="tab" data-tab="crete" type="button">Crete <span class="tab-sub">21-26 Jul, booked</span></button>
-<button class="tab" data-tab="amalfi" type="button">Amalfi Coast <span class="tab-sub">~3-10 Aug, planning</span></button>
+<button class="tab" data-tab="crete" type="button">Crete <span class="tab-sub">completed 21-26 Jul</span></button>
+<button class="tab" data-tab="amalfi" type="button">Amalfi Coast <span class="tab-sub">cancelled - archived</span></button>
 </div></div>
 <nav class="nav"><div class="wrap">
 <a href="#crete" data-trip="crete">Crete</a>
@@ -157,8 +162,9 @@ section.trip-hidden{display:none}
 </div>
 
 <section class="trip crete" id="crete" data-trip="crete">
+<div class="arch-banner arch-done">TRIP COMPLETED 21-26 Jul 2026 - archived as the family record. What actually happened: Speedwheel rental (7-seater, Thu-Sun), dinners mostly at the resort, Mylos tou Kerata the standout night out, Tamam for the Chania day (Parking Apollon), Caravella lunch plus Ammoudia Beach on the Paleochora day, Haroupia for the last night. The taverna list below was set aside on local advice and is kept for the road-surface research.</div>
 <h2>Trip 1 - Crete, Platanias</h2>
-<p class="lede">Tue 21 to Sun 26 July 2026. Booked. Focus: high-altitude mountain tavernas you drive the hired car up to.</p>
+<p class="lede">Tue 21 to Sun 26 July 2026. Completed. The plan below is preserved as researched.</p>
 
 <table class="facts">
 <tr><td>Travelers</td><td>Andrew plus wife, boys 8 and 5</td></tr>
@@ -222,11 +228,11 @@ section.trip-hidden{display:none}
 <button class="clr" id="creteClear">clear picks</button>
 <h4>Your Crete picks (tick rows above; saved on this device)</h4>
 <div id="creteSlots"></div>
-<p class="empty" id="creteEmpty">Nothing picked yet. Tick a taverna and give it a day slot; the plan prints with your picks.</p>
+<p class="empty" id="creteEmpty">Nothing picked yet. Use the + when? dropdown on any row (one tap picks and slots it); the plan prints with your picks.</p>
 </div>
 
 <h3>Also worth a table (in and around Platanias and Chania)</h3>
-<p class="sub">Now tickable: tick a place, then give it a night in "Your Crete picks" below - it joins that evening's route on the map. The five fish tavernas (green badge) came from a live TripAdvisor pass and were then independently verified and pinned; two honest corrections from that check are flagged in the rows: Palio Arhontiko is in Kolymbari (~28 min, not near the hotel), and Haroupia may be temporarily closed, so call first.</p>
+<p class="sub">One tap: use the "+ when?" dropdown on any row to pick a place AND give it a night in a single step (ticking the box alone still works too) - it joins that evening's route on the map. The five fish tavernas (green badge) came from a live TripAdvisor pass and were then independently verified and pinned; two honest corrections from that check are flagged in the rows: Palio Arhontiko is in Kolymbari (~28 min, not near the hotel), and Haroupia may be temporarily closed, so call first.</p>
 <div class="table-wrap"><table class="dt" id="creteEatTable" style="min-width:640px">
 <thead><tr><th></th><th>Place</th><th>Where</th><th>Why for this family</th></tr></thead><tbody>
 <tr class="pickrow" data-id="eat-mylos-tou-kerata"><td><input type="checkbox" class="pick" data-pick="eat-mylos-tou-kerata" data-name="Mylos tou Kerata" data-book="Books out in July - reserve a day ahead by phone" aria-label="pick Mylos tou Kerata"></td><td><strong>Mylos tou Kerata</strong> <div class="sub"><a href="https://www.google.com/maps/search/?api=1&amp;query=Mylos%20tou%20Kerata%2C%20Platanias%2C%20Crete" target="_blank" rel="noopener">map</a></div></td><td>Platanias<div class="sub">~EUR 30-45/head. Evenings only, hours [verify]. Book a day ahead: +30 28210 68578 (online form answers after 18:00 same-day only).</div></td><td>Tables around a working 450-year-old Venetian watermill with a big garden the kids can explore; the area classic. Evenings only, April-October.<div class="sub"></div></td></tr>
@@ -293,8 +299,9 @@ section.trip-hidden{display:none}
 </section>
 
 <section class="trip amalfi" id="amalfi" data-trip="amalfi">
+<div class="arch-banner arch-cancelled">TRIP CANCELLED - archived. The family decided not to do this road trip. The research below (EV corridor chargers, coast dining, the targhe alterne rules) is preserved because it stays valid for any future Italy trip.</div>
 <h2>Trip 2 - Vienna to Positano and the Amalfi Coast</h2>
-<p class="lede">Enyaq vRS road trip, ~Mon 3 to Mon 10 August 2026. Planning. Focus: coast dining, and charger-equipped hotels in both directions.</p>
+<p class="lede">Enyaq vRS road trip, was planned for ~3-10 August 2026. Cancelled; kept as research.</p>
 
 <table class="facts">
 <tr><td>Travelers</td><td>Andrew plus wife, boys 8 and 5</td></tr>
@@ -313,7 +320,7 @@ section.trip-hidden{display:none}
 <h3>Day by day</h3>
 <div class="days"><div class="day"><div class="d-h"><span>Day 1, Mon</span> - Vienna to Faaker See / Villach (~360 km, 3.75-4.5 h)</div><p>Leave after breakfast at 100%. One 20-25 min charge around Graz. Afternoon swim in the turquoise Faaker See. Stay at a Carinthia charger-hotel below.</p></div><div class="day"><div class="d-h"><span>Day 2, Tue</span> - Villach to Rome North (~735 km, 7.5 h plus stops)</div><p>The one big day - brief the boys, load the tablets. Charge rhythm ~2 x 26 min plus a top-up, meals do the waiting (Fella Est, then Secchia/Cantagallo, then Badia al Pino). Stay at Rome North (Fiano Romano).</p></div><div class="day"><div class="d-h"><span>Day 3, Wed</span> - Rome North to the coast (~280 km, 3-3.5 h) - no charging needed</div><p>Arrive at the base by 13:00-14:00 (before the worst SS163 window if going to Positano). Afternoon: pool/beach decompress; evening stroll.</p></div><div class="day"><div class="d-h"><span>Days 3-7</span> - On the coast</div><p>One anchor a day, ordered by weather: Positano beaches; Capri by ferry (Monte Solaro chairlift); Herculaneum not Pompeii with a 5-year-old; Amalfi plus Ravello by ferry. The car does not move - everything by ferry and on foot.</p></div><div class="day"><div class="d-h"><span>Day 7, Sun</span> - Coast to Bologna (~615 km, 6-6.5 h)</div><p>Leave 08:30 (Sunday, no black-Saturday traffic). Charge Teano/San Nicola then Cantagallo. Evening: Grand Tour Italia (the reborn FICO Eataly World). Stay at a Bologna charger-hotel below.</p></div><div class="day"><div class="d-h"><span>Day 8, Mon</span> - Bologna to Vienna (~745 km, 8 h plus stops)</div><p>Early start, three charge stops (A4 pre-Tarvisio, Villach area, Graz top-up). Home for a late dinner. If it reads too heavy, split it with a second Faaker See night.</p></div></div>
 
-<div class="callout c-warn"><strong>The Amalfi road restriction shapes the whole stay.</strong> ANAS targhe alterne on the SS163 Vietri to Positano, 10:00-18:00, in force every day 1-31 August: on ODD dates odd-final plates are banned (even plates drive), on EVEN dates even-final plates are banned (odd plates drive) - direction re-verified 25 Jul against the official Distretto Costa d&#x27;Amalfi page (an earlier version of this line had the parity inverted). It applies to rental and foreign cars, and EVs are not exempt (the official exemption list is residents, H badges, taxi/NCC, rescue/police - no EV carve-out). Hotel guests are exempt on check-in and check-out days only, with the hotel booking attestation [confirm mechanics with your hotel]. Positano also has its own ZTL in the lower town - never drive below the upper junctions, follow the hotel arrival instructions. Practical upshot: time coast arrival and departure outside 10:00-18:00 or on your exempt days, and do all sightseeing by ferry (Positano, Amalfi, Sorrento, Salerno run frequently Apr-Oct).</div>
+<div class="callout c-warn"><strong>The Amalfi road restriction shapes the whole stay.</strong> ANAS targhe alterne on the SS163 Vietri to Positano, 10:00-18:00: odd plates on odd dates, even on even, in force every day 1-31 August. It applies to rental and foreign cars, and EVs are not exempt. Hotel guests are exempt on check-in and check-out days with the hotel booking attestation [confirm mechanics with your hotel]. Positano also has its own ZTL in the lower town - never drive below the upper junctions, follow the hotel arrival instructions. Practical upshot: time coast arrival and departure outside 10:00-18:00 or on your exempt days, and do all sightseeing by ferry (Positano, Amalfi, Sorrento, Salerno run frequently Apr-Oct).</div>
 
 
 <h3 id="coast-hotels">Where to stay on the coast (charger-confirmed)</h3>
@@ -323,7 +330,7 @@ section.trip-hidden{display:none}
 <span class="tag">OPTION A</span>
 <h4>Stay IN Positano</h4>
 <p>Waking up inside the postcard: dawn and dusk without the day-trippers. Stairs-country with a 5-year-old, EUR 600-1,000+/night, and the car does not move until checkout.</p>
-<p>Best-verified chargers: Poseidon (own-site dedicated charging page). Le Agavi downgraded to aggregator-only on 25 Jul - the hotel services page carries no EV-charging mention; verify by email.</p>
+<p>Best-verified chargers: Le Agavi and Poseidon (both own-site confirmed).</p>
 </div>
 <div class="basecard" id="cardSorrento" role="button" tabindex="0">
 <span class="tag">OPTION B - RESEARCH RECOMMENDATION</span>
@@ -335,7 +342,7 @@ section.trip-hidden{display:none}
 <div class="basenote" id="baseNote"></div>
 <div class="table-wrap"><table class="dt">
 <thead><tr><th>Hotel</th><th>Town / leg</th><th>Charging</th><th>Family and parking</th><th>Price band</th></tr></thead><tbody>
-<tr data-base="positano"><td><strong>Hotel Le Agavi</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=Hotel%20Le%20Agavi%2C%20Positano" target="_blank" rel="noopener">map</a> <a href="https://www.leagavi.it/hotel-services-positano" target="_blank" rel="noopener">site</a></td><td>Positano (west side, above Fornillo)<div class="sub">Option A - Positano base, all 4 nights</div></td><td><span class="badge b-red">Aggregator / unconfirmed</span><div class="rn">DOWNGRADED 25 Jul: an earlier version of this row claimed own-site confirmation, but the hotel services page (leagavi.it/hotel-services-positano, re-fetched 25 Jul) carries NO EV-charging mention anywhere - the own-site claim does not hold. The amenity is aggregator-supported only (Kayak, Hotel.com.au, Travelmyth). Verify by direct email with the hotel before relying on it; Poseidon (next row) has a dedicated own-site charging page and is the verified Option A charger. If the hotel confirms in writing, restore the green badge.</div></td><td>Mini pool with shallow water specifically for children plus a 90 sqm main pool (max depth 2.3m, kept at 28C), private beach (Remmese Beach House), babysitting on request (surcharge), some suites configured for families. Rollaway/extra bed EUR200/day.<div class="sub">Parking: Private on-site parking lot inside the property, valet parking included; EUR 55/day (one aggregator quoted EUR45, treat EUR55 as the current figure from leagavi.it - price displayed on their own services page, confirm at booking). Hotel is on Via G. Marconi (the SS163 coastal road on the west edge of town), so the garage is reached without crossing into the pedestrian ZTL centro - a real practical advantage over centro-based hotels.</div></td><td>Kayak shows entry rates from ~$526/night (low-season anchor, not August). Hotel does not publish family-suite August rates online; expect roughly EUR900-1600/night for a suite sleeping a family of 4 in peak Aug 2026 [verify directly with hotel - source: kayak.com/Positano-Hotels-Hotel-Le-Agavi.74378.ksp gives only the base rate, not August family pricing].<div class="sub">Confirm in writing: (1) the EV charger is reservable/guaranteed for your exact stay dates, not first-come; (2) connector type (likely Type 2) and kW; (3) that the garage access road is NOT subject to the Positano ZTL pedestrian closure (it should not be, given the address, but get it in writing); (4) exact parking + EV fee to be charged at checkout.</div></td></tr>
+<tr data-base="positano"><td><strong>Hotel Le Agavi</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=Hotel%20Le%20Agavi%2C%20Positano" target="_blank" rel="noopener">map</a> <a href="https://www.leagavi.it/hotel-services-positano" target="_blank" rel="noopener">site</a></td><td>Positano (west side, above Fornillo)<div class="sub">Option A - Positano base, all 4 nights</div></td><td><span class="badge b-green">Own-site confirmed</span><div class="rn">CONFIRMED on the hotel&#x27;s own site (not just an aggregator). leagavi.it&#x27;s own services page states the private on-site parking includes an electric vehicle charging station. Connector type/kW not published anywhere - ask by email. Multiple third-party aggregators (Kayak, Hotel.com.au, Travelmyth) independently list it too, but the load-bearing source here is the hotel&#x27;s own domain.</div></td><td>Mini pool with shallow water specifically for children plus a 90 sqm main pool (max depth 2.3m, kept at 28C), private beach (Remmese Beach House), babysitting on request (surcharge), some suites configured for families. Rollaway/extra bed EUR200/day.<div class="sub">Parking: Private on-site parking lot inside the property, valet parking included; EUR 55/day (one aggregator quoted EUR45, treat EUR55 as the current figure from leagavi.it - price displayed on their own services page, confirm at booking). Hotel is on Via G. Marconi (the SS163 coastal road on the west edge of town), so the garage is reached without crossing into the pedestrian ZTL centro - a real practical advantage over centro-based hotels.</div></td><td>Kayak shows entry rates from ~$526/night (low-season anchor, not August). Hotel does not publish family-suite August rates online; expect roughly EUR900-1600/night for a suite sleeping a family of 4 in peak Aug 2026 [verify directly with hotel - source: kayak.com/Positano-Hotels-Hotel-Le-Agavi.74378.ksp gives only the base rate, not August family pricing].<div class="sub">Confirm in writing: (1) the EV charger is reservable/guaranteed for your exact stay dates, not first-come; (2) connector type (likely Type 2) and kW; (3) that the garage access road is NOT subject to the Positano ZTL pedestrian closure (it should not be, given the address, but get it in writing); (4) exact parking + EV fee to be charged at checkout.</div></td></tr>
 <tr data-base="positano"><td><strong>Hotel Poseidon</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=Hotel%20Poseidon%2C%20Positano" target="_blank" rel="noopener">map</a> <a href="https://www.hotelposeidonpositano.it/en/charging-station" target="_blank" rel="noopener">site</a></td><td>Positano (Via Pasitea, hillside above centro)<div class="sub">Option A - Positano base, all 4 nights</div></td><td><span class="badge b-green">Own-site confirmed</span><div class="rn">CONFIRMED - the hotel runs a dedicated page on its own site for this exact amenity (hotelposeidonpositano.it/en/charging-station), stating all hotel guests may recharge an EV on site. This is the strongest confirmation found for any Positano hotel: it&#x27;s not just an amenity tag on an OTA, it&#x27;s a standalone page the hotel built. No kW/connector spec published - must ask.</div></td><td>Outdoor pool on a panoramic terrace, described by a family-travel reviewer (Ciao Bambino) as good for kids to cool off; complimentary cribs and a garden play area reported by the same review. No formal kids&#x27; club. Novelty: a vintage VW Beetle guests can borrow for a drive.<div class="sub">Parking: On-site parking, EUR 50/night for either valet or self-park per third-party rate breakdowns; confirm current price directly (hotel&#x27;s own pricing page did not show a figure in the fetched content).</div></td><td>Rates span roughly $442-2780/night across the year per aggregator ranges (average around $1217 quoted by momondo, which is likely skewed by high-season suites). No August-2026-specific family rate found - [verify] with the hotel. 48 rooms total, several connecting-room/suite configurations suitable for a family of 4.<div class="sub">Confirm in writing: (1) the exact current parking/EV rate per night (only third-party figures found, not the hotel&#x27;s own price sheet); (2) whether the EV slot needs pre-booking given only one likely charger for 48 rooms; (3) targhe-alterne/ZTL attestation for check-in day, since Via Pasitea sits above the pedestrian centro.</div></td></tr>
 <tr data-base="positano"><td><strong>Palazzo Murat</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=Palazzo%20Murat%2C%20Positano" target="_blank" rel="noopener">map</a> <a href="https://palazzomurat.it/en/info/how-to-reach-us" target="_blank" rel="noopener">site</a></td><td>Positano (centro, Via dei Mulini)<div class="sub">Option A - Positano base, all 4 nights</div></td><td><span class="badge b-green">Own-site confirmed</span><div class="rn">UNCONFIRMED / conflicting. One third-party aggregator (stayfullycharged.com) lists an &#x27;on-site EV charger&#x27; with no technical detail; a second pull from the SAME aggregator&#x27;s own data returned &#x27;0 EV stations, up to 0 kW&#x27; for the identical property - i.e. the aggregator contradicts itself. The hotel&#x27;s own site (palazzomurat.it/en/info/how-to-reach-us) makes no mention of EV charging at all, only the nearby Parcheggio Migliaccio garage. Treat this hotel&#x27;s EV claim as NOT confirmed - email the hotel before booking on this basis.</div></td><td>Has a pool and garden (own site has a dedicated &#x27;Garden and Pool&#x27; page), set in the former palace of Joachim Murat in the pedestrian centro - charming but centro location means the pool/garden footprint is smaller than the cliffside resorts. Children welcome, cots/extra beds available.<div class="sub">Parking: CONFIRMED on the hotel&#x27;s own site: guests park at Parcheggio Migliaccio, a private garage on Piazza dei Mulini about a 2-minute walk from the hotel; porters carry luggage free of charge. This is an off-site (but hotel-partnered, walking-distance) garage, not an in-building lot. Price not listed on the hotel&#x27;s own page - other sources quote around EUR50/day for nearby Positano garages generally [verify exact rate with hotel].</div></td><td>Kayak shows entry rates from ~$360/night (low season). No August-2026 family-suite rate found - [verify]. 33 rooms across 8 categories; babysitting available on enquiry, rollaway bed EUR100/day.<div class="sub">Because EV charging is contested between sources and silent on the hotel&#x27;s own site, this is the one to interrogate hardest: get written confirmation of (a) whether Parcheggio Migliaccio (or any partner garage) actually has an EV charger and its kW/connector, (b) exact daily parking rate, (c) that the garage is reachable from your arrival direction on SS163 without needing to enter the pedestrian ZTL improperly, and (d) targhe-alterne attestation for check-in. If they cannot confirm a charger, this hotel does not meet the hard requirement and should be dropped in favor of Le Agavi, Poseidon, or Villa Franca.</div></td></tr>
 <tr data-base="positano"><td><strong>Hotel Villa Franca (HVF)</strong> <a href="https://www.google.com/maps/search/?api=1&amp;query=Hotel%20Villa%20Franca%2C%20Positano" target="_blank" rel="noopener">map</a> <a href="https://www.villafrancahotel.it/en/villa-franca-hotel/sustainability/" target="_blank" rel="noopener">site</a></td><td>Positano (Viale Pasitea, hillside)<div class="sub">Option A - Positano base, all 4 nights (substitute for Covo dei Saraceni, which failed verification - see summary)</div></td><td><span class="badge b-green">Own-site confirmed</span><div class="rn">CONFIRMED on the hotel&#x27;s own site. The hotel&#x27;s own sustainability page states verbatim: &#x27;we offer guests an electric shuttle service to and from the centre of Positano, as well as electric charging stations&#x27; - a primary-source confirmation, not just an aggregator tag. No kW/connector spec published.</div></td><td>Rooftop pool (GOLD Sky Pool Club), babysitting on request, multiple dining venues, spa (O&#x27;SPA), complimentary shuttle to town centre, e-scooter rentals. No dedicated kids&#x27; club found.<div class="sub">Parking: Parking available, reported at EUR25/day by third-party rate-breakdown sites; the hotel&#x27;s own services page does not publish a parking price - [verify exact rate directly]. Hotel also runs its own shuttle and e-scooter rentals to reduce need to move the car at all.</div></td><td>Kayak shows entry rates from ~$549/night (low-season anchor). No August-2026 family rate found - [verify]. 5-star property with a rooftop &#x27;GOLD Sky Pool Club&#x27;.<div class="sub">Confirm in writing: (1) exact parking + EV charging fee per night (third-party EUR25 figure only, not hotel-published); (2) charger kW/connector and whether it must be pre-booked; (3) targhe-alterne/ZTL check-in attestation given the hillside Viale Pasitea address.</div></td></tr>
@@ -588,7 +595,7 @@ function renderShortlist(listName, slotsDivId, emptyId, slotOptions){
     const b=document.createElement('strong'); b.textContent=p.name; li.appendChild(b);
     const sel=document.createElement('select'); sel.className='slot';
     slotOptions.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;if(p.slot===s)o.selected=true;sel.appendChild(o);});
-    sel.addEventListener('change',()=>{p.slot=sel.value;saveState();rerouteCrete();planRender();});
+    sel.addEventListener('change',()=>{p.slot=sel.value;saveState();syncRowSlots();rerouteCrete();planRender();});
     li.appendChild(sel);
     if(p.book){const d=document.createElement('div');d.className='sub';d.textContent=p.book;li.appendChild(d);}
     ul.appendChild(li);
@@ -619,7 +626,45 @@ function syncPickBoxes(){
     cb.checked=!!state[listName][cb.dataset.pick];
     cb.closest('tr').classList.toggle('picked',cb.checked);
   });
+  syncRowSlots();
 }
+
+/* ---------- one-tap row slotting (Crete debrief fix: picking and slotting were
+   two separate steps in two places; now every pick row carries its own "when?"
+   dropdown, and choosing a slot both picks the place and slots it in one tap) ---------- */
+document.querySelectorAll('input.pick').forEach(cb=>{
+  const listName=cb.dataset.list==='amalfi'?'amalfiPicks':'cretePicks';
+  const slots=listName==='amalfiPicks'?AMALFI_SLOTS:CRETE_SLOTS;
+  const sel=document.createElement('select');
+  sel.className='rowslot';
+  sel.setAttribute('aria-label','choose a meal slot for '+cb.dataset.name);
+  const ph=document.createElement('option');
+  ph.value='unslotted';ph.textContent='+ when?';sel.appendChild(ph);
+  slots.forEach(s=>{if(s==='unslotted')return;
+    const o=document.createElement('option');o.value=s;o.textContent=s;sel.appendChild(o);});
+  sel.addEventListener('change',()=>{
+    const id=cb.dataset.pick;
+    if(sel.value==='unslotted'){
+      if(state[listName][id]){state[listName][id].slot='unslotted';}
+    }else{
+      if(!state[listName][id]){state[listName][id]={name:cb.dataset.name,book:cb.dataset.book,slot:'unslotted'};}
+      state[listName][id].slot=sel.value;
+    }
+    saveState();syncPickBoxes();renderAllShortlists();rerouteCrete();planRender();
+  });
+  cb.after(sel);
+});
+function syncRowSlots(){
+  document.querySelectorAll('select.rowslot').forEach(sel=>{
+    const cb=sel.previousElementSibling;
+    if(!cb||!cb.dataset)return;
+    const listName=cb.dataset.list==='amalfi'?'amalfiPicks':'cretePicks';
+    const p=state[listName][cb.dataset.pick];
+    sel.value=(p&&p.slot)?p.slot:'unslotted';
+    sel.classList.toggle('slotted',!!(p&&p.slot&&p.slot!=='unslotted'));
+  });
+}
+syncRowSlots();
 
 /* ---------- Crete filters ---------- */
 const fE=document.getElementById('fElev'),fD=document.getElementById('fDrive'),fP=document.getElementById('fPaved'),fC=document.getElementById('fCount');
