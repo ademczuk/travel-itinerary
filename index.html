@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="build-stamp" content="20260802-1303">
+<meta name="build-stamp" content="20260802-1359">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -15,7 +15,13 @@
 html,body{margin:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;font-size:15px}
 a{color:var(--amalfi)}
-.wrap{max-width:1120px;margin:0 auto;padding:0 18px 64px}
+.wrap{max-width:1760px;margin:0 auto;padding:0 20px 64px}
+/* Use the screen. At 1120px a desktop wasted most of its width and the wide tables
+   scrolled sideways for no reason, while a phone gave up 36px to side padding. Prose
+   still gets a readable measure below, so widening does not produce 200-character lines. */
+section.trip>p,.days p,.callout p,.planbox>p,p.lede{max-width:104ch}
+@media(min-width:1500px){.map{height:560px}}
+@media(min-width:1100px){table.dt{width:100%}}
 header.top{background:linear-gradient(135deg,#12303b,#1f6f8b);color:#fff;padding:34px 18px 26px}
 header.top .wrap{padding-bottom:0}
 header.top h1{margin:0 0 6px;font-size:27px;letter-spacing:.2px}
@@ -136,6 +142,12 @@ tr.base-dim td{opacity:.42}
 .ld-chip{flex:none;color:#fff;font-weight:700;font-size:11px;min-width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center}
 .b-nudge{margin-top:10px}
 @media(max-width:640px){.b-row{flex-wrap:wrap}.b-toggle{min-width:70px}}
+@media(max-width:640px){
+  .wrap{padding:0 10px 48px}
+  section.trip{padding:14px 11px;border-radius:10px;margin:14px 0}
+  header.top{padding:22px 12px 18px}
+  header.top h1{font-size:22px}
+}
 /* Phone tap targets. This page gets used one-handed in a car, and the Crete debrief said
    slotting a restaurant into a meal was hard. A 17px checkbox and an 11px select in a
    118px box are the reason. Grow both on small screens; 44px is the usable minimum. */
