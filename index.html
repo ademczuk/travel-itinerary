@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="build-stamp" content="20260802-1006">
+<meta name="build-stamp" content="20260802-1049">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -33,7 +33,7 @@ h4{font-size:15px;margin:16px 0 4px}
 .lede{color:var(--muted);margin:0 0 8px}
 .legend{display:flex;flex-wrap:wrap;gap:14px;margin:10px 0 4px;font-size:12.5px;color:var(--muted)}
 .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap;vertical-align:middle}
-.b-green{background:#2a9d8f}.b-amber{background:#e59315}.b-red{background:#e63946}.b-grey{background:#8a97a5}
+.b-green{background:#2a9d8f}.b-amber{background:#e59315}.b-red{background:#e63946}.b-grey{background:#8a97a5}.b-blue{background:#1d7fbe}
 .facts{width:100%;border-collapse:collapse;margin:8px 0}
 .facts td{border:1px solid var(--line);padding:7px 10px;vertical-align:top}
 .facts td:first-child{background:#f2f6f8;font-weight:600;width:190px;color:#33414d}
@@ -114,17 +114,21 @@ tr.base-dim td{opacity:.42}
 .ld-chip{flex:none;color:#fff;font-weight:700;font-size:11px;min-width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center}
 .b-nudge{margin-top:10px}
 @media(max-width:640px){.b-row{flex-wrap:wrap}.b-toggle{min-width:70px}}
-/* trip tabs */
-.tabbar{position:sticky;top:0;z-index:600;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 6px rgba(0,0,0,.05)}
-.tabbar .wrap{display:flex;gap:8px;padding-top:8px;padding-bottom:0}
-.tab{flex:1 1 0;min-height:50px;border:1px solid var(--line);border-bottom:none;border-radius:10px 10px 0 0;background:#eef2f6;color:var(--muted);font-weight:800;font-size:16px;cursor:pointer;padding:7px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15}
-.tab.active{background:#fff;color:var(--ink);border-color:var(--crete);border-width:2px 2px 0;box-shadow:0 -2px 0 var(--crete) inset}
-.tab[data-tab="amalfi"].active{border-color:var(--amalfi);box-shadow:0 -2px 0 var(--amalfi) inset}
-.tab-sub{font-size:11.5px;font-weight:600;color:var(--muted);margin-top:2px}
+/* trip switching: the live trip owns the page; archived trips are a foot-of-page
+   link and a slim return bar, so they cost almost no vertical space */
+.tabbar{display:none;position:sticky;top:0;z-index:600;background:#f3f4f6;border-bottom:1px solid var(--line)}
+.tabbar.on{display:block}
+.tabbar .wrap{display:flex;gap:10px;align-items:center;padding:6px 16px}
+.backbtn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:7px;font-size:13px;font-weight:700;padding:5px 11px;cursor:pointer}
+.backbtn:hover{background:#eef2f6}
+.arch-now{font-size:12.5px;color:var(--muted)}
+.archlinks{border-top:1px solid var(--line);margin-top:26px;padding-top:14px}
+.archlinks h4{margin:0 0 5px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.archlinks p{margin:0;font-size:13.5px;color:var(--muted)}
+.archlinks a{color:var(--ink);font-weight:600;cursor:pointer;text-decoration:underline}
 .nav{position:static;top:auto}
 section.trip-hidden{display:none}
 .nav a.nav-hidden{display:none}
-@media(max-width:640px){.tab{font-size:14px;min-height:48px}.tab-sub{font-size:10.5px}}
 </style>
 </head><body>
 
@@ -135,11 +139,17 @@ section.trip-hidden{display:none}
 <p style="font-size:13px">Two trips, two tabs. The interactive bits still work if you want to browse - tick places, slot them into days - and choices stay saved on this device.</p>
 </div></header>
 
-<div class="tabbar"><div class="wrap">
-<button class="tab" data-tab="crete" type="button">Crete <span class="tab-sub">completed 21-26 Jul</span></button>
-<button class="tab" data-tab="amalfi" type="button">Amalfi Coast <span class="tab-sub">cancelled - archived</span></button>
+<div class="tabbar" id="archBar"><div class="wrap">
+<button class="backbtn" id="archBack" type="button">Back to the current trip</button>
+<span class="arch-now" id="archNow"></span>
 </div></div>
 <nav class="nav"><div class="wrap">
+<a href="#almtal" data-trip="almtal">Almtal</a>
+<a href="#almtal-drive" data-trip="almtal">Drive and charging</a>
+<a href="#almtal-swim" data-trip="almtal">Lake swims</a>
+<a href="#almtal-food" data-trip="almtal">Eating</a>
+<a href="#almtal-days" data-trip="almtal">Day by day</a>
+<a href="#almtal-map" data-trip="almtal">Almtal map</a>
 <a href="#crete" data-trip="crete">Crete</a>
 <a href="#crete-build" data-trip="crete">Build your week</a>
 <a href="#crete-mountain" data-trip="crete">High-altitude tavernas</a>
@@ -160,6 +170,138 @@ section.trip-hidden{display:none}
 <span><span class="badge b-red">red</span> aggregator-only, conflicting, or gravel that voids insurance</span>
 <span><span class="badge b-grey">grey</span> single-pass, verify</span>
 </div>
+
+<section class="trip almtal" id="almtal" data-trip="almtal">
+<h2>Almtal - Mon 3 to Wed 5 August 2026</h2>
+<p class="lede">Two nights at Untersperr 8 in Viechtwang, driving out from Vienna in the Enyaq. Two lakes to swim, and the food question answered honestly for this corner of Upper Austria.</p>
+
+<div class="facts">
+<table class="dt"><tbody>
+<tr><td>House</td><td><strong>Untersperr 8, 4644 Viechtwang</strong> (Scharnstein municipality, Almtal valley, Upper Austria). OSM places it in the Muehldorf Katastralgemeinde rather than Viechtwang village centre, which is why the fast charger is closer than you would expect.</td></tr>
+<tr><td>Days</td><td>Drive out <strong>Mon 3 Aug</strong> leaving Vienna about 10:00. Two nights. <strong>Checkout Wed 5 Aug.</strong> That is two and a half usable days, so one anchor per day and no more.</td></tr>
+<tr><td>Weather</td><td>Fetched 2 Aug: <strong>Mon 33.5 C and dry, Tue 33.6 C and dry, Wed 31 C turning wet after 14:00</strong> (rain probability climbs 26 percent at 15:00 to 63 percent at 20:00). Both lake days are prime. <strong>Anything outdoors on Wednesday should be finished by 14:00.</strong> Tuesday is the calmest and therefore the most oppressive day at an exposed lido, so shade matters.</td></tr>
+<tr><td>Water</td><td>Measured 2 Aug: <strong>Mondsee 23.0 C, Traunsee 23.0 C</strong> lake-wide. But Traunsee is 191 m deep and the south end at Ebensee measured only 20 C, so for the 5 year old stay at the <strong>north (Gmunden) end</strong>.</td></tr>
+<tr><td>Public holiday</td><td><strong>None.</strong> No Austrian public holiday falls on 3, 4 or 5 August 2026 (the next is Mariae Himmelfahrt on Sat 15 Aug). Shops keep normal weekday hours all three days.</td></tr>
+<tr><td>The catch</td><td><strong>The Heuriger you asked for does not exist on your days.</strong> See the eating section: every real Mostheuriger within reach opens Friday to Sunday, and the closest one in spirit is not even ausgesteckt in early August. The village Gasthaeuser take their rest day AT the weekend, so arriving Monday inverts the usual tourist logic.</td></tr>
+</tbody></table>
+</div>
+
+
+<h3 id="almtal-drive">The drive out, and the electricity</h3>
+
+<div class="facts">
+<table class="dt"><tbody>
+<tr><td>Distance and time</td><td><strong>225.6 km, 2 h 34 free-flow.</strong> Realistic with two boys and one 35 minute stop: <strong>3 h 20 to 3 h 50 door to door, arriving 13:30 to 14:00.</strong></td></tr>
+<tr><td>The route</td><td>B1 out of Vienna to Wien Auhof, <strong>A1 West 186 km to Knoten Voralpenkreuz</strong>, <strong>A9 Pyhrn south 4.8 km</strong>, exit onto the L562 Voitsdorfer Strasse (signed Ried im Traunkreis / Voitsdorf), through <strong>Pettenbach</strong>, then the <strong>B120 Scharnsteiner Strasse</strong> south to Muehldorf. Simpler alternate: A1 to <strong>Exit Vorchdorf</strong>, L536 to Pettenbach, B120 - same time, easier signage, and it takes you past the Vorchdorf charging hub.</td></tr>
+<tr><td>Do you need to charge?</td><td><strong>No.</strong> 225.6 km costs 50 to 63 kWh of the 79 kWh pack, so you arrive on 20 to 37 percent even loaded in the heat with the air conditioning running, and there is a 150 kW charger 1.2 km from the front door. Leave Vienna at 90 percent or more and drive it in one go. If you roll out below 80 percent, put 15 minutes in at Strengberg or Vorchdorf.</td></tr>
+<tr><td>The return</td><td>The whole stay is roughly <strong>620 km, about two full packs</strong>, so plan on <strong>two DC sessions</strong>. Going home needs about 57 kWh; leaving on 80 percent would put you into Vienna on 8 percent, which is too thin. <strong>Charge to 90 percent plus on Wednesday morning at the Autohaus Almtal point</strong> (the 80 to 90 tail costs 10 to 12 extra minutes) or take one 10 minute top-up on the A1.</td></tr>
+<tr><td>Vignette</td><td><strong>10-day digital EUR 12.80</strong> (1-day EUR 9.60). Buy online with immediate validity: the 18-day consumer-protection delay applies only to the 2-month and annual digital vignettes. <strong>EVs get no discount</strong> - one reseller site claims a 30 percent BEV eco-vignette, and ASFINAG and OEAMTC both contradict it. No Sondermaut on this route; the 4.8 km of A9 sits north of the Bosruck and Gleinalm toll tunnels.</td></tr>
+<tr><td>Roadworks</td><td>Both live A1 works hit the <strong>way home</strong>, not Monday. <strong>Haag to St Valentin, 17 Jun to 7 Sep, 80 km/h with one lane restricted on the Linz-to-Vienna carriageway</strong> - expect a slow band around km 140-150 on Wednesday. The Mondsee two-lane shift toward Vienna adds 10 to 15 min to the evening return from that lake. Check baustelleninfo.asfinag.at the morning you leave.</td></tr>
+<tr><td>Child seats</td><td>Austrian law is <strong>height first</strong>: under 135 cm needs a restraint, until age 14. An 8 year old is typically 125 to 132 cm and a 5 year old 108 to 115, so <strong>both boys legally need boosters</strong>. Use high-back boosters, not backless cushions. The driver carries the responsibility; the fine runs to EUR 5,000 plus a licence entry.</td></tr>
+</tbody></table>
+</div>
+
+<div class="table-wrap"><table class="dt">
+<thead><tr><th>Charge point</th><th>Where</th><th>Speed and plug</th><th>Note</th></tr></thead><tbody>
+<tr><td><strong>Autohaus Almtal Muehldorf</strong> <span class="badge b-green" title="kw-solutions.at, GoingElectric Scharnstein, firmenabc.at">confirmed</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Autohaus%20Almtal%20Muehldorf%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a></td><td>Kalkofen 15, 4644 Scharnstein - 1.2 km, 3 minutes from the house</td><td>Alpitronic 150 kW DC, 2 x CCS, plus 3 x AC Type 2 at 22 kW (neoom). Operator kW-Solutions, runs off its own PV and battery.</td><td>THE ONE THAT MATTERS. A 150 kW charger essentially at the front door, in the same industrial estate. A VW ID.4 does 20-80 percent here in about 20 min, so the vRS at 185 kW peak is quicker. Use it Wednesday morning to leave on 90 percent plus. Phone +43 7615 2237; showroom Mon-Wed 07:30-12:00 and 13:00-17:00. [verify] whether the forecourt is 24/7 before counting on a late-evening session.</td></tr>
+<tr><td><strong>Cumberland Wildpark Gruenau</strong> <span class="badge b-green" title="GoingElectric Gruenau im Almtal">confirmed</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Cumberland%20Wildpark%20Gruenau%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a></td><td>Fischerau 12, 4645 Gruenau im Almtal - 25-30 min</td><td>2 x CCS 50 kW (Energie AG) plus 6 x Type 2 at 11 kW</td><td>DC charging at the single best kid attraction in the valley: plug in, walk the 5 km wildlife circuit, come back to a full car. The most efficient charging hour of the whole trip.</td></tr>
+<tr><td><strong>Kasberg-Gruenau Talstation</strong> <span class="badge b-green" title="GoingElectric Gruenau im Almtal">confirmed</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Kasberg-Gruenau%20Talstation%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a></td><td>Schindlbach 9, 4645 Gruenau im Almtal</td><td>CCS 50 kW, 10 charge points (Smatrics)</td><td>Ten points means no queue. Useful if the Wildpark chargers are taken.</td></tr>
+<tr><td><strong>Frutura Vorchdorf</strong> <span class="badge b-green" title="GoingElectric Vorchdorf">confirmed</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Frutura%20Vorchdorf%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a></td><td>Asamerstrasse 1b, 4655 Vorchdorf - 16.7 km, 19 min</td><td>16 x CCS up to 400 kW (Smatrics EnBW Hypercharger), 2 x CHAdeMO</td><td>The heavy artillery, and the fastest charging anywhere near this trip. Vorchdorf has 14 sites and 65 points in total, so it is the guaranteed fallback. Sits on the Vorchdorf exit alternate route home.</td></tr>
+<tr><td><strong>Eni Tankstelle Vorchdorf</strong> <span class="badge b-green" title="GoingElectric Vorchdorf">confirmed</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Eni%20Tankstelle%20Vorchdorf%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a></td><td>Asamerstrasse 3, 4655 Vorchdorf</td><td>6 x CCS 150 kW (Plenitude On The Road), 1 x CHAdeMO 50 kW</td><td>Second Vorchdorf option, right next to the Frutura hub.</td></tr>
+<tr><td><strong>Kirchenplatz Scharnstein (AC only)</strong> <span class="badge b-green" title="GoingElectric Scharnstein">confirmed</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Kirchenplatz%20Scharnstein%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a></td><td>Kirchenplatz, 4644 Scharnstein</td><td>2 x Type 2 at 11 kW (be.energised)</td><td>Slow AC in the village. Fine for a long overnight top-up if the DC point is busy, useless for a quick fill. Scharnstein also has AC at the Lagerhaus, Gruene Erde and the Arztpraxis.</td></tr>
+</tbody></table></div>
+
+<h3 id="almtal-swim">The two lake swims</h3>
+
+<p class="sub">Both swims are bankable. Unlike the restaurants, lidos and public bathing places here have <strong>no rest day at all</strong>, so the only thing that closes them is weather, and Monday and Tuesday are forecast dry. The sequencing that works: <strong>Traunsee on Monday afternoon</strong> because Gmunden is only 22 to 30 minutes away and you will arrive tired, <strong>Mondsee as Tuesday's full day</strong> because at roughly an hour each way it is a day trip rather than a hop, and keep Wednesday morning free to get home ahead of the rain.</p>
+<p class="sub">One alternative worth knowing: Mondsee sits west on the A1, past your turn-off, so doing it <em>on the way in</em> on Monday costs about 50 minutes of extra driving instead of a 2.5 hour round trip on a separate day. It only works if the house check-in is late and flexible, and it means arriving at the lake after three hours in the car. The Tuesday plan is the safer one with a 5 year old.</p>
+
+<div class="table-wrap"><table class="dt" style="min-width:780px">
+<thead><tr><th>Lake / spot</th><th>Where</th><th>Drive from the house</th><th>Entry</th><th>Water and shore</th><th>With a 5 year old</th></tr></thead><tbody>
+<tr><td><strong>Alpenseebad Mondsee</strong> <span class="badge b-green">Mondsee</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Alpenseebad%20Mondsee%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a><div class="sub">Open all three days 09:00-18:00 for day guests, season 14 May to 13 Sep, no rest day; the ONLY closure mechanism is weather and they post it that morning, so ring +43 6232 2291 before driving. One live caveat: on 4 Jul 2026 both big slides were shut for low water. Phone if the slides are the point. Slides run 10:00-17:00.</div></td><td>Seebadstrasse 3, 5310 Mondsee</td><td>60-69 min padded (64.7 km)</td><td>EUR 20.00 for all four, full day (adults 8.00 each, the 8yo 4.00, UNDER-6 FREE so the 5yo costs nothing). EUR 15.50 after 14:00, EUR 11.50 after 16:00. Salzkammergut/Familien-Card knocks a euro off each.</td><td>Fine sand beach plus jetties, and separate shallow paddling pools with water toys away from the lake<div class="sub">Mostly FREE: 175 free spaces at Franz Kreuzberger Strasse, ~231 around the Seebad in total. Two small paid exceptions. Be parked by 10:30 in August.</div></td><td>THE MONDSEE PICK. The shallow pools plus the adventure playground mean the 5yo is not dependent on open lake water; the 8yo gets 5 m and 3 m diving towers, a 110 m slide and an Aqua-Funpark. Lifeguard during the day, none after 18:00. No dogs.</td></tr>
+<tr><td><strong>Badeplatz Loibichl</strong> <span class="badge b-green">Mondsee</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Badeplatz%20Loibichl%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a><div class="sub">Accessible all year, no gate, so no weather closure. Phone +43 6232 22650 (Gemeinde Innerschwand).</div></td><td>5311 Innerschwand am Mondsee, east shore</td><td>57-66 min padded (57.6 km) - actually the CLOSEST Mondsee option, and it skips the Mondsee town queue by exiting the A1 at Oberwang</td><td>FREE. Parking EUR 5.00 per car, 15 May to 15 Sep, 10:00-18:00, ticket machine on site.</td><td>30,000 m2 of meadow, over twice the Alpenseebad lawn, with sun and shade. The lake bed is gravel and stony, BUT there is a recently redesigned childrens sand cove, level access, plus a big wooden jetty and an anchored raft.<div class="sub">EUR 5 per car, machine on site</div></td><td>THE FALLBACK, and a good one: free, quieter, more space and more shade than the lido. Choose it if the Alpenseebad car park is full or the family wants a calmer day. The kiosk only runs in summer in fine weather.</td></tr>
+<tr><td><strong>Strandbad Gmunden</strong> <span class="badge b-blue">Traunsee</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Strandbad%20Gmunden%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a><div class="sub">Open all three days, August hours 09:00-20:00 daily, no rest day. Bad-weather caveat: in sustained rain or under 15 C air it drops to a skeleton service 10:00-12:00 on weekdays. Phone +43 7612 64144.</div></td><td>Dr.-Franz-Thomas-Strasse 13, 4810 Gmunden</td><td>22-30 min padded (~20-24 km) - the easiest run of the whole trip</td><td>Familienkarte (2 adults + children) EUR 13.30 full day, EUR 11.00 after 16:00. Singles: adult 6.30, child 6-14 2.80. No under-6 rate is published, so ask at the till.</td><td>Gently shelving lake shore with a lawn at the water, PLUS a 50 m heated sports pool, two separate childrens pools under sun sails, a 65 m water slide and a 350 m2 playground with a giant sandpit. Barrier-free pool entry.<div class="sub">Not published on the official pages [verify]; town lido, street and adjacent parking expected.</div></td><td>THE TRAUNSEE PICK, and the best value on the trip. If the lake feels cold the heated pools are right there, which is exactly the insurance a 5yo needs. Self-service restaurant, ice cream, cakes.</td></tr>
+<tr><td><strong>Badeplatz Braeuwiese</strong> <span class="badge b-blue">Traunsee</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Badeplatz%20Braeuwiese%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a><div class="sub">Season roughly early May to end September, no rest day, but FINE WEATHER ONLY - it shuts on a rain day. Phone +43 7618 20144.</div></td><td>Aueck 1, 4801 Traunkirchen, on the B145 between Altmuenster and Traunkirchen</td><td>40-50 min padded (35-40 km)</td><td>FREE. Parking EUR 5.00/day, 15 May to 15 Sep, 10:00-18:00.</td><td>230 m of meadow with TWO shallow bays and a narrow gravel beach; the water deepens only gradually, and the listing explicitly calls it suited to children and non-swimmers.<div class="sub">EUR 5 per day</div></td><td>The best free shallow entry on the Traunsee. Playground, buffet with a lakeside garden, free changing cabins, outdoor showers, accessible WC. Shade is thin - scattered medium trees only, so bring a sunshade.</td></tr>
+<tr><td><strong>Badeplatz Badeinsel Traunkirchen</strong> <span class="badge b-blue">Traunsee</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Badeplatz%20Badeinsel%20Traunkirchen%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a><div class="sub">Free and usable throughout the bathing season, no rest day. Phone +43 7617 22550 (Gemeindeamt).</div></td><td>Ortsplatz 1, 4801 Traunkirchen, foot of the Johannesberg</td><td>45-55 min padded (40-45 km)</td><td>FREE. Parking not documented [verify].</td><td>An artificial kidney-shaped island about 10 x 25 m encloses a relatively shallow lake-water basin, effectively a ring of land around the swimming area. Jetty with ladders, a small platform out in the lake.<div class="sub">Not documented [verify]</div></td><td>The safest ENCLOSED water of the set, and stroller-friendly. Changing cabins, WC, playground, boat rental, mini-market and a lakeside cafe next door.</td></tr>
+<tr><td><strong>Freizeitanlage Rindbach, Ebensee</strong> <span class="badge b-blue">Traunsee</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Freizeitanlage%20Rindbach%2C%20Ebensee%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a><div class="sub">No rest day. Grilling only at the fire pit by the Windbar 17:00-20:00. Phone +43 6133 7051.</div></td><td>Strandbadstrasse, 4802 Ebensee, south shore</td><td>55-70 min padded (~50 km round the lake) - too far for this trip&#x27;s pacing</td><td>FREE. Parking EUR 1/hour, daily cap EUR 8, 120 spaces, 08:00-20:00.</td><td>19,000 m2 free meadow, direct lake entry; bottom type and slope not documented [verify].<div class="sub">EUR 1/hour, EUR 8 cap</div></td><td>Listed as suitable for children of any age, and it has the biggest meadow, BUT it sits in the SOUTH basin where the Rindbach and the Traun feed in: measured 20 C on 30 Jul 2026 against 23 C lake-wide. Not the pick for a 5yo. Dogs banned across the whole meadow.</td></tr>
+<tr><td><strong>Badeplatz Winkl - AVOID with the 5 year old</strong> <span class="badge b-blue">Traunsee</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Badeplatz%20Winkl%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a><div class="sub">Source: oberoesterreich.at Badeplatz Winkl listing.</div></td><td>Traunkirchen</td><td>45-55 min padded</td><td>Free</td><td>Pleasant meadow and jetty, but the water goes DEEP IMMEDIATELY from the shore.<div class="sub">n/a</div></td><td>Listed as suitable for confident swimmers only. In here purely so it is not picked off a map by mistake.</td></tr>
+</tbody></table></div>
+
+<h3 id="almtal-food">Eating: what a Heuriger is called here</h3>
+
+<p><strong>The short answer: what you asked for is not open while you are there, and the reason is interesting rather than annoying.</strong></p>
+<p class="sub">A <em>Heuriger</em> with the ausgesteckt custom is a Vienna, Lower Austria and Burgenland <strong>wine</strong> institution; Styria has the <em>Buschenschank</em>. Untersperr is in <strong>Upper Austria, Bezirk Gmunden - cider country, not wine country</strong>. The local form is the <strong>Mostheuriger</strong> or <strong>Mostschenke</strong>, and the ausgesteckt custom does exist here: a farmer hangs a bundle of twigs over the door for the weeks he is licensed to serve. What you should actually type into a map search is <strong>Mostschenke</strong>, <strong>Mostheuriger</strong>, <strong>Jausenstation</strong> or <strong>Ausflugsgasthaus</strong>. Searching Heuriger alone returns almost nothing locally.</p>
+<p class="sub">Then the finding that decides the trip: <strong>only two registered Heuriger businesses exist in the entire Bezirk Gmunden, and every Mostheuriger within reach opens Friday to Sunday.</strong> The nearest in spirit, Cider Heuriger Eder in Kirchham, is ausgesteckt in 2026 only from 28 Apr to 16 May, 30 Jun to 18 Jul and 1 Sep to 19 Sep - so 3 to 5 August falls in the gap between windows, and the day of the week is not even the problem. The structural reason is worth holding onto: <strong>village Gasthaeuser here take their rest day at the weekend because they feed the working village, while the Mostheurigen open only at the weekend.</strong> Arriving on a Monday inverts the usual tourist logic. Monday to Wednesday is Gasthaus and Almhuette time.</p>
+<p class="sub">So the table below is sorted by the only question that matters: <strong>is it open on our three days.</strong> The Mostheurigen are listed too, marked closed, so nobody drives out to one on spec. If a Mostheuriger is the point of a trip, it needs a Friday and probably a different week.</p>
+
+<div class="table-wrap"><table class="dt" id="almtalFoodTable" style="min-width:780px">
+<thead><tr><th>Pick</th><th>Place</th><th>Where / drive</th><th>Open on our days</th><th>Why this one</th><th>Price / booking</th></tr></thead><tbody>
+<tr class="pickrow" data-id="al-gasthaus-schatzlmuehle"><td><input type="checkbox" class="pick" data-list="almtal" data-pick="al-gasthaus-schatzlmuehle" data-name="Gasthaus Schatzlmuehle" data-book="+43 7615 20269 or +43 664 3818734. Ring Monday morning to confirm the daily-in-season hours." aria-label="pick Gasthaus Schatzlmuehle"></td><td><strong>Gasthaus Schatzlmuehle</strong> <span class="badge b-blue">Ausflugsgasthaus</span> <div class="sub">Regional home cooking in a 17th-century mill on the Alm river</div></td><td>Viechtwang 1a, 4644 Scharnstein<div class="sub">3-5 min, same village [verify]</div></td><td><span class="badge b-green">Mon 3 open</span> <span class="badge b-green">Tue 4 open</span> <span class="badge b-green">Wed 5 open</span><div class="rn">No rest day in main season (May-Oct, daily from 11:00). The Mon+Tue Ruhetag line applies to the April shoulder only.</div></td><td>THE PICK. Open all three days, five minutes from the door, 130-seat garden by the river, outdoor playground plus an indoor play corner, high chairs, changing room. Everything this trip needs with the least driving.</td><td>Mid. Reservations on request, otherwise walk in.<div class="sub">+43 7615 20269 or +43 664 3818734. Ring Monday morning to confirm the daily-in-season hours.</div></td></tr>
+<tr class="pickrow" data-id="al-forellenhof-wieselmuehle"><td><input type="checkbox" class="pick" data-list="almtal" data-pick="al-forellenhof-wieselmuehle" data-name="Forellenhof-Wieselmuehle" data-book="+43 7616 8250. Reads as walk-in for four." aria-label="pick Forellenhof-Wieselmuehle"></td><td><strong>Forellenhof-Wieselmuehle</strong> <span class="badge b-blue">Gasthaus</span> <div class="sub">Trout farm with its own ponds; Forellenspezialitaeten</div></td><td>Landstrasse 73, 4645 Gruenau im Almtal<div class="sub">12-18 min [verify]</div></td><td><span class="badge b-green">Mon 3 open</span> <span class="badge b-green">Tue 4 open</span> <span class="badge b-green">Wed 5 open</span><div class="rn">None. Kitchen Mon-Fri 11:30-13:30 and 17:30-20:30 - a hard, narrow window.</div></td><td>The only genuinely reliable DINNER all three nights. Children&#x27;s menus, playground, garden. Watch the 13:30 lunch cut-off and the 20:30 close.</td><td>Mid<div class="sub">+43 7616 8250. Reads as walk-in for four.</div></td></tr>
+<tr class="pickrow" data-id="al-landhotel-gruenberg-am-see"><td><input type="checkbox" class="pick" data-list="almtal" data-pick="al-landhotel-gruenberg-am-see" data-name="Landhotel Gruenberg am See" data-book="+43 7612 77700. Phone reservations; walk-in possible." aria-label="pick Landhotel Gruenberg am See"></td><td><strong>Landhotel Gruenberg am See</strong> <span class="badge b-blue">Restaurant am See</span> <div class="sub">Traunsee terrace over the water facing Schloss Ort</div></td><td>Traunsteinstrasse 109, 4810 Gmunden<div class="sub">30-40 min [verify]</div></td><td><span class="badge b-green">Mon 3 open</span> <span class="badge b-green">Tue 4 open</span> <span class="badge b-green">Wed 5 open</span><div class="rn">None. Warm kitchen straight through 11:30-21:00, last orders 20:30.</div></td><td>The Traunsee swim-day meal. Kitchen runs all afternoon, so a late post-swim lunch is never turned away. Playground plus an indoor adventure-castle play room and its own children&#x27;s menu.</td><td>Mid to upper<div class="sub">+43 7612 77700. Phone reservations; walk-in possible.</div></td></tr>
+<tr class="pickrow" data-id="al-gasthaus-taverne-thann"><td><input type="checkbox" class="pick" data-list="almtal" data-pick="al-gasthaus-taverne-thann" data-name="Gasthaus Taverne Thann" data-book="+43 7615 2391" aria-label="pick Gasthaus Taverne Thann"></td><td><strong>Gasthaus Taverne Thann</strong> <span class="badge b-blue">Gasthaus (lunch only)</span> <div class="sub">Almtal young lamb, beef, game</div></td><td>In der Thann 1, 4644 Scharnstein<div class="sub">5-8 min [verify]</div></td><td><span class="badge b-green">Mon 3 open</span> <span class="badge b-green">Tue 4 open</span> <span class="badge b-green">Wed 5 open</span><div class="rn">Fri, Sat and public holidays. Sun-Thu 11:00-14:00 ONLY, so LUNCH on our days, never dinner.</div></td><td>The close backup if Schatzlmuehle is full. 40-seat garden with an outdoor playground, high chairs, pushchairs welcome.</td><td>Mid<div class="sub">+43 7615 2391</div></td></tr>
+<tr class="pickrow" data-id="al-gasthaus-poell"><td><input type="checkbox" class="pick" data-list="almtal" data-pick="al-gasthaus-poell" data-name="Gasthaus Poell" data-book="+43 7619 2006, reservierung@gasthof-poell.at" aria-label="pick Gasthaus Poell"></td><td><strong>Gasthaus Poell</strong> <span class="badge b-blue">Gasthaus</span> <div class="sub">Village Gasthaus, garden</div></td><td>Kirchham 33, 4656 Kirchham<div class="sub">20-28 min [verify]</div></td><td><span class="badge b-green">Mon 3 open</span> <span class="badge b-green">Tue 4 open</span> <span class="badge b-red">Wed 5 CLOSED</span><div class="rn">Wednesday and Thursday. Open Fri-Tue from 10:00; Sunday evening closed.</div></td><td>Fits a Traunsee return leg through Kirchham on Monday or Tuesday. No published playground.</td><td>Mid<div class="sub">+43 7619 2006, reservierung@gasthof-poell.at</div></td></tr>
+<tr class="pickrow" data-id="al-gasthaus-germdiele"><td><input type="checkbox" class="pick" data-list="almtal" data-pick="al-gasthaus-germdiele" data-name="Gasthaus Germdiele" data-book="+43 650 5700837" aria-label="pick Gasthaus Germdiele"></td><td><strong>Gasthaus Germdiele</strong> <span class="badge b-blue">Gasthaus</span> <div class="sub">Village Gasthaus</div></td><td>Im Dorf 9, 4645 Gruenau im Almtal<div class="sub">12-18 min [verify]</div></td><td><span class="badge b-green">Mon 3 open</span> <span class="badge b-red">Tue 4 CLOSED</span> <span class="badge b-red">Wed 5 CLOSED</span><div class="rn">Tuesday and Wednesday. Warm kitchen Thu-Mon 11:45-14:00 and from 17:30.</div></td><td>A Monday-night option in Gruenau if you want somewhere other than the trout farm on arrival day.</td><td>Mid<div class="sub">+43 650 5700837</div></td></tr>
+<tr class="pickrow" data-id="al-gasthof-seehaus-am-almsee"><td><input type="checkbox" class="pick" data-list="almtal" data-pick="al-gasthof-seehaus-am-almsee" data-name="Gasthof Seehaus am Almsee" data-book="+43 7616 8366. Ring first, the Wednesday opening is aggregator-sourced." aria-label="pick Gasthof Seehaus am Almsee"></td><td><strong>Gasthof Seehaus am Almsee</strong> <span class="badge b-blue">Gasthof am See</span> <div class="sub">Built 1652 by Stift Kremsmuenster, directly on the Almsee under the Totes Gebirge</div></td><td>Almsee 6, 4645 Gruenau im Almtal<div class="sub">28-38 min [verify]</div></td><td><span class="badge b-red">Mon 3 CLOSED</span> <span class="badge b-red">Tue 4 CLOSED</span> <span class="badge b-green">Wed 5 open</span><div class="rn">Monday and Tuesday. Season ~3 Apr to 1 Nov, 10:00-18:00, kitchen 11:30-14:30.</div></td><td>The best SETTING of the whole set, and Wednesday is the only day it is open to you. Pair it with an Almsee morning before driving home. The neighbouring Almseehuett&#x27;n kiosk does NOT rescue Mon or Tue: weekends and fine weather only.</td><td>Mid<div class="sub">+43 7616 8366. Ring first, the Wednesday opening is aggregator-sourced.</div></td></tr>
+<tr class="pickrow" data-id="al-hochberghaus"><td><input type="checkbox" class="pick" data-list="almtal" data-pick="al-hochberghaus" data-name="Hochberghaus" data-book="+43 7616 8477" aria-label="pick Hochberghaus"></td><td><strong>Hochberghaus</strong> <span class="badge b-blue">Almhuette</span> <div class="sub">Mountain hut kitchen with the Kasberg view</div></td><td>Kasberg 1, 4645 Gruenau im Almtal<div class="sub">40-50 min including the toll climb [verify]</div></td><td><span class="badge b-green">Mon 3 open</span> <span class="badge b-green">Tue 4 open</span> <span class="badge b-green">Wed 5 open</span><div class="rn">None. Mon-Sun 11:00-19:00, season early May to 26 Oct.</div></td><td>The honest Almhuette answer, and it is reached by CAR up the Farrenau toll road (EUR 15 per car, EUR 12 with the Sommercard), not a chairlift. Only worth it as that day&#x27;s single anchor - it is too long a haul to bolt onto anything else.</td><td>Mid, plus the road toll<div class="sub">+43 7616 8477</div></td></tr>
+<tr class="pickrow" data-id="al-gasthof-altmuehl"><td><input type="checkbox" class="pick" data-list="almtal" data-pick="al-gasthof-altmuehl" data-name="Gasthof Altmuehl" data-book="+43 7612 64262 (reservations 08:00-11:00 and 15:00-18:00)" aria-label="pick Gasthof Altmuehl"></td><td><strong>Gasthof Altmuehl</strong> <span class="badge b-blue">Gasthaus</span> <div class="sub">Large Gasthaus, 100-seat shaded garden</div></td><td>Ohlsdorferstrasse, 4810 Gmunden<div class="sub">33-42 min [verify]</div></td><td><span class="badge b-red">Mon 3 CLOSED</span> <span class="badge b-red">Tue 4 CLOSED</span> <span class="badge b-green">Wed 5 open</span><div class="rn">Monday and Tuesday. Wed-Sun 10:00-22:00, warm kitchen Wed-Sat 11:30-20:30.</div></td><td>Only reachable on Wednesday. Children&#x27;s playground right beside the garden. Listed mainly so nobody drives there on the Monday or Tuesday.</td><td>Mid<div class="sub">+43 7612 64262 (reservations 08:00-11:00 and 15:00-18:00)</div></td></tr>
+<tr class="pickrow" data-id="al-gasthaus-silmbroth-and-its-butcher-count"><td><input type="checkbox" class="pick" data-list="almtal" data-pick="al-gasthaus-silmbroth-and-its-butcher-count" data-name="Gasthaus Silmbroth (and its butcher counter)" data-book="+43 7615 2254" aria-label="pick Gasthaus Silmbroth (and its butcher counter)"></td><td><strong>Gasthaus Silmbroth (and its butcher counter)</strong> <span class="badge b-blue">CLOSED - but buy cold cuts</span> <div class="sub">Village Gasthaus with its own butchery</div></td><td>Viechtwang 23, 4644 Scharnstein<div class="sub">3-5 min, the nearest Gasthaus to the house</div></td><td><span class="badge b-red">Mon 3 CLOSED</span> <span class="badge b-red">Tue 4 CLOSED</span> <span class="badge b-red">Wed 5 CLOSED</span><div class="rn">Restaurant: Mon temporarily closed, Tue and Wed Ruhetag, Sat closed. Shut for all three of our days.</div></td><td>Flagged deliberately because it is the closest place and the one you would naturally walk to. The RESTAURANT is dark all three days - but the BUTCHER counter is open Mon, Tue, Thu, Fri 07:00-12:00 and 14:30-18:00, so it is still the best picnic and cold-cuts stop in the village.</td><td>Butcher counter prices<div class="sub">+43 7615 2254</div></td></tr>
+<tr class="pickrow" data-id="al-almtaler-moststub-n"><td><input type="checkbox" class="pick" data-list="almtal" data-pick="al-almtaler-moststub-n" data-name="Almtaler Moststub&#x27;n" data-book="+43 7586 8249" aria-label="pick Almtaler Moststub&#x27;n"></td><td><strong>Almtaler Moststub&#x27;n</strong> <span class="badge b-blue">Mostheuriger - CLOSED</span> <div class="sub">The genuine local Mostheuriger, cider and cold plates</div></td><td>Zeitlhub 2, 4643 Pettenbach<div class="sub">20-25 min [verify]</div></td><td><span class="badge b-red">Mon 3 CLOSED</span> <span class="badge b-red">Tue 4 CLOSED</span> <span class="badge b-red">Wed 5 CLOSED</span><div class="rn">Monday, Tuesday, Wednesday, Thursday and public holidays. Opens Fri and Sat from 17:00, Sun from 16:00.</div></td><td>This is what you actually asked for, and it is the reason the answer is no. The real Mostheurigen here open Friday to Sunday because they serve the weekend, while the village Gasthaeuser take their rest day AT the weekend. Arriving Monday inverts the usual tourist logic.</td><td>Low to mid<div class="sub">+43 7586 8249</div></td></tr>
+<tr class="pickrow" data-id="al-cider-heuriger-eder-moar-zu-krottendorf"><td><input type="checkbox" class="pick" data-list="almtal" data-pick="al-cider-heuriger-eder-moar-zu-krottendorf" data-name="Cider Heuriger Eder / Moar zu Krottendorf" data-book="+43 7619 2357" aria-label="pick Cider Heuriger Eder / Moar zu Krottendorf"></td><td><strong>Cider Heuriger Eder / Moar zu Krottendorf</strong> <span class="badge b-blue">Mostheuriger - NOT AUSGESTECKT</span> <div class="sub">Cider Heuriger with the true ausgesteckt custom</div></td><td>Krottendorf 6, 4656 Kirchham<div class="sub">20-28 min [verify]</div></td><td><span class="badge b-red">Mon 3 CLOSED</span> <span class="badge b-red">Tue 4 CLOSED</span> <span class="badge b-red">Wed 5 CLOSED</span><div class="rn">Ausgesteckt in 2026 only 28 Apr-16 May, 30 Jun-18 Jul and 1 Sep-19 Sep; plus Ruhetag Mon and Sun.</div></td><td>The closest thing in spirit to a Heuriger ausgesteckt, and 3-5 August falls in the gap BETWEEN its July and September windows. The day of the week is not even the problem. If a Mostheuriger is the point, it needs a different week.</td><td>Low to mid<div class="sub">+43 7619 2357</div></td></tr>
+<tr class="pickrow" data-id="al-seidner-der-heurige"><td><input type="checkbox" class="pick" data-list="almtal" data-pick="al-seidner-der-heurige" data-name="Seidner, Der Heurige" data-book="+43 7614 21294" aria-label="pick Seidner, Der Heurige"></td><td><strong>Seidner, Der Heurige</strong> <span class="badge b-blue">Heuriger - CLOSED</span> <div class="sub">One of only two registered Heuriger/Buschenschank businesses in the whole Bezirk Gmunden</div></td><td>Schart 1, 4655 Vorchdorf<div class="sub">18-25 min [verify]</div></td><td><span class="badge b-red">Mon 3 CLOSED</span> <span class="badge b-red">Tue 4 CLOSED</span> <span class="badge b-red">Wed 5 CLOSED</span><div class="rn">Fri to Sun 16:00-24:00 only.</div></td><td>Listed to close the question: both registered Heurigen in the district are weekend-only, so no amount of driving finds an open one on a Monday to Wednesday.</td><td>Low to mid<div class="sub">+43 7614 21294</div></td></tr>
+</tbody></table></div>
+
+<div class="shortlist" id="almtalShort">
+<button class="clr" id="almtalClear">clear picks</button>
+<h4>Your Almtal picks (use the + when? dropdown on any row)</h4>
+<div id="almtalSlots"></div>
+<p class="empty" id="almtalEmpty">Nothing picked yet. One tap on a row picks the place and drops it into a meal slot.</p>
+</div>
+
+<h3 id="almtal-breakfast">Breakfast and supplies</h3>
+
+<div class="facts">
+<table class="dt"><tbody>
+<tr><td>The honest default</td><td>Rural Austrian Gasthaeuser here <strong>do not serve breakfast to non-residents</strong>. What this valley has instead is one dominant bakery, <strong>Baeckerei Bruckmuehle</strong>, whose bakehouse is literally in Viechtwang with branches in Scharnstein, Pettenbach, Gruenau and Kirchdorf. <strong>Buy bread at the Viechtwang bakehouse, three to six minutes from the door, and eat at the house.</strong> Sit-down breakfast is the exception here, not the routine.</td></tr>
+<tr><td>Best sit-down breakfast</td><td><strong>Bruckmuehle Pettenbach</strong>: Mon and Tue 06:00-17:00, <strong>Wed 06:00-12:00 only</strong>, so it works all three mornings. <strong>Resch&amp;Frisch Liebesbrot Cafe, Vorchdorf</strong> is the all-day fallback, Mon-Fri 07:00-18:00 with no midday break.</td></tr>
+<tr><td>The trap</td><td><strong>Cafe Konditorei "Zum Baeck", Muehldorf 32, Scharnstein is CLOSED on your days</strong> - two independent sources agree. It is the obvious-looking one in Scharnstein and it will waste a trip. Mittermaier in Wagau publishes no hours anywhere; do not plan around it.</td></tr>
+<tr><td>On the Traunsee</td><td><strong>Altmuensterhof, Altmuenster</strong> sells its breakfast buffet to walk-ins <strong>daily 07:00-11:30, including Sundays and holidays, no rest day</strong> - the best fit if you want a proper sit-down breakfast before a lake day. In Gmunden, <strong>Baeckerei Reingruber</strong> (Marktplatz 5, Mon-Fri 06:00-18:00) is the every-day fallback. Cafe Kandur is <strong>closed Monday and Wednesday</strong>.</td></tr>
+<tr><td>Mondsee day</td><td><strong>Baeckerei-Cafe Frank Berger on the Marktplatz is CLOSED MONDAY</strong>, open Tue-Fri from 08:00. If you go to Mondsee on Tuesday it works; on a Monday it does not.</td></tr>
+<tr><td>Shopping</td><td><strong>BILLA Scharnstein is the one to use.</strong> Austrian supermarkets are closed on Sundays, which does not bite inside this trip, but several shut for the afternoon or close early midweek - so <strong>do the main shop on Monday</strong> when you arrive. ADEG Steinmaurer in Scharnstein has a Mittagspause; check before relying on it. And the <strong>Silmbroth butcher counter in Viechtwang</strong> (Mon and Tue 07:00-12:00 and 14:30-18:00) is the best cold-cuts and picnic stop in the village even though its restaurant is shut all three days.</td></tr>
+</tbody></table>
+</div>
+
+
+<h3 id="almtal-days">Day by day</h3>
+
+<div class="days">
+<div class="day"><h4>Mon 3 Aug - drive, settle, Traunsee</h4>
+<p>Leave Vienna about 10:00, one 35 minute stop, arrive Untersperr <strong>13:30 to 14:00</strong>. Shop at <strong>BILLA Scharnstein</strong> on the way in or straight after unpacking, because midweek afternoon closing is a real risk later. Then the easy win: <strong>Strandbad Gmunden</strong> is 22 to 30 minutes away and open until 20:00, so a late-afternoon swim banks the Traunsee on day one while the heat is still 30 C plus. Dinner: <strong>Forellenhof-Wieselmuehle</strong> in Gruenau (opens 17:30, closes 20:30 sharp) or <strong>Schatzlmuehle</strong> five minutes from the house. <em>Gasthaus Germdiele is open tonight only</em> if you want the Gruenau village option. Weather: 33.5 C, dry, the windiest of the three days.</p></div>
+
+<div class="day"><h4>Tue 4 Aug - Mondsee, the full day</h4>
+<p>The one day long enough for it. <strong>Alpenseebad Mondsee</strong> opens 09:00; leaving by 08:30 puts you there before the car park fills, and EUR 20 covers all four with the 5 year old free. Ring +43 6232 2291 first - they post weather closures that morning, and the two big slides were shut for low water in early July. The shallow paddling pools mean the 5 year old is not dependent on open lake water. If the lido is packed, <strong>Badeplatz Loibichl</strong> is free, closer, quieter and has a purpose-built children's sand cove; parking EUR 5. Back for dinner at <strong>Schatzlmuehle</strong> or <strong>Wieselmuehle</strong>. Weather: 33.6 C, almost no wind, a 25 percent chance of one afternoon shower around 16:00 - a heat shower, not a washout. This is the most oppressive day at an exposed lido, so take shade.</p></div>
+
+<div class="day"><h4>Wed 5 Aug - checkout, then beat the rain home</h4>
+<p><strong>Charge to 90 percent plus at the Autohaus Almtal point, 1.2 km away, before you load the car.</strong> Then one short thing close by: the <strong>Almsee</strong> circuit (30-36 min, paddle and walk, not a swim - the water is spring-fed and cold), or <strong>Ruine Scharnstein</strong> ten minutes away by the forest road rather than the 260 steps, or the <strong>Freibad Gruenau</strong> from 08:00 if the boys want water. <strong>Gasthof Seehaus am Almsee is open on Wednesday and only Wednesday</strong>, kitchen 11:30-14:30, and it is the best setting of the whole trip - the natural last lunch before driving. Then go: <strong>rain probability climbs from 26 percent at 15:00 to 63 percent by 20:00</strong>, and the A1 roadworks between Haag and St Valentin sit on your carriageway home. Finish anything outdoors by 14:00.</p></div>
+</div>
+
+
+<h3 id="almtal-do">If you want more than lakes</h3>
+<div class="table-wrap"><table class="dt">
+<thead><tr><th>What</th><th>Where / drive</th><th>Hours and price</th><th>Why for these boys</th></tr></thead><tbody>
+<tr><td><strong>Cumberland Wildpark Gruenau</strong> <span class="badge b-green" title="wildpark.at/oeffnungszeiten-preise">confirmed</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Cumberland%20Wildpark%20Gruenau%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a></td><td>Fischerau 12, 4645 Gruenau im Almtal<div class="sub">25-30 min realistic (11.2 km)</div></td><td>Daily 09:00-17:00 April-October, exit allowed until 19:00, open 365 days, NO rest day. Adults EUR 14, children 6-14.99 EUR 8, family ticket EUR 38. Evening ticket EUR 8.50 / 6.00 after 16:00. Phone +43 7616 8425.</td><td>The strongest single anchor of the trip. 60 hectares, about 500 native animals, and brown bears sharing an enclosure with wolves, which is unique in Austria. The 5 km circuit is flat, shaded forest and stroller-passable, with a playground and the Wildparkstueberl for food, and you can turn back after 90 minutes without wasting the ticket. HEAT RULE: with 33 C forecast, go at 09:00 opening or take the cheap evening ticket after 16:00 - midday on a 5 km loop with a 5 year old is a mistake. Money note: children under 6 appear to be free, which would make 2 adults plus the 8 year old EUR 36 bought singly, cheaper than the EUR 38 family card. Ask at the gate.</td></tr>
+<tr><td><strong>Erlebnis-Freibad Gruenau</strong> <span class="badge b-green" title="freibadgruenau.at">confirmed</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Erlebnis-Freibad%20Gruenau%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a></td><td>Im Dorf 8, 4645 Gruenau im Almtal<div class="sub">18-21 min realistic (8.6 km)</div></td><td>Daily 08:00-22:00 to mid-September, weather permitting, no rest day. Adult EUR 5.50, child 6-14 EUR 2.80; from 16:00 EUR 3.70 / 1.90. So about EUR 16.60 for the family. Phone +43 7616 8080 (the pool&#x27;s own site scrapes a Netherlands mobile number - do not dial that one).</td><td>The underrated pick and the best heat-management tool on the list. Heated main pool, a waterslide into a leisure basin, and a shallow childrens pool the 5 year old can stand up in, plus a buffet running 08:00-22:00. Twenty minutes away, open from 08:00 to 22:00, and it is the right fallback if Wednesday afternoon turns wet.</td></tr>
+<tr><td><strong>Almsee and the Almsee Rundweg</strong> <span class="badge b-amber" title="oberoesterreich.at Almsee-Rundweg; swimming status conflicting across bergfex and salzkammergut.at">likely</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Almsee%20and%20the%20Almsee%20Rundweg%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a></td><td>Head of the Almtal, Gruenau im Almtal<div class="sub">30-36 min realistic (21 km)</div></td><td>Free, always open. Parking [verify]. Circuit roughly 6 km, about 1.5 hours, stroller-passable, benches and shore access.</td><td>A karst-spring lake in a protected landscape under the Totes Gebirge, where the Konrad Lorenz grey geese live. In a 33 C spell the Almtal runs about 2 C cooler than the Traunsee basin and this shore is the shade refuge. READ THIS THOUGH: swimming here is tolerated rather than permitted, confined in practice to a small public area at the north end, and the water is spring-fed and cold - sources say at most 14 C, annual mean near 8 C. Plan it as a paddle and a walk, NOT as one of the two must-do swims. A 5 year old in 14 C water lasts about ninety seconds.</td></tr>
+<tr><td><strong>Ruine Scharnstein</strong> <span class="badge b-amber" title="mamilade and salzkammergut.at tour listings">likely</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Ruine%20Scharnstein%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a></td><td>Scharnstein, start from the Sensenmuseum Geyerhammer car park, Grubbachstrasse<div class="sub">10-12 min realistic (4.3 km)</div></td><td>Free, always open. Circular walk 4-5 km, about 1.5 hours.</td><td>The free option ten minutes from the house: a ruined hilltop castle with a view over the Almtal. Two ways up - about 260 steps past a chapel built into the rock, or a gentler forest road. TAKE THE FOREST ROAD with a 5 year old. Best as an early morning or after-dinner hour on a day you are not driving anywhere, or as the Wednesday-morning item before the rain arrives.</td></tr>
+<tr><td><strong>Gmundner Keramik factory tour</strong> <span class="badge b-amber" title="gmundner.com Manufakturfuehrung">likely</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Gmundner%20Keramik%20factory%20tour%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a></td><td>Keramikstrasse 24, 4810 Gmunden<div class="sub">31-38 min realistic</div></td><td>Tour Mon-Sat 10:30-13:00, plus Sundays in Jun-Aug. Runs on all three of our days. About 60 minutes. EUR 9.50 per person, UNDER 14 FREE, and the ticket is refunded on a EUR 50+ shop purchase. Phone +43 7612 786-381.</td><td>About EUR 19 for two adults with both boys free: the cheapest indoor hour in Gmunden and the only strong wet-weather option open on Monday and Tuesday. Indoors, weather-independent, with a touch station and a photo station. Realistically the 8 year old gets more from it than the 5 year old. Call to confirm the slot - the window is only 2.5 hours wide.</td></tr>
+<tr><td><strong>Seeschloss Ort</strong> <span class="badge b-amber" title="gmunden.at Schloss Ort; the listing also says opening times on request, so phone first">likely</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Seeschloss%20Ort%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a></td><td>Gmunden, on the Traunsee, reached by a 123 m wooden bridge<div class="sub">31-36 min realistic (18.3 km)</div></td><td>April-October Tuesday to Sunday 10:00-17:00, so CLOSED MONDAY, open Tue 4 and Wed 5. Price not published anywhere [verify]. Phone +43 7612 794403.</td><td>The bridge and the outside ARE the attraction for a 5 year old, and both are free. Walk the 123 m bridge, look at the swans, leave. Do not buy tickets to a mountaineering-history exhibition for a 5 year old. Pairs naturally with a Strandbad Gmunden afternoon since both sit on the same lakefront.</td></tr>
+<tr><td><strong>Gruenberg cable car plus Baumwipfelpfad</strong> <span class="badge b-green" title="gruenberg.info Betriebszeiten and Bergbahn-Tarife; baumwipfelpfad.de">confirmed</span> <a href="https://www.google.com/maps/search/?api=1&amp;query=Gruenberg%20cable%20car%20plus%20Baumwipfelpfad%2C%20Oberoesterreich" target="_blank" rel="noopener">map</a></td><td>Gruenberg valley station, Gmunden<div class="sub">36-42 min realistic (21.6 km), paid car park</div></td><td>Cable car 4 Jul-13 Sep daily 09:00-19:00 every 15 min; treetop path 28 Jun-7 Sep daily 09:30-18:30, last entry 17:30. Cable car family 2+2 EUR 70.60. Path adult EUR 14.50, children born 2020 or later free with a parent. Combination adult EUR 39.00 / 37.20 online.</td><td>The most expensive two hours available on this trip, roughly EUR 95-105 all in, and genuinely good: a 1,400 m walkway up to 21 m above the forest with a 39 m tower over the Traunsee, and a maximum 6 percent gradient so the 5 year old can walk all of it. TWO HARD CONSTRAINTS: you CANNOT drive up, the cable car is compulsory, so EUR 70.60 is the floor; and the 75 m tunnel slide is age 6 plus, meaning the 8 year old can ride and the 5 year old cannot. Pre-brief that or expect tears at the top of a mountain. It will eat the whole anchor slot for its day and it competes directly with the Wildpark.</td></tr>
+</tbody></table></div>
+
+<h3 id="almtal-map">Map</h3>
+<p class="sub">Red: the house. Green and blue: the swimming spots (Mondsee green, Traunsee blue). Brown: food. Purple: things to do. Dark green: chargers. Tap a pin for the note and a Navigate link.</p>
+<div id="mapAlmtal" class="map"></div>
+</section>
 
 <section class="trip crete" id="crete" data-trip="crete">
 <div class="arch-banner arch-done">TRIP COMPLETED 21-26 Jul 2026 - archived as the family record. What actually happened: Speedwheel rental (7-seater, Thu-Sun), dinners mostly at the resort, Mylos tou Kerata the standout night out, Tamam for the Chania day (Parking Apollon), Caravella lunch plus Ammoudia Beach on the Paleochora day, Haroupia for the last night. The taverna list below was set aside on local advice and is kept for the road-surface research.</div>
@@ -447,6 +589,13 @@ section.trip-hidden{display:none}
 
 </section>
 
+<div class="archlinks">
+<h4>Past trips</h4>
+<p>Archived and kept as the family record:
+<a data-goto="crete">Crete, Platanias</a> (21-26 July 2026, completed) and
+<a data-goto="amalfi">Vienna to the Amalfi Coast</a> (cancelled). Both open in place; the button at the top brings you back.</p>
+</div>
+
 <footer>
 <p>Built from verification-first research (16 July 2026). Every price, hour and charger flag carries its confidence; nothing here replaces a direct call or booking confirmation. Drive times are padded ranges, not optimistic single numbers.</p>
 <p>Hover a taverna cross-check badge for its road-surface note, or open the site links in the hotel tables. Verify before you pay.</p>
@@ -574,14 +723,39 @@ const corrStops=[
 const creteMarkers=buildMap('mapCrete', creteStops, [35.45,23.85], 9);
 const coastMarkers=buildMap('mapCoast', coastStops, [40.63,14.5], 11);
 buildMap('mapCorr', corrStops, [45,13], 5);
+const almtalStops=[
+{color:'#e63946',id:'al-base',name:`HOUSE: Untersperr 8, Viechtwang`,lat:47.8917,lon:13.9861,note:`Our house. Scharnstein municipality, Almtal valley, Upper Austria.`,gmaps:`https://www.google.com/maps/search/?api=1&query=HOUSE%3A%20Untersperr%208%2C%20Viechtwang`},
+{color:'#2a9d8f',id:'al-swim-alpenseebad-mondsee',name:`Alpenseebad Mondsee`,lat:47.85639,lon:13.35194,note:`Seebadstrasse 3, 5310 Mondsee - EUR 20.00 for all four, full day (adults 8.00 each, the 8yo 4.00, UNDER-6 FREE so the 5yo costs nothing). EUR 15.50 after 14:00, EUR 11.50 after 16:00. Salzkammergut/Familien-Card knocks a euro off each.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Alpenseebad%20Mondsee`},
+{color:'#2a9d8f',id:'al-swim-badeplatz-loibichl',name:`Badeplatz Loibichl`,lat:47.84306,lon:13.41111,note:`5311 Innerschwand am Mondsee, east shore - FREE. Parking EUR 5.00 per car, 15 May to 15 Sep, 10:00-18:00, ticket machine on site.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Badeplatz%20Loibichl`},
+{color:'#1d7fbe',id:'al-swim-strandbad-gmunden',name:`Strandbad Gmunden`,lat:47.90889,lon:13.79306,note:`Dr.-Franz-Thomas-Strasse 13, 4810 Gmunden - Familienkarte (2 adults + children) EUR 13.30 full day, EUR 11.00 after 16:00. Singles: adult 6.30, child 6-14 2.80. No under-6 rate is published, so ask at the till.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Strandbad%20Gmunden`},
+{color:'#1d7fbe',id:'al-swim-badeplatz-braeuwiese',name:`Badeplatz Braeuwiese`,lat:47.85111,lon:13.78167,note:`Aueck 1, 4801 Traunkirchen, on the B145 between Altmuenster and Traunkirchen - FREE. Parking EUR 5.00/day, 15 May to 15 Sep, 10:00-18:00.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Badeplatz%20Braeuwiese`},
+{color:'#1d7fbe',id:'al-swim-badeplatz-badeinsel-traunkirchen',name:`Badeplatz Badeinsel Traunkirchen`,lat:47.84889,lon:13.78889,note:`Ortsplatz 1, 4801 Traunkirchen, foot of the Johannesberg - FREE. Parking not documented [verify].`,gmaps:`https://www.google.com/maps/search/?api=1&query=Badeplatz%20Badeinsel%20Traunkirchen`},
+{color:'#1d7fbe',id:'al-swim-freizeitanlage-rindbach-ebensee',name:`Freizeitanlage Rindbach, Ebensee`,lat:47.80889,lon:13.78528,note:`Strandbadstrasse, 4802 Ebensee, south shore - FREE. Parking EUR 1/hour, daily cap EUR 8, 120 spaces, 08:00-20:00.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Freizeitanlage%20Rindbach%2C%20Ebensee`},
+{color:'#1d7fbe',id:'al-swim-badeplatz-winkl-avoid-with-the-5-year-ol',name:`Badeplatz Winkl - AVOID with the 5 year old`,lat:47.83778,lon:13.79833,note:`Traunkirchen - Free`,gmaps:`https://www.google.com/maps/search/?api=1&query=Badeplatz%20Winkl`},
+{color:'#7d5ba6',id:'al-do-cumberland-wildpark-gruenau',name:`Cumberland Wildpark Gruenau`,lat:47.84167,lon:13.94722,note:`Daily 09:00-17:00 April-October, exit allowed until 19:00, open 365 days, NO rest day. Adults EUR 14, children 6-14.99 EUR 8, family ticket EUR 38. Evening ticket EUR 8.50 / 6.00 after 16:00. Phone +43 7616 8425.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Cumberland%20Wildpark%20Gruenau`},
+{color:'#7d5ba6',id:'al-do-erlebnis-freibad-gruenau',name:`Erlebnis-Freibad Gruenau`,lat:47.85222,lon:13.95917,note:`Daily 08:00-22:00 to mid-September, weather permitting, no rest day. Adult EUR 5.50, child 6-14 EUR 2.80; from 16:00 EUR 3.70 / 1.90. So about EUR 16.60 for the family. Phone +43 7616 8080 (the pool's own site scrapes a Netherlands mobile number - do not dial that one).`,gmaps:`https://www.google.com/maps/search/?api=1&query=Erlebnis-Freibad%20Gruenau`},
+{color:'#7d5ba6',id:'al-do-almsee-and-the-almsee-rundweg',name:`Almsee and the Almsee Rundweg`,lat:47.76111,lon:13.95833,note:`Free, always open. Parking [verify]. Circuit roughly 6 km, about 1.5 hours, stroller-passable, benches and shore access.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Almsee%20and%20the%20Almsee%20Rundweg`},
+{color:'#7d5ba6',id:'al-do-ruine-scharnstein',name:`Ruine Scharnstein`,lat:47.89111,lon:13.96111,note:`Free, always open. Circular walk 4-5 km, about 1.5 hours.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Ruine%20Scharnstein`},
+{color:'#7d5ba6',id:'al-do-gmundner-keramik-factory-tour',name:`Gmundner Keramik factory tour`,lat:47.92389,lon:13.79556,note:`Tour Mon-Sat 10:30-13:00, plus Sundays in Jun-Aug. Runs on all three of our days. About 60 minutes. EUR 9.50 per person, UNDER 14 FREE, and the ticket is refunded on a EUR 50+ shop purchase. Phone +43 7612 786-381.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Gmundner%20Keramik%20factory%20tour`},
+{color:'#7d5ba6',id:'al-do-seeschloss-ort',name:`Seeschloss Ort`,lat:47.90889,lon:13.78389,note:`April-October Tuesday to Sunday 10:00-17:00, so CLOSED MONDAY, open Tue 4 and Wed 5. Price not published anywhere [verify]. Phone +43 7612 794403.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Seeschloss%20Ort`},
+{color:'#7d5ba6',id:'al-do-gruenberg-cable-car-plus-baumwipfelpfad',name:`Gruenberg cable car plus Baumwipfelpfad`,lat:47.90417,lon:13.81389,note:`Cable car 4 Jul-13 Sep daily 09:00-19:00 every 15 min; treetop path 28 Jun-7 Sep daily 09:30-18:30, last entry 17:30. Cable car family 2+2 EUR 70.60. Path adult EUR 14.50, children born 2020 or later free with a parent. Combination adult EUR 39.00 / 37.20 online.`,gmaps:`https://www.google.com/maps/search/?api=1&query=Gruenberg%20cable%20car%20plus%20Baumwipfelpfad`},
+{color:'#3a7d44',id:'al-ev-autohaus-almtal-muehldorf',name:`CHARGE: Autohaus Almtal Muehldorf`,lat:47.89967,lon:13.9498,note:`Alpitronic 150 kW DC, 2 x CCS, plus 3 x AC Type 2 at 22 kW (neoom). Operator kW-Solutions, runs off its own PV and battery.`,gmaps:`https://www.google.com/maps/search/?api=1&query=CHARGE%3A%20Autohaus%20Almtal%20Muehldorf`},
+{color:'#3a7d44',id:'al-ev-cumberland-wildpark-gruenau',name:`CHARGE: Cumberland Wildpark Gruenau`,lat:47.84167,lon:13.94722,note:`2 x CCS 50 kW (Energie AG) plus 6 x Type 2 at 11 kW`,gmaps:`https://www.google.com/maps/search/?api=1&query=CHARGE%3A%20Cumberland%20Wildpark%20Gruenau`},
+{color:'#3a7d44',id:'al-ev-kasberg-gruenau-talstation',name:`CHARGE: Kasberg-Gruenau Talstation`,lat:47.83472,lon:13.96528,note:`CCS 50 kW, 10 charge points (Smatrics)`,gmaps:`https://www.google.com/maps/search/?api=1&query=CHARGE%3A%20Kasberg-Gruenau%20Talstation`},
+{color:'#3a7d44',id:'al-ev-frutura-vorchdorf',name:`CHARGE: Frutura Vorchdorf`,lat:47.99444,lon:13.90278,note:`16 x CCS up to 400 kW (Smatrics EnBW Hypercharger), 2 x CHAdeMO`,gmaps:`https://www.google.com/maps/search/?api=1&query=CHARGE%3A%20Frutura%20Vorchdorf`},
+{color:'#3a7d44',id:'al-ev-eni-tankstelle-vorchdorf',name:`CHARGE: Eni Tankstelle Vorchdorf`,lat:47.99361,lon:13.90417,note:`6 x CCS 150 kW (Plenitude On The Road), 1 x CHAdeMO 50 kW`,gmaps:`https://www.google.com/maps/search/?api=1&query=CHARGE%3A%20Eni%20Tankstelle%20Vorchdorf`},
+{color:'#3a7d44',id:'al-ev-kirchenplatz-scharnstein-ac-only',name:`CHARGE: Kirchenplatz Scharnstein (AC only)`,lat:47.88972,lon:13.9625,note:`2 x Type 2 at 11 kW (be.energised)`,gmaps:`https://www.google.com/maps/search/?api=1&query=CHARGE%3A%20Kirchenplatz%20Scharnstein`}
+];
+buildMap('mapAlmtal', almtalStops, [47.9,13.9], 10);
 
 /* ---------- persistent choice state ---------- */
 const KEY='demczuk-itinerary-v2';
-let state={cretePicks:{},amalfiPicks:{},base:'sorrento',filters:{elev:'500',drive:'999',paved:true},cretePlan:{},tab:'crete'};
+let state={cretePicks:{},amalfiPicks:{},almtalPicks:{},base:'sorrento',filters:{elev:'500',drive:'999',paved:true},cretePlan:{},tab:'almtal'};
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&typeof s==='object')state=Object.assign(state,s);}catch(e){}
 function saveState(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
 
 const CRETE_SLOTS=['unslotted','Wed 22 - cool-evening drive','Thu 23 - after-boat dinner','Fri 24 - mountain lunch (swap day)','Sat 25 - Elafonisi-day lunch','Sat 25 - last-night dinner','Tue 21 - arrival dinner','Wed 22 - Chania dinner','Fri 24 - dinner'];
+const ALMTAL_SLOTS=['unslotted','Mon 3 - lunch on the way','Mon 3 - dinner','Tue 4 - breakfast','Tue 4 - lunch','Tue 4 - dinner','Wed 5 - breakfast','Wed 5 - lunch on the way home'];
 const AMALFI_SLOTS=['unslotted','Day 3 - arrival evening','Day 4 - Positano day','Day 5 - Capri day','Day 6 - Herculaneum day','Day 7 - Amalfi/Ravello day'];
 
 function renderShortlist(listName, slotsDivId, emptyId, slotOptions){
@@ -603,13 +777,16 @@ function renderShortlist(listName, slotsDivId, emptyId, slotOptions){
   div.appendChild(ul);
 }
 function renderAllShortlists(){
+  renderShortlist('almtalPicks','almtalSlots','almtalEmpty',ALMTAL_SLOTS);
   renderShortlist('cretePicks','creteSlots','creteEmpty',CRETE_SLOTS);
   renderShortlist('amalfiPicks','amalfiSlots','amalfiEmpty',AMALFI_SLOTS);
 }
 
-/* ---------- pick checkboxes (both trips) ---------- */
+/* ---------- pick checkboxes (all trips) ---------- */
+function LIST_OF(cb){const d=cb.dataset.list; return d==='amalfi'?'amalfiPicks':(d==='almtal'?'almtalPicks':'cretePicks');}
+function SLOTS_OF(cb){const d=cb.dataset.list; return d==='amalfi'?AMALFI_SLOTS:(d==='almtal'?ALMTAL_SLOTS:CRETE_SLOTS);}
 document.querySelectorAll('input.pick').forEach(cb=>{
-  const id=cb.dataset.pick, listName=cb.dataset.list==='amalfi'?'amalfiPicks':'cretePicks';
+  const id=cb.dataset.pick, listName=LIST_OF(cb);
   if(state[listName][id]){cb.checked=true;cb.closest('tr').classList.add('picked');}
   cb.addEventListener('change',()=>{
     const tr=cb.closest('tr');
@@ -619,10 +796,11 @@ document.querySelectorAll('input.pick').forEach(cb=>{
   });
 });
 document.getElementById('creteClear').addEventListener('click',()=>{state.cretePicks={};saveState();syncPickBoxes();renderAllShortlists();rerouteCrete();planRender();});
+document.getElementById('almtalClear').addEventListener('click',()=>{state.almtalPicks={};saveState();syncPickBoxes();renderAllShortlists();});
 document.getElementById('amalfiClear').addEventListener('click',()=>{state.amalfiPicks={};saveState();syncPickBoxes();renderAllShortlists();});
 function syncPickBoxes(){
   document.querySelectorAll('input.pick').forEach(cb=>{
-    const listName=cb.dataset.list==='amalfi'?'amalfiPicks':'cretePicks';
+    const listName=LIST_OF(cb);
     cb.checked=!!state[listName][cb.dataset.pick];
     cb.closest('tr').classList.toggle('picked',cb.checked);
   });
@@ -633,8 +811,8 @@ function syncPickBoxes(){
    two separate steps in two places; now every pick row carries its own "when?"
    dropdown, and choosing a slot both picks the place and slots it in one tap) ---------- */
 document.querySelectorAll('input.pick').forEach(cb=>{
-  const listName=cb.dataset.list==='amalfi'?'amalfiPicks':'cretePicks';
-  const slots=listName==='amalfiPicks'?AMALFI_SLOTS:CRETE_SLOTS;
+  const listName=LIST_OF(cb);
+  const slots=SLOTS_OF(cb);
   const sel=document.createElement('select');
   sel.className='rowslot';
   sel.setAttribute('aria-label','choose a meal slot for '+cb.dataset.name);
@@ -658,7 +836,7 @@ function syncRowSlots(){
   document.querySelectorAll('select.rowslot').forEach(sel=>{
     const cb=sel.previousElementSibling;
     if(!cb||!cb.dataset)return;
-    const listName=cb.dataset.list==='amalfi'?'amalfiPicks':'cretePicks';
+    const listName=LIST_OF(cb);
     const p=state[listName][cb.dataset.pick];
     sel.value=(p&&p.slot)?p.slot:'unslotted';
     sel.classList.toggle('slotted',!!(p&&p.slot&&p.slot!=='unslotted'));
@@ -843,18 +1021,27 @@ document.getElementById('creteAddAll').addEventListener('click',()=>{
 });
 document.getElementById('cretePlanClear').addEventListener('click',()=>{state.cretePlan={};saveState();planRender();rerouteCrete();});
 
-/* ---------- trip tabs (Crete / Amalfi) ---------- */
+/* ---------- trip switching. The CURRENT trip is the page; archived trips are
+   reached from a foot-of-page link and leave via a slim return bar, so the
+   archive costs a single line of vertical space instead of two large tabs. ---------- */
+const TRIPS=["almtal", "crete", "amalfi"];
+const CURRENT_TRIP="almtal";
+const TRIP_LABEL={"almtal": "Almtal, Upper Austria", "crete": "Crete, Platanias", "amalfi": "Vienna to the Amalfi Coast"};
 function setTrip(t, toTop){
-  if(t!=='crete'&&t!=='amalfi') t='crete';
+  if(TRIPS.indexOf(t)<0) t=CURRENT_TRIP;
   state.tab=t; saveState();
-  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));
   document.querySelectorAll('section.trip').forEach(s=>s.classList.toggle('trip-hidden',s.dataset.trip&&s.dataset.trip!==t));
   document.querySelectorAll('.nav a[data-trip]').forEach(a=>a.classList.toggle('nav-hidden',a.dataset.trip!==t));
-  // maps that were sized while hidden need a resize + refit once their tab is visible
+  const bar=document.getElementById('archBar'), now=document.getElementById('archNow');
+  if(bar){ bar.classList.toggle('on', t!==CURRENT_TRIP);
+    if(now) now.textContent = t!==CURRENT_TRIP ? ('Viewing an archived trip: '+(TRIP_LABEL[t]||t)) : ''; }
+  // maps that were sized while hidden need a resize + refit once their trip is visible
   requestAnimationFrame(()=>{Object.keys(MAP_FIT).forEach(id=>{const el=document.getElementById(id);if(el&&!el.closest('.trip-hidden'))MAP_FIT[id]();});});
   if(toTop) window.scrollTo({top:0});
 }
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setTrip(b.dataset.tab,true)));
+document.querySelectorAll('[data-goto]').forEach(a=>a.addEventListener('click',()=>setTrip(a.dataset.goto,true)));
+const backBtn=document.getElementById('archBack');
+if(backBtn) backBtn.addEventListener('click',()=>setTrip(CURRENT_TRIP,true));
 document.querySelectorAll('.nav a[data-trip]').forEach(a=>a.addEventListener('click',ev=>{
   const trip=a.dataset.trip, tgt=document.getElementById(a.getAttribute('href').slice(1));
   if(trip!==state.tab){ ev.preventDefault(); setTrip(trip); if(tgt) requestAnimationFrame(()=>tgt.scrollIntoView({behavior:'smooth',block:'start'})); }
@@ -866,7 +1053,7 @@ applyBase();
 renderAllShortlists();
 planRender();
 rerouteCrete();
-setTrip(state.tab);
+setTrip(CURRENT_TRIP);
 </script>
 
 <script>
