@@ -10,36 +10,47 @@
     --ink:#16212b; --muted:#5a6a78; --ground:#f5f7f9; --card:#fff;
     --accent:#8c2f39; --accent-soft:#f3e7e8;
     --open:#1d7a44; --open-bg:#e6f3ec; --shut:#8a2020; --shut-bg:#fbe9e9;
-    --line:#dfe5ea;
+    --warn:#8a6100; --warn-bg:#fdf2da; --line:#dfe5ea;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--ground);
        color:var(--ink);line-height:1.5;padding:1.1rem .9rem 3rem}
-  main{max-width:720px;margin:0 auto}
-  h1{font-family:Georgia,serif;font-size:1.65rem;line-height:1.2;text-wrap:balance}
-  .sub{color:var(--muted);margin-top:.4rem;font-size:.94rem}
+  main{max-width:730px;margin:0 auto}
+  h1{font-family:Georgia,serif;font-size:1.62rem;line-height:1.2;text-wrap:balance}
+  .sub{color:var(--muted);margin-top:.4rem;font-size:.93rem}
   .rulenote{background:var(--accent-soft);border:1px solid #e6d2d4;border-left:4px solid var(--accent);
-       border-radius:8px;padding:.7rem .9rem;margin:1rem 0 1.3rem;font-size:.89rem;color:#5d3a3e}
+       border-radius:8px;padding:.7rem .9rem;margin:1rem 0 1.3rem;font-size:.88rem;color:#5d3a3e}
   .card{background:var(--card);border:1px solid var(--line);border-radius:10px;
-        padding:1rem 1.05rem;margin-bottom:.85rem}
+        padding:1rem 1.05rem;margin-bottom:.8rem}
   .card.shut{opacity:.72;border-style:dashed}
   .toprow{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap}
-  .score{font-family:Georgia,serif;font-size:1.3rem;color:var(--accent);
+  .score{font-family:Georgia,serif;font-size:1.28rem;color:var(--accent);
          font-variant-numeric:tabular-nums;min-width:2.2rem}
-  .name{font-size:1.1rem;font-weight:650}
-  .meta{color:var(--muted);font-size:.87rem;margin-top:.15rem}
+  .score.none{font-size:.9rem;color:var(--muted);font-family:inherit}
+  .name{font-size:1.08rem;font-weight:650}
+  .meta{color:var(--muted);font-size:.86rem;margin-top:.15rem}
   .pill{display:inline-block;border-radius:999px;padding:.12rem .58rem;
-        font-size:.77rem;font-weight:600;white-space:nowrap}
+        font-size:.76rem;font-weight:600;white-space:nowrap}
   .pill.open{background:var(--open-bg);color:var(--open)}
   .pill.shut{background:var(--shut-bg);color:var(--shut)}
-  .why{margin:.5rem 0 .3rem;font-size:.94rem}
-  .note{font-size:.86rem;color:var(--muted);margin-bottom:.45rem}
+  .pill.warn{background:var(--warn-bg);color:var(--warn)}
+  .why{margin:.5rem 0 .3rem;font-size:.93rem}
+  .note{font-size:.85rem;color:var(--muted);margin-bottom:.45rem}
   .links{display:flex;flex-wrap:wrap;gap:.4rem .5rem;margin-top:.5rem}
-  .links a{text-decoration:none;font-size:.85rem;font-weight:600;color:var(--accent);
+  .links a{text-decoration:none;font-size:.84rem;font-weight:600;color:var(--accent);
      background:var(--accent-soft);border:1px solid #e6d2d4;border-radius:7px;padding:.32rem .6rem}
-  h2{font-family:Georgia,serif;font-size:1.1rem;margin:1.5rem 0 .65rem}
+  h2{font-family:Georgia,serif;font-size:1.08rem;margin:1.6rem 0 .3rem}
+  .h2sub{color:var(--muted);font-size:.85rem;margin-bottom:.7rem}
+  .tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);
+     border-radius:10px;padding:.4rem .2rem}
+  table{border-collapse:collapse;width:100%;font-size:.85rem;min-width:420px}
+  th,td{text-align:left;padding:.42rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:.76rem;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+  td.pts{font-variant-numeric:tabular-nums;font-weight:650;color:var(--accent);white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  tr.here td{background:#fbf6f6}
   footer{margin-top:1.9rem;padding-top:1rem;border-top:1px solid var(--line);
-     font-size:.82rem;color:var(--muted)}
+     font-size:.81rem;color:var(--muted)}
   footer p{margin-bottom:.55rem}
 </style>
 </head>
@@ -47,19 +58,22 @@
 <main>
 <header>
   <h1>Bratislava, Sunday lunch: the ranked list</h1>
-  <p class="sub">Rebuilt 16 August 2026 after the first list was rejected as too tourist-facing. Ranked by the <strong>Falstaff Restaurant Guide Slovakia 2026</strong>, the guide that actually covers this region, on its 100-point scale. Every venue below was checked for <strong>today's</strong> Sunday hours against the venue's own channels, this afternoon.</p>
+  <p class="sub">Rebuilt 16 August 2026 after the first version was rejected as too tourist-facing. Ranked by the <strong>Falstaff Restaurant Guide Slovakia 2026</strong>, the guide that covers this region, on its 100-point scale. Sunday hours for <strong>today</strong> checked against each venue's own channels this afternoon. Nothing from the earlier version has been deleted; it is all still below, with scores attached.</p>
 </header>
 
 <div class="rulenote">
-  What changed: the first version led with two famous names off aggregator ratings. This one leads with what the regional critic scores highest and what works with an 8 and a 5 year old. Michelin does not cover Slovakia, so ignore any Michelin claim you see about Bratislava. A conflicting source never deletes a venue here; it earns a note and a phone number.
+  What changed: version one ranked on aggregator stars, which reward famous and central. This one ranks on the regional critic and on what works with an 8 and a 5 year old. Michelin does not cover Slovakia, so ignore any Michelin claim about Bratislava. A conflicting source never deletes a venue here, it earns a note and a phone number.
 </div>
+
+<h2>The five to choose from today</h2>
+<p class="h2sub">All open now, all verified against the venue's own word.</p>
 
 <div class="card">
   <div class="toprow"><span class="score">95</span><span class="name">Riverbank</span>
-    <span class="pill open">Open today 11:30 to 22:00</span></div>
-  <div class="meta">Modern <strong>regional Slovak</strong> cooking with French technique. Chef Jaroslav &#381;&iacute;dek. Dvo&#345;&aacute;kovo n&aacute;bre&#382;ie 6, on the Danube embankment.</div>
-  <p class="why">Falstaff's own words: a stable choice for "business lunches and <strong>family gatherings</strong> on the Danube embankment", and of the chef, "no longer has to prove anything, his quality has been consistent for years". Food scores 49 out of 50. This is the proper Slovak cooking the first list was missing.</p>
-  <p class="note">Straight talk for the boys: no children's menu and no pizza. What works is already on the carte, the Hov&auml;dzie beef broth with homemade noodles at 8.90, grilled chicken at 27.90, cr&egrave;me br&ucirc;l&eacute;e at 9.90. Mains otherwise run 18.90 to 64.90. Ask for a detsk&aacute; por&ccedil;ia when you call, and ask for the terrace. Barrier-free, parking on site. One source, Falstaff's own venue page, wrongly lists it shut at weekends; the venue posted its Saturday and Sunday hours itself on 31 July and is showing open right now.</p>
+    <span class="pill open">Today 11:30 to 22:00</span></div>
+  <div class="meta">Modern <strong>regional Slovak</strong> cooking with French technique. Chef Jaroslav &#381;&iacute;dek. Dvo&#345;&aacute;kovo n&aacute;bre&#382;ie 6.</div>
+  <p class="why">Falstaff's own words: a stable choice for "business lunches and <strong>family gatherings</strong> on the Danube embankment", and of the chef, "no longer has to prove anything, his quality has been consistent for years". Subscores food 49/50, service 17/20, wine 19/20, style 10/10. This is the proper Slovak cooking version one lacked.</p>
+  <p class="note">Straight talk for the boys: no children's menu, no pizza. What works is on the carte already, the Hov&auml;dzie beef broth with homemade noodles 8.90, grilled chicken 27.90, cr&egrave;me br&ucirc;l&eacute;e 9.90; other mains 18.90 to 64.90, tasting menu 95. Ask for a detsk&aacute; por&ccedil;ia and for the terrace when you call. Barrier-free, parking on site. Note the conflict: Falstaff's own venue page lists it shut at weekends, but the venue posted its own Saturday and Sunday hours on 31 July and shows open right now, so the venue wins.</p>
   <div class="links">
     <a href="https://www.google.com/maps/search/?api=1&amp;query=RIVERBANK%20Restaurant%20Dvo%C5%99%C3%A1kovo%20n%C3%A1bre%C5%BEie%20Bratislava">Google Maps</a>
     <a href="tel:+421910872168">Call +421 910 872 168</a>
@@ -69,10 +83,10 @@
 
 <div class="card">
   <div class="toprow"><span class="score">94</span><span class="name">Massimo Ristorante</span>
-    <span class="pill open">Open today 12:00 to 22:00</span></div>
-  <div class="meta">Chef Massimo Attanasio. Homemade pasta and Neapolitan pizza on long-fermented dough. Dvo&#345;&aacute;kovo n&aacute;bre&#382;ie 4, River Park.</div>
-  <p class="why">The highest-scoring place on this list that a five year old will straightforwardly enjoy: food 48 out of 50, and it is real Neapolitan pizza rather than pizza as a concession. Kitchen cooks until 21:30.</p>
-  <p class="note">Walk in now, no booking needed at this hour on a Sunday. Terrace facing the Danube, with the wide car-free promenade right in front for running between courses. This is my pick if you want the boys relaxed and the food still seriously good.</p>
+    <span class="pill open">Today 12:00 to 22:00, cooks to 21:30</span></div>
+  <div class="meta">Chef Massimo Attanasio. Homemade pasta, Neapolitan pizza on long-fermented dough. Dvo&#345;&aacute;kovo n&aacute;bre&#382;ie 4, River Park.</div>
+  <p class="why">The highest score here that a five year old will straightforwardly enjoy: food 48/50, and real Neapolitan pizza rather than pizza as a concession.</p>
+  <p class="note">Walk in now, no booking needed at this hour on a Sunday. Terrace on the Danube with the wide car-free promenade in front. My pick for boys relaxed and food still serious.</p>
   <div class="links">
     <a href="https://www.google.com/maps/search/?api=1&amp;query=Massimo%20Ristorante%20Dvo%C5%99%C3%A1kovo%20n%C3%A1bre%C5%BEie%204%20Bratislava">Google Maps</a>
     <a href="tel:+421905119381">Call +421 905 119 381</a>
@@ -81,10 +95,10 @@
 
 <div class="card">
   <div class="toprow"><span class="score">93</span><span class="name">Bubbles</span>
-    <span class="pill open">Open today 11:00 to 21:00, kitchen to 19:30</span></div>
-  <div class="meta">Chef Andrej Tur&ccedil;ek, seasonal. On a pontoon on the Danube, Tyr&scaron;ovo n&aacute;bre&#382;ie, Petr&#382;alka side.</div>
-  <p class="why">The best terrace of the six: it wraps three sides of the pontoon and looks straight across the water at the old town and the castle. Being on a boat is its own entertainment at that age.</p>
-  <p class="note">Phone before you drive over, one call settles the table and the pontoon access. Kitchen stops at 19:30, earlier than the venue closes, so this is a late-lunch or early-dinner option rather than a late one. Steps from Tyr&scaron;&aacute;k beach for afterwards.</p>
+    <span class="pill open">Today 11:00 to 21:00, kitchen to 19:30</span></div>
+  <div class="meta">Chef Andrej Tur&ccedil;ek, seasonal. On a pontoon, Tyr&scaron;ovo n&aacute;bre&#382;ie, Petr&#382;alka side.</div>
+  <p class="why">The best terrace of the six, wrapping three sides of the pontoon and facing the old town and castle across the water. Being on a boat is its own entertainment at that age.</p>
+  <p class="note">Phone before driving over, one call settles the table and the pontoon access. Kitchen stops 19:30, earlier than the venue, so late lunch rather than late dinner. Two minutes from Tyr&scaron;&aacute;k beach.</p>
   <div class="links">
     <a href="https://www.google.com/maps/search/?api=1&amp;query=Bubbles%20Restaurant%20Tyr%C5%A1ovo%20n%C3%A1bre%C5%BEie%20Bratislava">Google Maps</a>
     <a href="tel:+421903555432">Call +421 903 555 432</a>
@@ -93,10 +107,10 @@
 
 <div class="card">
   <div class="toprow"><span class="score">93</span><span class="name">Iasai</span>
-    <span class="pill open">Open today 11:00 to 21:00</span></div>
-  <div class="meta">Japanese food bar, eighth in the city on Falstaff's Bratislava ranking. Hviezdoslavovo n&aacute;mestie 14.</div>
-  <p class="why">Falstaff: "guests are offered the opportunity to watch the food being prepared with their own eyes, which is a real experience". That counter theatre is the reason to bring children here rather than the food alone.</p>
-  <p class="note">Booking is effectively essential, do not just turn up with four. Budget honestly: Falstaff calls it mid-range but diners report over EUR 50 a head and mains run 29 to 38, so plan for the higher figure. It is on the main square, so this is the one exception to getting off the tourist strip, earned on a 93.</p>
+    <span class="pill open">Today 11:00 to 21:00</span></div>
+  <div class="meta">Japanese food bar, eighth in Falstaff's Bratislava ranking. Hviezdoslavovo n&aacute;mestie 14.</div>
+  <p class="why">Falstaff: "guests are offered the opportunity to watch the food being prepared with their own eyes, which is a real experience". The counter theatre is the reason to bring children, more than the food alone.</p>
+  <p class="note">Booking effectively essential, do not turn up with four. Budget honestly: Falstaff says mid-range, diners report over EUR 50 a head, mains 29 to 38. On the main square, the one exception here to getting off the tourist strip, earned on a 93.</p>
   <div class="links">
     <a href="https://www.google.com/maps/search/?api=1&amp;query=Iasai%20Hviezdoslavovo%20n%C3%A1mestie%2014%20Bratislava">Google Maps</a>
     <a href="tel:+421917399993">Call +421 917 399 993</a>
@@ -105,10 +119,10 @@
 
 <div class="card">
   <div class="toprow"><span class="score">92</span><span class="name">Al Faro</span>
-    <span class="pill open">Open today 11:30 to 23:00</span></div>
+    <span class="pill open">Today 11:30 to 23:00</span></div>
   <div class="meta">Italian trattoria on the Eurovea boardwalk. Pribinova 8.</div>
-  <p class="why">Falstaff calls it ideal for family gatherings and gives it food 47 out of 50, with one of the best wine lists in the city. Pasta, risotto, fish and pizza, which is the easiest menu on this list to feed everyone from.</p>
-  <p class="note">The practical winner: it sits directly on the Eurovea garage with the EV chargers, so you park underneath and walk up. Terrace confirmed on four channels, walk-in realistic this afternoon, and the longest hours here if you want a late one.</p>
+  <p class="why">Falstaff calls it ideal for family gatherings, food 47/50, one of the best wine lists in the city. Pasta, risotto, fish and pizza, the easiest menu here to feed everyone from.</p>
+  <p class="note">The practical winner: sits on the Eurovea garage with the EV chargers, so park underneath and walk up. Terrace confirmed on four channels, walk-in realistic this afternoon, longest hours on the list.</p>
   <div class="links">
     <a href="https://www.google.com/maps/search/?api=1&amp;query=Al%20Faro%20Eurovea%20Pribinova%20Bratislava">Google Maps</a>
     <a href="tel:+421917344444">Call +421 917 344 444</a>
@@ -119,23 +133,159 @@
   <div class="toprow"><span class="score">91</span><span class="name">Albrecht</span>
     <span class="pill shut">Closed, do not drive there</span></div>
   <div class="meta">Mudro&#328;ova 82. Seasonal Slovak ingredients, terrace, historic excursion-restaurant tradition.</div>
-  <p class="why">It would have been on this list on the evidence: 91 points, 46 out of 50 for food, and Falstaff notes a pleasant family atmosphere with parking. But the operator has posted that the villa is <strong>temporarily closed</strong> for a changeover. Kept here rather than deleted so nobody rediscovers it and drives up.</p>
+  <p class="why">It earned a place on the evidence, 91 points, food 46/50, and Falstaff notes a pleasant family atmosphere with parking. But the operator has posted that the villa is <strong>temporarily closed</strong> for a changeover. Kept visible rather than deleted so nobody rediscovers it and drives up.</p>
+  <div class="links"><a href="tel:+421907666600">Call +421 907 666 600</a></div>
+</div>
+
+<h2>Where these sit in the guide</h2>
+<p class="h2sub">Falstaff Restaurant Guide Slovakia 2026, Bratislava region. 57 Bratislava restaurants are ranked; these are the ones relevant to this trip.</p>
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Pts</th><th>Restaurant</th><th>Why it is or is not on the list above</th></tr></thead>
+  <tbody>
+    <tr><td class="pts">98</td><td>ECK, Dev&iacute;n</td><td>Top of the whole guide. Chef Daniel Tilinger, Falstaff Chef of the Year 2026. Evening tasting menu at a winery, 20 minutes out. Not a family Sunday lunch.</td></tr>
+    <tr><td class="pts">96</td><td>UFO</td><td>Second in the city, chef Jozef Masarovi&ccedil;. It was on version one and it was not a mistake. Sunday a la carte only, priciest option, kids menu 22. Deck and bar from 10:00 walk-in if you just want the view.</td></tr>
+    <tr class="here"><td class="pts">95</td><td>Riverbank</td><td>On the list above.</td></tr>
+    <tr><td class="pts">95</td><td>Edomae Sushi Matsuki</td><td>Eight seats, evening tasting by reservation only. Not workable with children.</td></tr>
+    <tr><td class="pts">94</td><td>Bistronomy</td><td>Moved to Vydrica January 2025. Seven-course evening tasting menu. Not a family lunch.</td></tr>
+    <tr class="here"><td class="pts">94</td><td>Massimo Ristorante</td><td>On the list above.</td></tr>
+    <tr class="here"><td class="pts">93</td><td>Bubbles</td><td>On the list above.</td></tr>
+    <tr class="here"><td class="pts">93</td><td>Iasai</td><td>On the list above.</td></tr>
+    <tr class="here"><td class="pts">92</td><td>Al Faro</td><td>On the list above.</td></tr>
+    <tr class="here"><td class="pts">91</td><td>Albrecht</td><td>Would qualify, but closed today.</td></tr>
+    <tr><td class="pts">85</td><td>Leberfinger</td><td>Rated after all, see the correction below. Open today 11:00 to 24:00 and the park and playground are still the park and playground.</td></tr>
+    <tr><td class="pts none">listed</td><td>Colette, BISTRIC, Rio, Kogo, Wabi Sabi, MOOZI, Andrea Ena</td><td>Also in the guide and not chased today, mostly evening or adult-facing.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Everything from version one, kept</h2>
+<p class="h2sub">Still verified for today, because deleting an option destroys the evidence that would have settled it. Hours checked against each venue's own channels.</p>
+
+<div class="card">
+  <div class="toprow"><span class="score none">Falstaff 96</span><span class="name">UFO</span>
+    <span class="pill open">Restaurant 12:00 to 23:00, deck and bar from 10:00</span></div>
+  <div class="meta">Fine dining on the SNP bridge pylon, Petr&#382;alka side.</div>
+  <p class="note">Sunday is a la carte, the weekday set lunches do not run. Kids menu 22, no dress code, free parking under the bridge for guests, and a restaurant booking includes the tower lift with a main course each. Cheap alternative the boys like equally: walk-in deck and bar for dessert with the view. Private events can close it, so call.</p>
   <div class="links">
-    <a href="tel:+421907666600">Call +421 907 666 600</a>
+    <a href="https://www.google.com/maps/search/?api=1&amp;query=UFO%20restaurant%20Most%20SNP%20Bratislava">Google Maps</a>
+    <a href="tel:+421262520300">Call +421 2 6252 0300</a>
   </div>
 </div>
 
-<h2>About the first list</h2>
 <div class="card">
-  <p class="why">I told you Leberfinger and Zylinder were absent from the Falstaff guide. That was wrong, and the error was mine. <strong>Leberfinger is in it, at 85 points.</strong> I had read the guide's curated twenty-name highlights page and treated it as the whole 57-entry guide. Zylinder I still cannot place either way, because twenty of the fifty-seven entries were never read, and a partial read cannot prove an absence.</p>
-  <p class="note">So the honest case is not that those places are unrated. It is that 85 is below 92, 93, 94 and 95, and that neither of them is doing the regional Slovak cooking that Riverbank is. If you loved Leberfinger's park and playground, that reason still stands on its own; it just is not the food ranking.</p>
+  <div class="toprow"><span class="score none">Falstaff 85</span><span class="name">Leberfinger</span>
+    <span class="pill open">Today 11:00 to 24:00</span></div>
+  <div class="meta">Pressburg institution, Sad Janka Kr&aacute;&#316;a park, Petr&#382;alka riverbank.</div>
+  <p class="note">The playground next to the terrace is a genuine advantage and no ranking changes that. No source anywhere claims a Sunday closure. It scores below the five above, which is the honest case against it, not the absence I wrongly claimed.</p>
+  <div class="links">
+    <a href="https://www.google.com/maps/search/?api=1&amp;query=Leberfinger%20Viedensk%C3%A1%20cesta%20Bratislava">Google Maps</a>
+    <a href="tel:+421903902922">Call +421 903 902 922</a>
+    <a href="https://www.leberfinger.sk/rezervacia/">Reserve</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="toprow"><span class="score none">in the guide</span><span class="name">FACH Bistro</span>
+    <span class="pill open">Today 9:00 to 18:00</span></div>
+  <div class="meta">Bakery, juice bar and bistro with a courtyard. Vent&uacute;rska 10.</div>
+  <p class="note">Falstaff lists it: daily lunch menu, evening sharing concepts, courtyard and greenery. Sunday is its daytime day, so brunch rather than dinner. Phone or email booking only.</p>
+  <div class="links">
+    <a href="https://www.google.com/maps/search/?api=1&amp;query=FACH%20Vent%C3%BArska%2010%20Bratislava">Google Maps</a>
+    <a href="tel:+421918734129">Call +421 918 734 129</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="toprow"><span class="score none">in the guide</span><span class="name">Mezcalli</span>
+    <span class="pill open">Today 11:30 to 16:00</span></div>
+  <div class="meta">Mexican, chef-owner Brian Navarro. N&aacute;mestie SNP 1.</div>
+  <p class="note">Falstaff calls it an example of what a restaurant with ethnic cuisine and a complete concept should look like, with the widest range of premium tequilas and mezcals in Slovakia. The venue's own site calls Sunday lunch the family slot. Doors close 16:00, so arrive by 13:30.</p>
+  <div class="links">
+    <a href="https://www.google.com/maps/search/?api=1&amp;query=Mezcalli%20Bratislava">Google Maps</a>
+    <a href="tel:+421949548725">Call +421 949 548 725</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="toprow"><span class="score none">local pick</span><span class="name">Gatto Matto</span>
+    <span class="pill open">Today 11:00 to 22:00, both branches</span></div>
+  <div class="meta">Family-run Italian. Pansk&aacute; 17 and Vent&uacute;rska 12, Old Town.</div>
+  <p class="note">This was the most repeated unprompted local name in the research, across four Slovak threads in 14 months, including one where locals name it as the exception in a thread trashing the tourist scene. Not in the Falstaff entries I read, but local word is its own evidence class. One stale aggregator claims Pansk&aacute; shuts Sundays; the operator's own pages say daily 11:00 to 22:00 and the operator wins.</p>
+  <div class="links">
+    <a href="https://www.google.com/maps/search/?api=1&amp;query=Gatto%20Matto%20Pansk%C3%A1%2017%20Bratislava">Maps: Pansk&aacute;</a>
+    <a href="https://www.google.com/maps/search/?api=1&amp;query=Gatto%20Matto%20Vent%C3%BArska%2012%20Bratislava">Maps: Vent&uacute;rska</a>
+    <a href="tel:+421911131233">Pansk&aacute;</a>
+    <a href="tel:+421910646662">Vent&uacute;rska</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="toprow"><span class="score none">tourist square</span><span class="name">Zylinder</span>
+    <span class="pill open">Today 11:00 to 22:00</span></div>
+  <div class="meta">Austro-Hungarian and Slovak classics. Hviezdoslavovo n&aacute;mestie 19.</div>
+  <p class="note">Tafelspitz, goulash, halu&scaron;ky, Kaiserschmarrn, and schnitzel territory for the kids. I cannot say whether it is in the Falstaff guide: 20 of the 57 Bratislava entries were never read, so its absence is unverified rather than confirmed. Busy 12:00 to 15:00 on Sundays, so book or arrive by noon.</p>
+  <div class="links">
+    <a href="https://www.google.com/maps/search/?api=1&amp;query=Zylinder%20Cafe%20Hviezdoslavovo%20n%C3%A1mestie%20Bratislava">Google Maps</a>
+    <a href="tel:+421903123134">Call +421 903 123 134</a>
+    <a href="https://www.zylinder.sk/en/online-reservation/">Reserve</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="toprow"><span class="score none">riverside</span><span class="name">AuCafe</span>
+    <span class="pill open">Today 11:00 to 24:00, brunch 11:30 to 15:00</span></div>
+  <div class="meta">Italian, 120-seat terrace facing the castle. Tyr&scaron;ovo n&aacute;bre&#382;ie 12, Petr&#382;alka.</div>
+  <p class="note">The Sunday family brunch has a kids' programme where children make their own pizza, which is the strongest kid draw on this whole page. Framed honestly: tourist-facing Italian chosen for the view and the programme, not to beat the kitchens above. Falstaff lists an Italian restaurant at this address under chef M&aacute;rio &#381;u&#382;i&ccedil; with a winter garden; I did not confirm they are the same venue.</p>
+  <div class="links">
+    <a href="https://www.google.com/maps/search/?api=1&amp;query=AuCafe%20Tyr%C5%A1ovo%20n%C3%A1bre%C5%BEie%2012%20Bratislava">Google Maps</a>
+    <a href="tel:+421903902362">Call +421 903 902 362</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="toprow"><span class="score none">steak</span><span class="name">Meet Meat</span>
+    <span class="pill open">Today 11:00 to 18:00, last orders about 17:00</span></div>
+  <div class="meta">Steakhouse. Lu&#382;n&aacute; 9, Petr&#382;alka. Easy parking.</div>
+  <p class="note">Sunday is a short day, so lunch only. Fine if the day tilts to the car-and-park side of the river.</p>
+  <div class="links">
+    <a href="https://www.google.com/maps/search/?api=1&amp;query=Meet%20Meat%20Lu%C5%BEn%C3%A1%209%20Bratislava">Google Maps</a>
+    <a href="tel:+421948416528">Call +421 948 416 528</a>
+    <a href="https://rezervacie.meetmeat.sk/">Reserve</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="toprow"><span class="score none">boat</span><span class="name">Dunajsk&yacute; pivovar</span>
+    <span class="pill warn">Sunday hours conflict, call first</span></div>
+  <div class="meta">Floating brewery on a moored boat by Star&yacute; most, right bank.</div>
+  <p class="note">House beer, castle view, and kids like being on the water. Sources disagree on the Sunday close, 18:00 against 22:00, and the venue's own site is neglected, so this one earns its phone call before you cross for it.</p>
+  <div class="links">
+    <a href="https://www.google.com/maps/search/?api=1&amp;query=Dunajsk%C3%BD%20pivovar%20Tyr%C5%A1ovo%20n%C3%A1bre%C5%BEie%20Bratislava">Google Maps</a>
+    <a href="tel:+421948418934">Call +421 948 418 934</a>
+  </div>
+</div>
+
+<div class="card shut">
+  <div class="toprow"><span class="score none">closed</span><span class="name">Oli's Italiano</span>
+    <span class="pill shut">Shut Sundays and Mondays</span></div>
+  <div class="meta">Podjavorinskej 6B, Old Town.</div>
+  <p class="note">All operator channels agree. Good Tuesday to Saturday, two services with a hard 15:00 to 16:00 break. Kept here so it is not rediscovered as a Sunday option.</p>
+  <div class="links"><a href="tel:+421220773767">Call +421 2 207 737 67</a></div>
+</div>
+
+<h2>A correction I owe you</h2>
+<div class="card">
+  <p class="why">I told you Leberfinger and Zylinder were absent from the Falstaff guide. That was wrong and the error was mine. <strong>Leberfinger is in it, at 85 points.</strong> I had read the guide's curated twenty-name highlights page and treated it as the whole 57-entry guide. Zylinder I still cannot place either way, because 20 of the 57 entries were never read, and a partial read cannot prove an absence.</p>
+  <p class="note">So the honest case is not that those places are unrated. It is that 85 sits below 92, 93, 94 and 95, and that neither is doing the regional Slovak cooking Riverbank is. If the park and playground were the draw at Leberfinger, that reason stands on its own and always did.</p>
 </div>
 
 <h2>After lunch</h2>
 <div class="card">
-  <div class="toprow"><span class="name">Tyr&scaron;&aacute;k city beach</span><span class="pill open">Open today 9:00 to 24:00, free</span></div>
-  <div class="meta">Tyr&scaron;ovo n&aacute;bre&#382;ie, Petr&#382;alka side, right by Bubbles.</div>
-  <p class="why">The city's largest sand playground, trampolines and street food, with the castle view for the parents. If you eat at Bubbles this is a two-minute walk.</p>
+  <div class="toprow"><span class="score none">free</span><span class="name">Tyr&scaron;&aacute;k city beach</span>
+    <span class="pill open">Today 9:00 to 24:00</span></div>
+  <div class="meta">Tyr&scaron;ovo n&aacute;bre&#382;ie, Petr&#382;alka side, beside Bubbles and AuCafe.</div>
+  <p class="why">The city's largest sand playground, trampolines, children's theatre and street food, with the castle view for the parents. Two minutes from Bubbles.</p>
   <div class="links">
     <a href="https://www.google.com/maps/search/?api=1&amp;query=Tyr%C5%A1%C3%A1k%20Tyr%C5%A1ovo%20n%C3%A1bre%C5%BEie%20Bratislava">Google Maps</a>
     <a href="https://tyrsak.sk/en">tyrsak.sk</a>
@@ -143,9 +293,9 @@
 </div>
 
 <footer>
-  <p><strong>Quick answer if you just want one:</strong> Massimo for an easy lunch with the boys that is still 94 points, Riverbank if you want the proper Slovak meal and can work around the missing kids menu, Al Faro if parking and a simple menu matter most.</p>
-  <p><strong>Parking:</strong> Eurovea garage has EV chargers and puts you at Al Faro's door, ten minutes on foot from the old town. Riverbank and Massimo both sit on Dvo&#345;&aacute;kovo n&aacute;bre&#382;ie with parking at River Park. Bubbles and Tyr&scaron;&aacute;k are the Petr&#382;alka side.</p>
-  <p><strong>Scores</strong> are Falstaff Restaurant Guide Slovakia 2026, read from the guide's own venue pages today. <strong>Hours</strong> were verified this afternoon against each venue's own website or its own Google listing, never against an aggregator. Where a third party disagreed, the venue's own word won and the disagreement is written into the card.</p>
+  <p><strong>If you want one answer:</strong> Massimo, on the embankment, walk straight in, 94 points and real Neapolitan pizza. Riverbank if you want the proper Slovak meal and can work around the missing kids menu. Al Faro if parking and an easy menu matter most. AuCafe if the pizza-making brunch would win the afternoon.</p>
+  <p><strong>Parking:</strong> Eurovea garage has EV chargers and puts you at Al Faro's door, ten minutes on foot from the old town. Riverbank and Massimo both sit on Dvo&#345;&aacute;kovo n&aacute;bre&#382;ie with River Park parking. Bubbles, AuCafe, Leberfinger and Tyr&scaron;&aacute;k are all the Petr&#382;alka side. UFO has free parking under the bridge for guests.</p>
+  <p><strong>Method:</strong> scores are Falstaff Restaurant Guide Slovakia 2026, read from the guide's own venue pages today. Hours were verified this afternoon against each venue's own website or its own Google listing, never against an aggregator. Where a third party disagreed, the venue's own word won and the disagreement is written into the card rather than used to delete the venue.</p>
 </footer>
 </main>
 </body>
