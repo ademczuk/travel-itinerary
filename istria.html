@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="build-stamp" content="2026-08-22T09:10">
+<meta name="build-stamp" content="2026-08-22T09:48">
 <title>Istria, 27 to 30 August: the plan</title>
 <style>
   :root {
@@ -250,8 +250,10 @@
   memorable thing on offer and the only one an open sea crossing can cancel outright, so do not lock it
   in from Vienna. Boat from Fazana, 31 minutes from Rovinj, departures at 09:00, 10:00, 11:30, 13:30,
   14:30 and 15:30. Around EUR 40 an adult and EUR 15 for a 7 to 18 year old, and <strong>free under
-  7</strong>, so the five year old goes free. Book at shop.np-brijuni.hr. Do not schedule anything else
-  that day: the crossing plus the island tour is the day.</p>
+  7</strong>, so the five year old goes free. Book at
+  <a href="https://shop.np-brijuni.hr/en">shop.np-brijuni.hr/en</a>, which is the English shop; the bare
+  domain sends you to the Croatian one. Do not schedule anything else that day: the crossing plus the
+  island tour is the day.</p>
   <p class="note">One live caveat on the Arena. Judas Priest play there on 25 August and its own site
   already shows cut hours on the 23rd for the stage build. Nothing is flagged for your dates, but sound
   checks can land inside opening hours during any show week, so glance at the visitor page the evening
@@ -431,7 +433,7 @@ entries.</p>
   <td class="pickcell"></td>
   <td><strong>Konoba Alla Beccaccia</strong><br><span class="meta">Ul. Pineta 25, Valbandon, Fazana, 20 to 25 min</span></td>
   <td><span class="pill open">closed Mondays only</span><br>Tue to Sun 17:00 to 24:00, so open all three of your evenings. Family run, traditional, the Istarska plata platter. <strong>The one worth the drive.</strong></td>
-  <td class="num"><a href="tel:+38552520753">+385 52 520753</a></td>
+  <td class="num"><a href="tel:+38552520753">+385 52 520 753</a></td>
 </tr>
 <tr data-id="lavela">
   <td class="pickcell"></td>
@@ -659,6 +661,30 @@ const TRIP = {
     });
   }
 
+  // Rebuilding the panel destroys whatever the user just tapped. Without this,
+  // removing an entry drops focus to body and a phone scrolls back to the top.
+  function focusToken() {
+    var el = document.activeElement;
+    if (!el || !el.closest) return null;
+    var row = el.closest('.planrow');
+    if (!row) return null;
+    var kind = el.classList.contains('rm') ? 'rm'
+             : el.classList.contains('rowslot') ? 'slot' : null;
+    if (!kind) return null;
+    return { id: row.getAttribute('data-planid'), kind: kind };
+  }
+  function restoreFocus(tok) {
+    if (!tok || !tok.id) return;
+    var row = document.querySelector('#plan .planrow[data-planid="' + tok.id + '"]');
+    if (!row) {
+      var next = document.querySelector('#plan .planrow .rm');
+      if (next) next.focus();
+      return;
+    }
+    var el = tok.kind === 'rm' ? row.querySelector('.rm') : row.querySelector('.rowslot');
+    if (el) el.focus();
+  }
+
   function renderPlan() {
     var plan = document.getElementById('plan');
     var count = document.getElementById('pickcount');
@@ -699,6 +725,7 @@ const TRIP = {
         var p = byId[id] || { name: id, where: '' };
         var row = document.createElement('div');
         row.className = 'planrow';
+        row.setAttribute('data-planid', id);
 
         var nm = document.createElement('span');
         nm.className = 'pname'; nm.textContent = p.name;
@@ -757,6 +784,19 @@ const TRIP = {
 
   // the single path every state change goes through, so row and panel cannot drift
   function syncAll() {
+    // A stored slot label that no longer exists in TRIP.slots would set select.value
+    // to a value with no matching option. The select silently falls back to "+ when?"
+    // while state still claims the place is slotted: the row and the panel disagree
+    // and nothing throws. Demote unknown slots to unplaced instead, visibly.
+    var demoted = false;
+    Object.keys(state.picks).forEach(function (id) {
+      var s = state.picks[id];
+      if (s !== null && TRIP.slots.indexOf(s) === -1) { state.picks[id] = null; demoted = true; }
+    });
+    // persist the demotion, or storage keeps the dead label forever and only the
+    // display looks right
+    if (demoted) save();
+    var tok = focusToken();
     var hosts = document.querySelectorAll('[data-id]');
     Array.prototype.forEach.call(hosts, function (host) {
       var id = host.getAttribute('data-id');
@@ -771,6 +811,7 @@ const TRIP = {
       if (picked) host.classList.add('picked'); else host.classList.remove('picked');
     });
     renderPlan();
+    restoreFocus(tok);
   }
 
   injectControls();
