@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="build-stamp" content="2026-08-22T09:48">
+<meta name="build-stamp" content="2026-08-22T10:22">
 <title>Istria, 27 to 30 August: the plan</title>
 <style>
   :root {
@@ -57,10 +57,21 @@
   tr.picked td{background:#eef7f7}
   td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
   td.pickcell,.pickcell{white-space:nowrap}
-  input.pick{width:1.05rem;height:1.05rem;accent-color:var(--accent);vertical-align:middle;cursor:pointer}
-  select.rowslot{font-size:.74rem;margin-left:.35rem;max-width:8.6rem;border:1px solid var(--line);
-     border-radius:6px;padding:.12rem .2rem;background:#fff;color:var(--muted);cursor:pointer}
+  /* Tap targets. The visible control stays small so the tables read cleanly, but a
+     transparent ::before pad brings the touchable area up to 44px. */
+  input.pick{width:1.15rem;height:1.15rem;accent-color:var(--accent);vertical-align:middle;
+     cursor:pointer;position:relative}
+  input.pick::before{content:"";position:absolute;left:50%;top:50%;
+     width:44px;height:44px;transform:translate(-50%,-50%)}
+  select.rowslot{font-size:.78rem;margin-left:.35rem;max-width:8.6rem;border:1px solid var(--line);
+     border-radius:6px;padding:.5rem .35rem;min-height:2.6rem;background:#fff;color:var(--muted);cursor:pointer}
   select.rowslot.set{color:var(--accent);border-color:var(--accent-line);font-weight:600}
+
+  /* A keyboard user could not see where they were. There was no focus rule at all. */
+  a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{
+     outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+  a:focus,button:focus,select:focus,input:focus{outline:2px solid var(--accent);outline-offset:2px}
+  .planrow .rm:focus-visible{background:var(--shut-bg)}
 
   /* plan panel */
   #planwrap{background:var(--card);border:2px solid var(--accent);border-radius:12px;
@@ -77,7 +88,7 @@
   .planrow .pwhere{color:var(--muted);font-size:.8rem}
   .planrow a{color:var(--accent);font-size:.78rem;text-decoration:none;font-weight:600}
   .planrow .rm{margin-left:auto;border:none;background:none;color:var(--shut);
-     font-size:.95rem;cursor:pointer;padding:0 .2rem;line-height:1}
+     font-size:1.05rem;cursor:pointer;padding:.55rem .7rem;line-height:1;min-width:44px;min-height:44px}
   .planempty{color:var(--muted);font-size:.87rem;padding:.4rem 0}
   .unplaced .dayhead{color:var(--warn);border-color:#ecd9a8}
 
@@ -94,6 +105,16 @@
   footer{margin-top:2.2rem;padding-top:1rem;border-top:1px solid var(--line);
      font-size:.81rem;color:var(--muted)}
   footer p{margin-bottom:.55rem}
+  @media (max-width:420px){
+    body{padding:.8rem .6rem 2.5rem}
+    h1{font-size:1.4rem}
+    .card,.daycard,#planwrap{padding:.8rem .75rem}
+    table{font-size:.82rem;min-width:400px}
+    select.rowslot{max-width:6.8rem}
+    .planrow{gap:.35rem}
+    .planrow .rm{margin-left:auto}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
   @media print{
     body{background:#fff;padding:0}
     input.pick,select.rowslot,.rm,.backlink{display:none !important}
@@ -167,7 +188,9 @@
 </div>
 
 <h2>Thursday 27 August</h2>
-<p class="h2sub">Vienna to Rovinj. 565 km, 6.3 hours of pure driving, so budget nine to ten hours door to door.</p>
+<p class="h2sub">Vienna to Rovinj. <strong>569 km with the Postojna stop</strong> (565 km if you drove
+straight through), 6.6 hours of pure driving, so budget nine to ten hours door to door once you add
+two charges and the cave. <strong>Out of the house by 08:00.</strong></p>
 
 <div class="daycard">
   <h3>The drive, in order</h3>
@@ -222,7 +245,9 @@
 <a class="backlink" href="#planwrap">back to your plan</a>
 
 <h2>Friday 28 August</h2>
-<p class="h2sub">The hottest and wettest day of the window, so the anchor is the one that does not care about either.</p>
+<p class="h2sub">The hottest and wettest day of the window, so the anchor is the one that does not
+care about either. <strong>Out of the door by 09:15</strong> to be at Baredine for the 10:00 opening,
+which is a 30 minute drive plus slack.</p>
 
 <div class="daycard">
   <h3>Baredine Cave, then Porec</h3>
@@ -237,7 +262,10 @@
 </div>
 
 <h2>Saturday 29 August</h2>
-<p class="h2sub">Pula, early. Or Brijuni, if the forecast has firmed up by then.</p>
+<p class="h2sub">Pula, early. Or Brijuni, if the forecast has firmed up by then.
+<strong>Out of the door by 07:10</strong> for the Arena at opening, which is a 41 minute drive.
+If you swap to Brijuni instead, the boat from Fazana is 31 minutes away, so <strong>08:15 for the
+09:00 sailing</strong>.</p>
 
 <div class="daycard">
   <h3>The Roman day</h3>
@@ -329,8 +357,49 @@ entries.</p>
   where the queues actually form. Charge at Kanfanar or Kozina on the way out, then Kaiserwald.</p>
 </div>
 
+<h2>If something goes wrong</h2>
+<p class="h2sub">Added after a review pointed out that this page told you where to go and not what to
+do when it fell apart.</p>
+
+<div class="card">
+  <div class="toprow"><span class="name">Emergency</span> <span class="pill open">112, everywhere</span></div>
+  <p class="why"><strong>112</strong> is the emergency number in Slovenia and in Croatia and across the
+  whole EU. The European Commission's own page: "112 is the European emergency phone number, available
+  everywhere in the EU, free of charge", from landlines and mobiles, for ambulance, fire or police. It
+  adds that operators in many countries answer in English or French as well as the national language,
+  and that if you do not know where you are the operator can locate you. Save it in both phones before
+  you go, because a five year old can dial three digits.</p>
+  <div class="links"><a href="https://digital-strategy.ec.europa.eu/en/policies/112">European Commission on 112</a></div>
+</div>
+
+<div class="card">
+  <div class="toprow"><span class="name">Parking</span> <span class="pill warn">two verified, the rest not</span></div>
+  <p class="why"><strong>Postojna Cave.</strong> A full day at the Cave Park entrance is
+  <strong>EUR 6</strong>. Predjama Castle, if you add it, is EUR 3 per hour. There is a motorhome area
+  250 m from the cave entrance at EUR 25 a night, which you do not need but which tells you how close
+  the parking is.</p>
+  <p class="why"><strong>Rovinj old town.</strong> No cars at all, it is a full pedestrian zone.
+  <strong>Valdibora</strong> by the harbour is the closest lot, about a five minute walk to the main
+  square, roughly EUR 2.50 an hour with a EUR 25 daily cap, paid by the Bmove or Aircash apps. It fills
+  fast in season, so go early or fall back to <strong>Boksiti</strong>.</p>
+  <p class="note"><strong>Not verified, and I am not going to invent it:</strong> parking at Baredine,
+  at the Pula Arena, at Aquarium Pula or at any of the restaurants. Ambrela beach is described as having
+  a large car park and Pjescana Uvala has parking on the promenade, but I have not confirmed either
+  price. Assume paid parking in Pula and Porec in August and carry some coins.</p>
+  <div class="links"><a href="https://www.postojnska-jama.eu/en/information/parking-facilities/">Postojna parking, official</a></div>
+</div>
+
 <h2>Where to stay</h2>
 <p class="h2sub">Three-night totals for two adults and children aged 8 and 5, checked 22 August.</p>
+
+<div class="rulenote">
+  <strong>This section has a shelf life and the rest of the page does not.</strong> Opening hours, tolls
+  and the child seat law will still be true on the 27th. <em>Availability will not.</em> These prices and
+  the "hotels are full" finding were measured on 22 August for a 27 August arrival, which is five days of
+  other people booking. Treat every row below as a lead to re-check, not as a reservation. The rest of
+  this page states its sources and marks what it could not verify; this paragraph exists because that
+  same standard applies to a claim that expires, and the first version of this section did not say so.
+</div>
 
 <div class="rulenote">
   <strong>Why the hotels are not on this list.</strong> I queried Maistra's own booking system for your
@@ -404,6 +473,25 @@ entries.</p>
   one of them means parking at Valdibora and walking in with the luggage and two tired boys at seven in
   the evening. The places a kilometre or two out have their own parking and cost you a four minute drive.
 </div>
+
+<div class="card">
+  <div class="toprow"><span class="name">If the bed falls through</span> <span class="pill warn">plan B, in order</span></div>
+  <p class="why">This is the highest-stakes thing that can break on this trip, because the hotel tier is
+  already gone and you would be finding out at 19:00 in a car park. So, in order:</p>
+  <ol class="steps">
+    <li><strong>Hold Apartments Novak first, today.</strong> EUR 459 with <strong>free cancellation</strong>.
+      That costs nothing and takes the whole problem off the table while you decide on Porton.</li>
+    <li><strong>Phone Istra Premium Camping Resort, Funtana</strong>, <a href="tel:+38552465000">+385 52 465 000</a>.
+      Not on Booking, so I could not check it, but their own site lists a Bella Vista Villa for 4 plus 2
+      with a private pool and the resort has a five-pool water park. 25 minutes from Rovinj.</li>
+    <li><strong>Widen to Porec or Fazana</strong>, both 30 to 40 minutes from Rovinj, and keep Rovinj as
+      a day trip. The whole itinerary above still works from either.</li>
+    <li><strong>Two rooms rather than one unit.</strong> Hotel Lone had three Premium and three Grand
+      rooms free at EUR 460.78 and EUR 517.41 a night, each sleeping three. Two rooms splits you into
+      adult-plus-child pairs. Not lovely with a five year old, but it is a real bed in Rovinj.
+      Maistra Collection reservations <a href="tel:+38552808000">+385 52 808 000</a>.</li>
+  </ol>
+</div>
 <a class="backlink" href="#planwrap">back to your plan</a>
 
 <h2>Eating</h2>
@@ -416,6 +504,14 @@ entries.</p>
   the one set after Crete, is that venue quality should come from local forums in the local language.
   Nobody got there this time: the research budget ran out. So the opening hours here are solid and the
   quality signal is thinner than it should be. Phone before you drive anywhere.
+  <br><br>
+  <strong>And what a flat opening time means here, since that was genuinely ambiguous.</strong> Where
+  hours are stated plainly, as for Giannino, Alla Beccaccia, La Vela and Monte, the sources agreed and I
+  am reporting that agreement. Where they disagreed, as for Puntulina, both claims are quoted and the
+  venue is marked UNCERTAIN rather than dropped. Where a closing day was never published at all, as for
+  San Rocco and Zigante, the row says exactly that. So a flat line is a checked line, not an unchecked
+  one. It is still worth the call, because a venue can pass every rest-day check and still be shut for a
+  summer break, and no source I can read will tell you that.
 </div>
 
 <h3>Checked, with a closing day</h3>
