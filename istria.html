@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="build-stamp" content="2026-08-22T09:10">
+<title>Istria, 27 to 30 August: the plan</title>
+<style>
+  :root {
+    --ink:#16242b; --muted:#5c6f79; --ground:#f4f7f7; --card:#fff;
+    --accent:#14636b; --accent-soft:#e2efef; --accent-line:#cfe3e3;
+    --pine:#2f5d3a;
+    --open:#1d7a44; --open-bg:#e6f3ec; --shut:#8a2020; --shut-bg:#fbe9e9;
+    --warn:#8a6100; --warn-bg:#fdf2da; --line:#dde6e6;
+    --sun:#a8571b; --sun-bg:#fbeee2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--ground);
+       color:var(--ink);line-height:1.5;padding:1.1rem .9rem 3rem}
+  main{max-width:730px;margin:0 auto}
+  h1{font-family:Georgia,serif;font-size:1.62rem;line-height:1.2;text-wrap:balance}
+  .sub{color:var(--muted);margin-top:.4rem;font-size:.93rem}
+  .live-strip{background:var(--open-bg);border:1px solid #bfe0cd;border-left:4px solid var(--open);
+       border-radius:8px;padding:.6rem .85rem;margin:.9rem 0 1.2rem;font-size:.88rem;color:#1a5c36;font-weight:600}
+  .rulenote{background:var(--accent-soft);border:1px solid var(--accent-line);border-left:4px solid var(--accent);
+       border-radius:8px;padding:.7rem .9rem;margin:1rem 0 1.3rem;font-size:.88rem;color:#27484c}
+  .rulenote strong{color:#15343a}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+        padding:1rem 1.05rem;margin-bottom:.8rem}
+  .card.picked{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+  .toprow{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap}
+  .name{font-size:1.08rem;font-weight:650}
+  .meta{color:var(--muted);font-size:.86rem;margin-top:.15rem}
+  .pill{display:inline-block;border-radius:999px;padding:.12rem .58rem;
+        font-size:.76rem;font-weight:600;white-space:nowrap}
+  .pill.open{background:var(--open-bg);color:var(--open)}
+  .pill.shut{background:var(--shut-bg);color:var(--shut)}
+  .pill.warn{background:var(--warn-bg);color:var(--warn)}
+  .pill.sun{background:var(--sun-bg);color:var(--sun)}
+  .pill.cool{background:var(--accent-soft);color:var(--accent)}
+  .why{margin:.5rem 0 .3rem;font-size:.93rem}
+  .note{font-size:.85rem;color:var(--muted);margin-bottom:.45rem}
+  .links{display:flex;flex-wrap:wrap;gap:.4rem .5rem;margin-top:.5rem}
+  .links a{text-decoration:none;font-size:.84rem;font-weight:600;color:var(--accent);
+     background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:7px;padding:.32rem .6rem}
+  .links a:hover{background:#d3e7e7}
+  h2{font-family:Georgia,serif;font-size:1.18rem;margin:1.9rem 0 .3rem}
+  h3{font-family:Georgia,serif;font-size:1rem;margin:1.2rem 0 .3rem;color:var(--accent)}
+  .h2sub{color:var(--muted);font-size:.85rem;margin-bottom:.7rem}
+  .tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);
+     border-radius:10px;padding:.4rem .2rem;margin-bottom:.6rem}
+  table{border-collapse:collapse;width:100%;font-size:.85rem;min-width:460px}
+  th,td{text-align:left;padding:.45rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:.76rem;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  tr.picked td{background:#eef7f7}
+  td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  td.pickcell,.pickcell{white-space:nowrap}
+  input.pick{width:1.05rem;height:1.05rem;accent-color:var(--accent);vertical-align:middle;cursor:pointer}
+  select.rowslot{font-size:.74rem;margin-left:.35rem;max-width:8.6rem;border:1px solid var(--line);
+     border-radius:6px;padding:.12rem .2rem;background:#fff;color:var(--muted);cursor:pointer}
+  select.rowslot.set{color:var(--accent);border-color:var(--accent-line);font-weight:600}
+
+  /* plan panel */
+  #planwrap{background:var(--card);border:2px solid var(--accent);border-radius:12px;
+     padding:.9rem 1rem;margin:1rem 0 1.6rem}
+  #planwrap h2{margin:0 0 .15rem;font-size:1.12rem}
+  .plancount{font-size:.82rem;color:var(--muted);margin-bottom:.6rem}
+  .daygroup{margin-top:.65rem}
+  .daygroup .dayhead{font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;
+     color:var(--accent);font-weight:700;border-bottom:1px solid var(--accent-line);padding-bottom:.15rem}
+  .planrow{display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap;padding:.34rem 0;
+     border-bottom:1px solid var(--line);font-size:.88rem}
+  .planrow:last-child{border-bottom:none}
+  .planrow .pname{font-weight:600}
+  .planrow .pwhere{color:var(--muted);font-size:.8rem}
+  .planrow a{color:var(--accent);font-size:.78rem;text-decoration:none;font-weight:600}
+  .planrow .rm{margin-left:auto;border:none;background:none;color:var(--shut);
+     font-size:.95rem;cursor:pointer;padding:0 .2rem;line-height:1}
+  .planempty{color:var(--muted);font-size:.87rem;padding:.4rem 0}
+  .unplaced .dayhead{color:var(--warn);border-color:#ecd9a8}
+
+  .daycard{background:var(--card);border:1px solid var(--line);border-radius:10px;
+     padding:1rem 1.05rem;margin-bottom:.9rem;border-top:4px solid var(--accent)}
+  .daycard h3{margin-top:0}
+  .wx{font-size:.8rem;color:var(--muted);margin-bottom:.5rem}
+  ol.steps{margin:.5rem 0 0 1.1rem;font-size:.9rem}
+  ol.steps li{margin-bottom:.45rem}
+  ul.plain{margin:.4rem 0 0 1.1rem;font-size:.9rem}
+  ul.plain li{margin-bottom:.3rem}
+  .backlink{display:inline-block;margin-top:.5rem;font-size:.8rem;color:var(--accent);
+     text-decoration:none;font-weight:600}
+  footer{margin-top:2.2rem;padding-top:1rem;border-top:1px solid var(--line);
+     font-size:.81rem;color:var(--muted)}
+  footer p{margin-bottom:.55rem}
+  @media print{
+    body{background:#fff;padding:0}
+    input.pick,select.rowslot,.rm,.backlink{display:none !important}
+    .card,.daycard,#planwrap,.tablewrap{break-inside:avoid;box-shadow:none}
+    #planwrap{border-width:1px}
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <h1>Istria: Thursday 27 to Sunday 30 August</h1>
+  <p class="sub">Vienna to Rovinj and back in the Enyaq, two adults and two boys aged 8 and 5.
+  Built 22 August 2026. Every price, opening time and phone number here came from a source
+  checked that day, and anything I could not verify says so rather than guessing.
+  Tick a place to add it to your plan, or pick a slot from the dropdown to place it in a day.
+  Your picks save on this device.</p>
+</header>
+
+<div class="live-strip">Live trip. Three things still need doing before you leave, and they are at the top of this page.</div>
+
+<div class="rulenote">
+  <strong>Book the accommodation first.</strong> Rovinj's hotels are already full for four people
+  in one room. I checked Maistra's own booking system property by property: fourteen of them across
+  Rovinj and Vrsar, and not one has a unit that sleeps four on these dates. The apartment and villa
+  market is a completely different story and is wide open. That is the single decision this trip
+  is waiting on.
+</div>
+
+<h2>Before you leave</h2>
+<p class="h2sub">Three of these have a deadline. The fourth takes a tape measure.</p>
+
+<div class="card">
+  <div class="toprow"><span class="name">Slovenian e-vinjeta</span> <span class="pill warn">buy by card</span></div>
+  <p class="why">EUR 16 for a week, category 2A, which is what the Enyaq falls into. No EV discount.
+  <strong>Pay by card, not bank transfer.</strong> A card payment is valid instantly. A bank transfer
+  cannot start until four working days after the quote is created, and you do not have four working days.</p>
+  <div class="links"><a href="https://evinjeta.dars.si/en">DARS shop</a><a href="https://evinjeta.dars.si/en/faq">the rule, in their FAQ</a></div>
+</div>
+
+<div class="card">
+  <div class="toprow"><span class="name">Install the ELEN app</span> <span class="pill warn">before departure</span></div>
+  <p class="why">Croatia's HEP ELEN chargers need their own app to start a session. Their own site
+  describes roaming as still in progress, so an existing card may simply not work, and it holds
+  EUR 53.09 on a DC session. Ionity is the main plan, so this is the backup, but it is not a backup
+  you can install standing at a charger with a flat battery.</p>
+  <div class="links"><a href="https://elen.hep.hr/en">elen.hep.hr</a></div>
+</div>
+
+<div class="card">
+  <div class="toprow"><span class="name">Measure both boys against 150 cm</span> <span class="pill warn">Croatian law</span></div>
+  <p class="why">Below 150 cm Croatia requires an approved child seat or booster, correctly fitted.
+  There is an exception between 135 and 150 cm allowing a normal adult belt in the REAR only, never
+  in front, but it only helps if they actually clear 135. Fine is EUR 130.</p>
+  <div class="links"><a href="https://mup.gov.hr/promet-281589/22-na-koji-je-nacin-prema-zakonu-dozvoljeno-prevoziti-djecu-u-motornim-vozilima/281770">Croatian Interior Ministry, the actual rule</a></div>
+</div>
+
+<div class="card">
+  <div class="toprow"><span class="name">Austrian vignette</span> <span class="pill open">probably already have it</span></div>
+  <p class="why">The 10-day is EUR 12.80 if you need one. Worth knowing: <strong>no special tunnel
+  toll applies on this route.</strong> ASFINAG lists every special-toll section in Austria and none of
+  them is on Vienna to Graz to Spielfeld. No Gleinalm, no Bosruck, no Plabutsch, no Karawanken.</p>
+  <div class="links"><a href="https://www.asfinag.at/en/toll/vignette/">ASFINAG vignette</a><a href="https://www.asfinag.at/en/toll/section-toll/">the section-toll list</a></div>
+</div>
+
+<div id="planwrap">
+  <h2>Your plan</h2>
+  <p class="plancount" id="pickcount"></p>
+  <div id="plan"></div>
+</div>
+
+<h2>Thursday 27 August</h2>
+<p class="h2sub">Vienna to Rovinj. 565 km, 6.3 hours of pure driving, so budget nine to ten hours door to door.</p>
+
+<div class="daycard">
+  <h3>The drive, in order</h3>
+  <p class="wx">Forecast that day: 29.6 C, 0 percent rain. The driest day of the whole window, which is a nice accident.</p>
+  <ol class="steps">
+    <li><strong>08:00, leave Vienna.</strong> A2 south toward Graz, then Spielfeld, Maribor, Ljubljana.
+      This is the default road, not a clever detour: forcing the route through Maribor gives 564.9 km
+      against 564.7 direct. Going via Villach and the Karawanken tunnel is 639.9 km, 75 km worse, and
+      the Karawanken is a named late-August chokepoint with waits over an hour. You avoid it by doing
+      nothing.</li>
+    <li><strong>About 200 km, charge at Ionity Kaiserwald</strong>, Raststation Kaiserwald, Premstaetten
+      just south of Graz. Six stalls at 350 kW. Roughly 28 minutes.</li>
+    <li><strong>434 km, Postojna Cave.</strong> Five kilometres off the route. See below.</li>
+    <li><strong>Charge at Petrol Kozina</strong>, 350 kW, 36 km and 24 minutes past the cave, and on the
+      way rather than off it. <span class="pill shut">not at the cave</span> There is no fast charging at
+      Postojna. Its own parking page offers eight AC spaces at 1.4 to 11 kW, hotel and VIP guests only.
+      That is hours, not minutes. Arrive at the cave with enough charge to drive straight past it.</li>
+    <li><strong>Border at Kastel-Dragonja</strong> on the D510, joining the A9 at Umag. Schengen since
+      2023, so no passport or customs check, open around the clock.</li>
+    <li><strong>Rovinj by 18:30 to 19:30.</strong> Dinner somewhere that does not need a booking.</li>
+  </ol>
+</div>
+
+<div class="tablewrap">
+<table>
+<thead><tr><th>Add</th><th>Stop</th><th>What</th><th class="num">Detail</th></tr></thead>
+<tbody>
+<tr data-id="postojna">
+  <td class="pickcell"></td>
+  <td><strong>Postojna Cave</strong><br><span class="meta">Postojna, Slovenia</span></td>
+  <td>90 minute tour, underground train, departures roughly hourly 09:00 to 18:00 in August.
+      <strong>A constant 10 C.</strong> Pack fleeces and closed shoes on top of the beach clothes,
+      or hire a rain jacket there for EUR 8. Just over a kilometre on foot plus a 200 m section
+      at a 20 percent gradient, which an 8 and a 5 year old will manage but will notice.</td>
+  <td class="num">from EUR 34.90<br>adult</td>
+</tr>
+<tr data-id="kaiserwald">
+  <td class="pickcell"></td>
+  <td><strong>Ionity Kaiserwald</strong><br><span class="meta">Premstaetten, near Graz</span></td>
+  <td>Charge one. Six stalls at 350 kW, motorway services, food and toilets on site.</td>
+  <td class="num">~28 min</td>
+</tr>
+<tr data-id="kozina">
+  <td class="pickcell"></td>
+  <td><strong>Petrol Kozina</strong><br><span class="meta">Pocivalisce Ravne 23a, Slovenia</span></td>
+  <td>Charge two, after the cave. 350 kW DC, with a 50 kW and an AC point as backup.</td>
+  <td class="num">~28 min</td>
+</tr>
+</tbody>
+</table>
+</div>
+<a class="backlink" href="#planwrap">back to your plan</a>
+
+<h2>Friday 28 August</h2>
+<p class="h2sub">The hottest and wettest day of the window, so the anchor is the one that does not care about either.</p>
+
+<div class="daycard">
+  <h3>Baredine Cave, then Porec</h3>
+  <p class="wx">Forecast: 30.0 C, 38 percent rain. Highest chance of the trip. <span class="pill sun">plan for heat</span> <span class="pill warn">plan for rain</span></p>
+  <p class="why">Baredine is 30 minutes from Rovinj, open daily 10:00 to 18:00 with no rest day, tours
+  every half hour, and no booking needed. It sits at a constant 14 C underground, which means it is
+  exactly as good a day out whether it is pouring or 35 degrees. That is why it leads on this
+  particular Friday rather than a beach.</p>
+  <p class="note">Afterwards, lunch in Porec. If you want 40 minutes of UNESCO mosaics, the Euphrasian
+  Basilica is there, adult EUR 10 and school age EUR 5, but note it is <strong>closed on Sundays</strong>,
+  so it is today or not at all. Then back for the pool and the sea in the late afternoon.</p>
+</div>
+
+<h2>Saturday 29 August</h2>
+<p class="h2sub">Pula, early. Or Brijuni, if the forecast has firmed up by then.</p>
+
+<div class="daycard">
+  <h3>The Roman day</h3>
+  <p class="wx">Forecast: 29.1 C, 36 percent rain.</p>
+  <p class="why">Arena at 08:00, before the heat and before the crowds, and you are out in an hour.
+  Then Aquarium Pula in Fort Verudela, which is the built-in indoor pivot for the same trip if the sky
+  turns. Then a beach in the same corner of Verudela. Everything on this day is within a few minutes
+  of everything else, which is the point of it.</p>
+  <p class="note"><strong>Swap this with Brijuni if the forecast firms dry.</strong> Brijuni is the most
+  memorable thing on offer and the only one an open sea crossing can cancel outright, so do not lock it
+  in from Vienna. Boat from Fazana, 31 minutes from Rovinj, departures at 09:00, 10:00, 11:30, 13:30,
+  14:30 and 15:30. Around EUR 40 an adult and EUR 15 for a 7 to 18 year old, and <strong>free under
+  7</strong>, so the five year old goes free. Book at shop.np-brijuni.hr. Do not schedule anything else
+  that day: the crossing plus the island tour is the day.</p>
+  <p class="note">One live caveat on the Arena. Judas Priest play there on 25 August and its own site
+  already shows cut hours on the 23rd for the stage build. Nothing is flagged for your dates, but sound
+  checks can land inside opening hours during any show week, so glance at the visitor page the evening
+  before.</p>
+</div>
+
+<div class="tablewrap">
+<table>
+<thead><tr><th>Add</th><th>Place</th><th>Hours and notes</th><th class="num">Price</th></tr></thead>
+<tbody>
+<tr data-id="baredine">
+  <td class="pickcell"></td>
+  <td><strong>Baredine Cave</strong><br><span class="meta">Nova Vas, near Porec, 30 min</span></td>
+  <td><span class="pill open">daily, no rest day</span> <span class="pill cool">14 C inside</span><br>10:00 to 18:00, tours every 30 min, walk in. The rain and heat answer.</td>
+  <td class="num">EUR 14 adult<br>EUR 10 age 5-15<br>under 5 free</td>
+</tr>
+<tr data-id="arena">
+  <td class="pickcell"></td>
+  <td><strong>Pula Arena</strong><br><span class="meta">Pula, 41 min</span></td>
+  <td><span class="pill open">08:00 to 22:00</span><br>Roman amphitheatre. Go at opening. Check the visitor page the night before for concert-week hours.</td>
+  <td class="num">EUR 10 adult<br>EUR 5 child<br>under 5 free</td>
+</tr>
+<tr data-id="aquariumpula">
+  <td class="pickcell"></td>
+  <td><strong>Aquarium Pula</strong><br><span class="meta">Fort Verudela, Pula</span></td>
+  <td><span class="pill open">09:00 to 22:00</span><br>Fully indoor. Doubles as the wet-weather pivot and as an after-17:00 outing on a scorcher.</td>
+  <td class="num">EUR 23 adult<br>EUR 20 age 7-18<br>EUR 16 age 3-6</td>
+</tr>
+<tr data-id="brijuni">
+  <td class="pickcell"></td>
+  <td><strong>Brijuni National Park</strong><br><span class="meta">boat from Fazana, 31 min</span></td>
+  <td><span class="pill warn">weather dependent</span><br>Boat, island train, safari park, dinosaur footprints. The only anchor a rough sea can cancel. Book once the forecast firms.</td>
+  <td class="num">~EUR 40 adult<br>EUR 15 age 7-18<br>free under 7</td>
+</tr>
+<tr data-id="zlatnirt">
+  <td class="pickcell"></td>
+  <td><strong>Golden Cape, Zlatni Rt</strong><br><span class="meta">Rovinj, 5 min</span></td>
+  <td><span class="pill open">always open</span><br>52 hectares of pine shade dropping straight into pebble coves. The Sunday-morning answer: one swim and a shaded walk tires them out before six hours in a car.</td>
+  <td class="num">free</td>
+</tr>
+<tr data-id="ambrela">
+  <td class="pickcell"></td>
+  <td><strong>Ambrela beach</strong><br><span class="meta">Verudela, Pula</span></td>
+  <td>Blue Flag, roped shallow swim zones, oak shade, lifeguard, showers, play area, big car park.</td>
+  <td class="num">free</td>
+</tr>
+<tr data-id="pjescana">
+  <td class="pickcell"></td>
+  <td><strong>Pjescana Uvala</strong><br><span class="meta">Pula</span></td>
+  <td>The closest thing to genuine sand on this coast. Shallow for 150 to 200 m, mature tree shade, playground, water inflatable, food on the promenade.</td>
+  <td class="num">free</td>
+</tr>
+<tr data-id="vestar">
+  <td class="pickcell"></td>
+  <td><strong>Vestar beach</strong><br><span class="meta">Rovinj, 5 km south</span></td>
+  <td>Sand and gravel bottom, shallow a long way out, Blue Flag, full facilities including a spray park. Busiest on this list and the most forgiving for a five year old.</td>
+  <td class="num">free</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="note">Every beach on this coast is pebble, gravel or stone rather than sand, whatever the
+photos suggest. <strong>Water shoes for both boys</strong>, and watch for sea urchins on the rockier
+entries.</p>
+<a class="backlink" href="#planwrap">back to your plan</a>
+
+<h2>Sunday 30 August</h2>
+<div class="daycard">
+  <h3>One swim, then home</h3>
+  <p class="wx">Forecast: 28.4 C, 16 percent rain.</p>
+  <p class="why">Golden Cape at 09:00, 60 to 90 minutes, then on the road by 11:00. Sunday sits inside
+  the late-August northbound return peak, but the Graz line avoids the Karawanken entirely, which is
+  where the queues actually form. Charge at Kanfanar or Kozina on the way out, then Kaiserwald.</p>
+</div>
+
+<h2>Where to stay</h2>
+<p class="h2sub">Three-night totals for two adults and children aged 8 and 5, checked 22 August.</p>
+
+<div class="rulenote">
+  <strong>Why the hotels are not on this list.</strong> I queried Maistra's own booking system for your
+  exact party across fourteen properties. Grand Park, Adriatic, Eden, Island Katarina, All Suite Istra,
+  Resort Amarin, Villas Rubin, Belvedere, Pineta and Monte Mulini all return "the property is not
+  available for the parameters". Hotel Lone and Family Hotel Amarin do have rooms, but their maximum
+  occupancy is three. Island Hotel Istra caps at two. A room for three is no use to four people, however
+  good the hotel. The public price calendars looked open on all of them, because those prices are for
+  two adults, and that is exactly the trap.
+</div>
+
+<div class="tablewrap">
+<table>
+<thead><tr><th>Add</th><th>Place</th><th>What you get</th><th class="num">3 nights</th></tr></thead>
+<tbody>
+<tr data-id="porton">
+  <td class="pickcell"></td>
+  <td><strong>Porton Nature Hideouts</strong><br><span class="meta">1.6 km from centre, 9.3 from 781 reviews</span></td>
+  <td><span class="pill open">beachfront</span> <span class="pill open">private pool</span><br>
+      Family Holiday Home, two modules, 2 bedrooms, 2 bathrooms, kitchen. Free parking with a space
+      included, no prepayment needed, cot available. Rated 9.2 specifically for stays with children.
+      No charger on site; Ionity Kanfanar is 20 km away.</td>
+  <td class="num">EUR 1,554</td>
+</tr>
+<tr data-id="azzurro">
+  <td class="pickcell"></td>
+  <td><strong>Mobile Homes Azzurro</strong><br><span class="meta">1.6 km from centre, 8.8 from 468</span></td>
+  <td>Three-bedroom bungalow, 2 bathrooms, kitchen.</td>
+  <td class="num">EUR 1,437</td>
+</tr>
+<tr data-id="tamburini">
+  <td class="pickcell"></td>
+  <td><strong>Apartments Tamburini</strong><br><span class="meta">1 km from centre, 9.2 from 215</span></td>
+  <td>Two bedrooms, 100 m2, two bathrooms.</td>
+  <td class="num">EUR 810</td>
+</tr>
+<tr data-id="greenview">
+  <td class="pickcell"></td>
+  <td><strong>Green view apartment</strong><br><span class="meta">1.6 km from centre, 9.5 from 55</span></td>
+  <td>Two bedrooms, 85 m2, two bathrooms.</td>
+  <td class="num">EUR 648</td>
+</tr>
+<tr data-id="casamia">
+  <td class="pickcell"></td>
+  <td><strong>Guest House Casa Mia</strong><br><span class="meta">1.1 km from centre, 8.8 from 168</span></td>
+  <td>Deluxe apartment, two bedrooms, 125 m2.</td>
+  <td class="num">EUR 604</td>
+</tr>
+<tr data-id="novak">
+  <td class="pickcell"></td>
+  <td><strong>Apartments Novak</strong><br><span class="meta">1.2 km from centre, 9.5 from 78</span></td>
+  <td><span class="pill open">free cancellation</span><br>Two bedrooms, 55 m2. The one you can hold today at zero risk while you decide.</td>
+  <td class="num">EUR 459</td>
+</tr>
+<tr data-id="monsena">
+  <td class="pickcell"></td>
+  <td><strong>Villa Monsena</strong><br><span class="meta">2.2 km from centre, 8.6 from 417</span></td>
+  <td>Family room for two adults and two children, 450 m from the beach.</td>
+  <td class="num">EUR 454</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="rulenote">
+  <strong>Two bedrooms is the filter, not price.</strong> With an 8 and a 5 year old it decides whether
+  the adults get an evening.
+  <br><br>
+  <strong>And think twice about the old town.</strong> Rovinj's old town is a full pedestrian zone with
+  no cars at all. Several lovely apartments sit inside it at 50 to 200 metres from the centre, and every
+  one of them means parking at Valdibora and walking in with the luggage and two tired boys at seven in
+  the evening. The places a kilometre or two out have their own parking and cost you a four minute drive.
+</div>
+<a class="backlink" href="#planwrap">back to your plan</a>
+
+<h2>Eating</h2>
+<p class="h2sub">Phone numbers on everything, because a phone call is how you settle an uncertain opening day.</p>
+
+<div class="rulenote">
+  <strong>Read the scope on this section before you trust it.</strong> The first table has a phone number
+  and a checked closing day from the venues' own channels. The second table has real ratings and addresses
+  from Google Maps but <strong>the weekly closing day is not verified</strong>. And your own standard,
+  the one set after Crete, is that venue quality should come from local forums in the local language.
+  Nobody got there this time: the research budget ran out. So the opening hours here are solid and the
+  quality signal is thinner than it should be. Phone before you drive anywhere.
+</div>
+
+<h3>Checked, with a closing day</h3>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Add</th><th>Place</th><th>Open</th><th class="num">Call</th></tr></thead>
+<tbody>
+<tr data-id="giannino">
+  <td class="pickcell"></td>
+  <td><strong>Giannino</strong><br><span class="meta">Ul. Augusta Ferrija 38, Rovinj, 2 min from the old town</span></td>
+  <td><span class="pill open">no rest day now</span><br>Daily in August. Mon to Fri 18:00 to 23:00, Sat and Sun also 12:00 to 14:00. Its own closure note reads "Tuesdays through June" only. <strong>The Thursday arrival pick.</strong></td>
+  <td class="num"><a href="tel:+38552813402">+385 52 813 402</a></td>
+</tr>
+<tr data-id="beccaccia">
+  <td class="pickcell"></td>
+  <td><strong>Konoba Alla Beccaccia</strong><br><span class="meta">Ul. Pineta 25, Valbandon, Fazana, 20 to 25 min</span></td>
+  <td><span class="pill open">closed Mondays only</span><br>Tue to Sun 17:00 to 24:00, so open all three of your evenings. Family run, traditional, the Istarska plata platter. <strong>The one worth the drive.</strong></td>
+  <td class="num"><a href="tel:+38552520753">+385 52 520753</a></td>
+</tr>
+<tr data-id="lavela">
+  <td class="pickcell"></td>
+  <td><strong>La Vela Gostionica</strong><br><span class="meta">Ul. Giuseppea Mazzinia 1, Rovinj</span></td>
+  <td><span class="pill open">daily 11:00 to 22:00</span><br>Casual pizza and Mediterranean. No rest day found. The right shape for four tired people.</td>
+  <td class="num"><a href="tel:+38552841616">+385 52 841 616</a></td>
+</tr>
+<tr data-id="sanrocco">
+  <td class="pickcell"></td>
+  <td><strong>San Rocco</strong><br><span class="meta">Srednja ulica 2, Brtonigla, about 45 min</span></td>
+  <td><span class="pill warn">closing day not published</span><br>Michelin recognised. Truffle, fish and game tasting menus. Needs booking one to two weeks out for late August, which means today.</td>
+  <td class="num"><a href="tel:+38552725000">+385 52 725 000</a></td>
+</tr>
+<tr data-id="puntulina">
+  <td class="pickcell"></td>
+  <td><strong>Puntulina</strong><br><span class="meta">Ul. Sv. Kriza 38, Rovinj</span></td>
+  <td><span class="pill warn">uncertain, kept anyway</span><br>Sources conflict: daily 13:00 to 23:00 in one, Tue and Wed 17:00 to 23:00 in another. Gorgeous seaside terrace on stone steps, which is the wrong thing an hour after a six hour drive. Backup, and phone first.</td>
+  <td class="num"><a href="tel:+385916136435">+385 91 613 6435</a></td>
+</tr>
+<tr data-id="zigante">
+  <td class="pickcell"></td>
+  <td><strong>Zigante Tartufi</strong><br><span class="meta">Plovanija, Buje, Motovun valley, 55 to 65 min</span></td>
+  <td><span class="pill warn">closing day not published</span><br>The iconic Istrian truffle house. Better as a lunch on a Motovun-direction day than a dinner with tired children.</td>
+  <td class="num"><a href="tel:+38552777409">+385 52 777 409</a></td>
+</tr>
+<tr data-id="monte">
+  <td class="pickcell"></td>
+  <td><strong>Monte</strong><br><span class="meta">Montalbano 75, Rovinj old town</span></td>
+  <td><span class="pill shut">not for this trip</span><br>Daily 18:00 to 23:00, Michelin starred. Listed so you know it exists and so you know why I am steering you off it: no children's menu.</td>
+  <td class="num"><a href="tel:+38552830203">+385 52 830 203</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>Well rated, closing day unverified</h3>
+<p class="h2sub">Barba Danilo and Konoba Rovignese are both in Polari, near where I am suggesting you stay.
+Jure and Neptun carry the biggest review counts in town, which is the safer bet if you turn up unbooked.</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Add</th><th>Place</th><th>Where</th><th class="num">Rating</th></tr></thead>
+<tbody>
+<tr data-id="barbadanilo"><td class="pickcell"></td><td><strong>Barba Danilo</strong></td><td>Polari 25, EUR 25 to 50</td><td class="num">4.7 (517)</td></tr>
+<tr data-id="rovignese"><td class="pickcell"></td><td><strong>Konoba Rovignese</strong></td><td>Polari 21, EUR 15 to 20</td><td class="num">4.6 (1101)</td></tr>
+<tr data-id="serafin"><td class="pickcell"></td><td><strong>Konoba Serafin</strong></td><td>Ul. Domenica Medelina 12, EUR 20 to 40</td><td class="num">4.8 (443)</td></tr>
+<tr data-id="santacroce"><td class="pickcell"></td><td><strong>Restoran Santa Croce</strong></td><td>Sveti Kriz 11</td><td class="num">4.8 (778)</td></tr>
+<tr data-id="nonnamarija"><td class="pickcell"></td><td><strong>Konoba Nonna Marija</strong></td><td>Ul. Josipa Tankovica 9, country food</td><td class="num">4.7 (285)</td></tr>
+<tr data-id="kvartin"><td class="pickcell"></td><td><strong>Konoba Kvartin</strong></td><td>Monsena 7-a, EUR 15 to 35</td><td class="num">4.6 (887)</td></tr>
+<tr data-id="jure"><td class="pickcell"></td><td><strong>Konoba Jure</strong></td><td>Cademia ul. 22, EUR 20 to 45</td><td class="num">4.5 (1987)</td></tr>
+<tr data-id="neptun"><td class="pickcell"></td><td><strong>Konoba Restaurant Neptun</strong></td><td>Ul. Joakima Rakovca 10, EUR 15 to 35</td><td class="num">4.5 (1391)</td></tr>
+</tbody>
+</table>
+</div>
+<a class="backlink" href="#planwrap">back to your plan</a>
+
+<h2>Two calls worth making</h2>
+<ul class="plain">
+  <li><strong>Glavani Park</strong>, the rope and adventure park near Barban, <a href="tel:+38598224314">+385 98 224 314</a>.
+  Their own routes page lists a yellow, a blue and a black course and states no minimum age or height
+  anywhere, so the "from age 2" marketing line is unconfirmed. Ask whether a five year old clears the
+  yellow route before you build a morning around it.</li>
+  <li><strong>Aquarium Porec</strong>, <a href="tel:+38552428720">+385 52 428 720</a>. A search result
+  claimed it was temporarily closed. That looks like an artifact rather than a fact: the operator's own
+  site shows normal July and August hours, and the third-party page the claim came from actually reads
+  open. One call settles it.</li>
+  <li><strong>Istra Premium Camping Resort, Funtana</strong>, <a href="tel:+38552465000">+385 52 465 000</a>.
+  Not on Booking, so I could not check availability, but their own site lists a Bella Vista Villa for
+  4 plus 2 with a private pool, on a resort with a five-pool water park. If Porton goes, this is the call to make.</li>
+</ul>
+
+<h2>What to skip, and why</h2>
+<ul class="plain">
+  <li><strong>Cape Kamenjak.</strong> Beautiful, and the good coves need a long shadeless walk or a
+  gravel track. Brutal at midday with a five year old.</li>
+  <li><strong>Motovun on foot.</strong> Steep cobbled climb in full August sun with no shade until the top.</li>
+  <li><strong>Lim Fjord and Pazin Abyss zipline courses.</strong> Height and age minimums rule out the
+  five year old, and the standalone fjord cruise is 45 minutes of looking at a wall.</li>
+  <li><strong>Anything stacked on the Brijuni day.</strong> The crossing plus the island tour is the day.</li>
+</ul>
+
+<h2>What I got wrong while planning this</h2>
+<div class="rulenote">
+  Three corrections, because a page that only shows the polished answer teaches you nothing about how
+  much to trust it.
+  <br><br>
+  <strong>One.</strong> I told you Postojna Cave was the charging stop, because it sits at 434 km of a
+  569 km drive and that is exactly where the second charge falls. It was a lovely coincidence and it was
+  wrong. I inferred a charger from a convenient distance rather than checking, and the cave's own page
+  says AC only, hotel guests only. Kozina, 24 minutes further, is the real stop.
+  <br><br>
+  <strong>Two.</strong> I flagged Aquarium Porec as temporarily closed on the strength of a search
+  summary. The operator's own site says otherwise and so does the page the claim came from. A summary
+  of a page is not the page.
+  <br><br>
+  <strong>Three, and the biggest.</strong> I told you Rovinj was full. It is not. Its <em>hotels</em>
+  are full for a party of four, which is a much narrower claim, and I had measured one operator and
+  generalised it to a whole town. Twenty-five apartments and villas came back available the moment I
+  asked the question properly.
+</div>
+
+<footer>
+  <p>Built 22 August 2026 for the trip on 27 to 30 August. Prices, opening hours and laws were checked
+  that day against the operators' own channels wherever one exists, and anything that could not be
+  verified is marked rather than filled in with a plausible number.</p>
+  <p>Sources for the load-bearing facts: Postojna Cave, Baredine, Pula Arena and Aquarium Pula opening
+  pages; Brijuni National Park boat schedule; ASFINAG for Austrian tolls; DARS for the Slovenian
+  vignette; HEP ELEN for Croatian charging; the Croatian Interior Ministry for the child restraint rule;
+  Maistra's own booking system and Booking for accommodation availability.</p>
+  <p>Other trips from this family are on the <a href="./index.html">main itinerary page</a>.</p>
+</footer>
+
+</main>
+
+<script>
+const TRIP = {
+  key: 'travel.istria2026',
+  slots: ['Thu 27 - on the way','Thu 27 - dinner',
+          'Fri 28 - morning','Fri 28 - afternoon','Fri 28 - dinner',
+          'Sat 29 - morning','Sat 29 - afternoon','Sat 29 - dinner',
+          'Sun 30 - morning','Sun 30 - on the way home'],
+  places: [
+    {id:'postojna',    name:'Postojna Cave',        where:'Postojna, Slovenia',        maps:'Postojnska jama, Postojna, Slovenia'},
+    {id:'kaiserwald',  name:'Ionity Kaiserwald',    where:'Premstaetten, Austria',     maps:'IONITY Kaiserwald, Premstaetten, Austria'},
+    {id:'kozina',      name:'Petrol Kozina',        where:'Kozina, Slovenia',          maps:'Petrol Kozina, Slovenia'},
+    {id:'baredine',    name:'Baredine Cave',        where:'Nova Vas, near Porec',      maps:'Jama Baredine, Nova Vas, Porec, Croatia'},
+    {id:'arena',       name:'Pula Arena',           where:'Pula',                      maps:'Pula Arena, Pula, Croatia'},
+    {id:'aquariumpula',name:'Aquarium Pula',        where:'Fort Verudela, Pula',       maps:'Aquarium Pula, Fort Verudela, Pula, Croatia'},
+    {id:'brijuni',     name:'Brijuni National Park',where:'boat from Fazana',          maps:'Brijuni National Park boat terminal, Fazana, Croatia'},
+    {id:'zlatnirt',    name:'Golden Cape, Zlatni Rt',where:'Rovinj',                   maps:'Zlatni Rt, Rovinj, Croatia'},
+    {id:'ambrela',     name:'Ambrela beach',        where:'Verudela, Pula',            maps:'Ambrela Beach, Verudela, Pula, Croatia'},
+    {id:'pjescana',    name:'Pjescana Uvala',       where:'Pula',                      maps:'Pjescana Uvala, Pula, Croatia'},
+    {id:'vestar',      name:'Vestar beach',         where:'Rovinj',                    maps:'Vestar Beach, Rovinj, Croatia'},
+    {id:'porton',      name:'Porton Nature Hideouts',where:'Rovinj, stay',             maps:'Porton Nature Hideouts, Rovinj, Croatia'},
+    {id:'azzurro',     name:'Mobile Homes Azzurro', where:'Rovinj, stay',              maps:'Mobile Homes Azzurro, Rovinj, Croatia'},
+    {id:'tamburini',   name:'Apartments Tamburini', where:'Rovinj, stay',              maps:'Apartments Tamburini, Rovinj, Croatia'},
+    {id:'greenview',   name:'Green view apartment', where:'Rovinj, stay',              maps:'Green view apartment, Rovinj, Croatia'},
+    {id:'casamia',     name:'Guest House Casa Mia', where:'Rovinj, stay',              maps:'Guest House Casa Mia, Rovinj, Croatia'},
+    {id:'novak',       name:'Apartments Novak',     where:'Rovinj, stay',              maps:'Apartments Novak, Rovinj, Croatia'},
+    {id:'monsena',     name:'Villa Monsena',        where:'Rovinj, stay',              maps:'Villa Monsena, Rovinj, Croatia'},
+    {id:'giannino',    name:'Giannino',             where:'Rovinj',    phone:'+38552813402',  maps:'Giannino, Rovinj, Croatia'},
+    {id:'beccaccia',   name:'Konoba Alla Beccaccia',where:'Valbandon, Fazana', phone:'+38552520753', maps:'Konoba Alla Beccaccia, Valbandon, Fazana, Croatia'},
+    {id:'lavela',      name:'La Vela Gostionica',   where:'Rovinj',    phone:'+38552841616',  maps:'La Vela Gostionica, Rovinj, Croatia'},
+    {id:'sanrocco',    name:'San Rocco',            where:'Brtonigla', phone:'+38552725000',  maps:'San Rocco, Brtonigla, Croatia'},
+    {id:'puntulina',   name:'Puntulina',            where:'Rovinj',    phone:'+385916136435', maps:'Puntulina, Rovinj, Croatia'},
+    {id:'zigante',     name:'Zigante Tartufi',      where:'Buje',      phone:'+38552777409',  maps:'Zigante Tartufi, Livade, Croatia'},
+    {id:'monte',       name:'Monte',                where:'Rovinj',    phone:'+38552830203',  maps:'Monte, Rovinj, Croatia'},
+    {id:'barbadanilo', name:'Barba Danilo',         where:'Polari, Rovinj',            maps:'Barba Danilo, Rovinj, Croatia'},
+    {id:'rovignese',   name:'Konoba Rovignese',     where:'Polari, Rovinj',            maps:'Konoba Rovignese, Rovinj, Croatia'},
+    {id:'serafin',     name:'Konoba Serafin',       where:'Rovinj',                    maps:'Konoba Serafin, Rovinj, Croatia'},
+    {id:'santacroce',  name:'Restoran Santa Croce', where:'Rovinj',                    maps:'Restoran Santa Croce, Rovinj, Croatia'},
+    {id:'nonnamarija', name:'Konoba Nonna Marija',  where:'Rovinj',                    maps:'Konoba Nonna Marija, Rovinj, Croatia'},
+    {id:'kvartin',     name:'Konoba Kvartin',       where:'Monsena, Rovinj',           maps:'Konoba Kvartin, Rovinj, Croatia'},
+    {id:'jure',        name:'Konoba Jure',          where:'Rovinj',                    maps:'Konoba Jure, Rovinj, Croatia'},
+    {id:'neptun',      name:'Konoba Restaurant Neptun', where:'Rovinj',                maps:'Konoba Neptun, Rovinj, Croatia'}
+  ]
+};
+
+(function () {
+  'use strict';
+  var byId = {};
+  TRIP.places.forEach(function (p) { byId[p.id] = p; });
+
+  var state = { picks: {} };
+  try {
+    var raw = localStorage.getItem(TRIP.key);
+    if (raw) {
+      var parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object' && parsed.picks && typeof parsed.picks === 'object') {
+        state.picks = parsed.picks;
+      }
+    }
+  } catch (e) { state = { picks: {} }; }   // a corrupt value must not brick the page
+
+  function save() {
+    try { localStorage.setItem(TRIP.key, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function mapsUrl(p) {
+    if (!p || !p.maps) return null;
+    return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(p.maps);
+  }
+
+  // build the row controls
+  function injectControls() {
+    var hosts = document.querySelectorAll('[data-id] .pickcell, [data-id].pickcell');
+    Array.prototype.forEach.call(hosts, function (cell) {
+      var host = cell.closest('[data-id]');
+      if (!host) return;
+      var id = host.getAttribute('data-id');
+      if (cell.querySelector('input.pick')) return;
+
+      var box = document.createElement('input');
+      box.type = 'checkbox';
+      box.className = 'pick';
+      box.setAttribute('aria-label', 'add to plan');
+      box.addEventListener('change', function () {
+        if (box.checked) {
+          if (!(id in state.picks)) state.picks[id] = null;
+        } else {
+          delete state.picks[id];
+        }
+        save(); syncAll();
+      });
+
+      var sel = document.createElement('select');
+      sel.className = 'rowslot';
+      sel.setAttribute('aria-label', 'choose when');
+      var opt0 = document.createElement('option');
+      opt0.value = ''; opt0.textContent = '+ when?';
+      sel.appendChild(opt0);
+      TRIP.slots.forEach(function (s) {
+        var o = document.createElement('option');
+        o.value = s; o.textContent = s;
+        sel.appendChild(o);
+      });
+      // choosing a slot picks AND places in one action
+      sel.addEventListener('change', function () {
+        if (sel.value) state.picks[id] = sel.value;
+        else if (id in state.picks) state.picks[id] = null;
+        save(); syncAll();
+      });
+
+      cell.appendChild(box);
+      cell.appendChild(sel);
+    });
+  }
+
+  function renderPlan() {
+    var plan = document.getElementById('plan');
+    var count = document.getElementById('pickcount');
+    var ids = Object.keys(state.picks);
+    if (count) {
+      count.textContent = ids.length
+        ? ids.length + (ids.length === 1 ? ' place picked' : ' places picked')
+        : '';
+    }
+    if (!plan) return;
+    plan.textContent = '';
+
+    if (!ids.length) {
+      var empty = document.createElement('p');
+      empty.className = 'planempty';
+      empty.textContent = 'Nothing picked yet. Tick anything below, or use its "+ when?" dropdown to drop it straight into a day.';
+      plan.appendChild(empty);
+      return;
+    }
+
+    var groups = [];
+    TRIP.slots.forEach(function (s) {
+      var members = ids.filter(function (i) { return state.picks[i] === s; });
+      if (members.length) groups.push({ label: s, ids: members, unplaced: false });
+    });
+    var loose = ids.filter(function (i) { return !state.picks[i]; });
+    if (loose.length) groups.push({ label: 'not placed yet', ids: loose, unplaced: true });
+
+    groups.forEach(function (g) {
+      var wrap = document.createElement('div');
+      wrap.className = 'daygroup' + (g.unplaced ? ' unplaced' : '');
+      var head = document.createElement('div');
+      head.className = 'dayhead';
+      head.textContent = g.label;
+      wrap.appendChild(head);
+
+      g.ids.forEach(function (id) {
+        var p = byId[id] || { name: id, where: '' };
+        var row = document.createElement('div');
+        row.className = 'planrow';
+
+        var nm = document.createElement('span');
+        nm.className = 'pname'; nm.textContent = p.name;
+        row.appendChild(nm);
+
+        if (p.where) {
+          var wh = document.createElement('span');
+          wh.className = 'pwhere'; wh.textContent = p.where;
+          row.appendChild(wh);
+        }
+        var mu = mapsUrl(p);
+        if (mu) {
+          var a = document.createElement('a');
+          a.href = mu; a.target = '_blank'; a.rel = 'noopener';
+          a.textContent = 'map';
+          row.appendChild(a);
+        }
+        if (p.phone) {
+          var t = document.createElement('a');
+          t.href = 'tel:' + p.phone; t.textContent = 'call';
+          row.appendChild(t);
+        }
+
+        var moveSel = document.createElement('select');
+        moveSel.className = 'rowslot';
+        moveSel.setAttribute('aria-label', 'move ' + p.name);
+        var m0 = document.createElement('option');
+        m0.value = ''; m0.textContent = 'not placed';
+        moveSel.appendChild(m0);
+        TRIP.slots.forEach(function (s) {
+          var o = document.createElement('option');
+          o.value = s; o.textContent = s;
+          if (state.picks[id] === s) o.selected = true;
+          moveSel.appendChild(o);
+        });
+        moveSel.addEventListener('change', function () {
+          state.picks[id] = moveSel.value || null;
+          save(); syncAll();
+        });
+        row.appendChild(moveSel);
+
+        var rm = document.createElement('button');
+        rm.className = 'rm'; rm.type = 'button';
+        rm.setAttribute('aria-label', 'remove ' + p.name);
+        rm.textContent = 'x';
+        rm.addEventListener('click', function () {
+          delete state.picks[id]; save(); syncAll();
+        });
+        row.appendChild(rm);
+
+        wrap.appendChild(row);
+      });
+      plan.appendChild(wrap);
+    });
+  }
+
+  // the single path every state change goes through, so row and panel cannot drift
+  function syncAll() {
+    var hosts = document.querySelectorAll('[data-id]');
+    Array.prototype.forEach.call(hosts, function (host) {
+      var id = host.getAttribute('data-id');
+      var picked = (id in state.picks);
+      var box = host.querySelector('input.pick');
+      var sel = host.querySelector('select.rowslot');
+      if (box) box.checked = picked;
+      if (sel) {
+        sel.value = picked && state.picks[id] ? state.picks[id] : '';
+        if (sel.value) sel.classList.add('set'); else sel.classList.remove('set');
+      }
+      if (picked) host.classList.add('picked'); else host.classList.remove('picked');
+    });
+    renderPlan();
+  }
+
+  injectControls();
+  syncAll();
+
+  window.addEventListener('beforeprint', function () {
+    Array.prototype.forEach.call(document.querySelectorAll('details'), function (d) { d.open = true; });
+  });
+})();
+</script>
+</body>
+</html>
