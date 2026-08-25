@@ -1286,7 +1286,10 @@ const TRIP = {
     {id:'zlatnirt',    name:'Golden Cape, Zlatni Rt',where:'Rovinj',                   maps:'Zlatni Rt, Rovinj, Croatia'},
     {id:'ambrela',     name:'Ambrela beach',        where:'Verudela, Pula',            maps:'Ambrela Beach, Verudela, Pula, Croatia'},
     {id:'pjescana',    name:'Pjescana Uvala',       where:'Pula',                      maps:'Pjescana Uvala, Pula, Croatia'},
-    {id:'vestar',      name:'Vestar beach',         where:'Rovinj',                    maps:'Vestar Beach, Rovinj, Croatia'},
+    // named "Vestar, ..." on purpose so it reduces to the same venue as vestarpebble
+    // when a post-trip verdict is recorded. "Vestar beach" reduced to itself and made
+    // one beach look like two venues, which blocked the verdict write.
+    {id:'vestar',      name:'Vestar, the shallow bay', where:'Rovinj',                 maps:'Vestar Beach, Rovinj, Croatia'},
     {id:'vestarpebble',     name:'Vestar, the pebble day',where:'Rovinj, 5 km south',       maps:'Vestar Beach, Rovinj, Croatia'},
     {id:'rabac',       name:'Rabac white pebble beaches',where:'east coast, 1 h',      maps:'Girandella Beach, Rabac, Croatia'},
     {id:'cuvi',        name:'Cuvi beach',           where:'Rovinj, 3 km south',        maps:'Cuvi Beach, Rovinj, Croatia'},
