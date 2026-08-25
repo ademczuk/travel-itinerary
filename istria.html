@@ -101,6 +101,24 @@
   .planempty{color:var(--muted);font-size:.87rem;padding:.4rem 0}
   .unplaced .dayhead{color:var(--warn);border-color:#ecd9a8}
 
+  /* bulk pick controls, one bar per table, and the plan-panel actions */
+  .bulkbar{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;
+     font-size:.76rem;color:var(--muted);margin:.15rem 0 .35rem}
+  .bulkbar .bcount{margin-right:.15rem}
+  .btn{font:inherit;font-size:.78rem;font-weight:600;cursor:pointer;
+     color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);
+     border-radius:7px;padding:.45rem .65rem;min-height:2.6rem}
+  .btn:hover{background:#d5e8e8}
+  .btn.quiet{color:var(--muted);background:#fff;border-color:var(--line)}
+  .btn.quiet:hover{background:var(--ground)}
+  .btn[disabled]{opacity:.45;cursor:default}
+  .planacts{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.75rem;
+     padding-top:.6rem;border-top:1px solid var(--line)}
+  #exportbox{width:100%;margin-top:.6rem;font:inherit;font-size:.8rem;line-height:1.45;
+     min-height:12rem;border:1px solid var(--accent-line);border-radius:8px;padding:.6rem;
+     background:var(--ground);color:var(--ink);white-space:pre;overflow:auto}
+  .exporthint{font-size:.78rem;color:var(--muted);margin-top:.45rem}
+
   .daycard{background:var(--card);border:1px solid var(--line);border-radius:10px;
      padding:1rem 1.05rem;margin-bottom:.9rem;border-top:4px solid var(--accent)}
   .daycard h3{margin-top:0}
@@ -219,6 +237,8 @@
   <h2>Your plan</h2>
   <p class="plancount" id="pickcount"></p>
   <div id="plan"></div>
+  <div class="planacts" id="planacts"></div>
+  <p class="exporthint" id="exporthint"></p>
 </div>
 
 <h2>Thursday 27 August</h2>
@@ -227,7 +247,7 @@ pure driving. <strong>Out of the house by 08:00, in Rovinj by about 16:00.</stro
 
 <div class="rulenote">
   <strong>Dropping Postojna buys you an afternoon, and that is the real win.</strong> The cave was a
-  90 minute tour plus parking and the five kilometre detour, call it two and a half hours all in.
+  90 minute tour plus parking and the five kilometer detour, call it two and a half hours all in.
   Without it you are on a Rovinj beach the same day instead of arriving at half seven and going
   straight to dinner. On a four day trip that is a whole extra swim.
 </div>
@@ -248,7 +268,7 @@ pure driving. <strong>Out of the house by 08:00, in Rovinj by about 16:00.</stro
     <li><strong>About 470 km, charge at Petrol Kozina</strong>, 350 kW, with a 50 kW and an AC point as
       backup. It sits on the road to the Dragonja crossing rather than off it, so it costs you nothing
       but the charging time.</li>
-    <li><strong>Border at Kastel-Dragonja</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Kastel%20border%20crossing%2C%20Buje%2C%20Croatia" target="_blank" rel="noopener" aria-label="Kastel border crossing on Google Maps">map</a> on the D510, joining the A9 at Umag. Schengen since
+    <li><strong>Border at Kastel-Dragonja</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Kastel%20border%20crossing%2C%20Buje%2C%20Croatia" target="_blank" rel="noopener" aria-label="Kastel border crossing on Google Maps">map</a> on the D510, joining the A9 at Umag. Schengen since
       2023, so no passport or customs check, open around the clock.</li>
     <li><strong>Rovinj by about 16:00.</strong> Check in, then straight down to the water. Vestar is ten
       minutes away and has showers, or Cuvi is seven minutes if you want somewhere quieter.</li>
@@ -260,22 +280,35 @@ pure driving. <strong>Out of the house by 08:00, in Rovinj by about 16:00.</stro
 <div class="rulenote" id="middleleg">
   <strong>The middle leg is the only hard number on the drive, and the earlier version of this page did
   not check it.</strong> Kaiserwald at 200 km then Kozina at 470 km leaves a <strong>270 km run with no
-  stop</strong>. In a vRS that is about 65 kWh at motorway speed with four people, luggage and the air
-  conditioning on in 30 C, call it 24 kWh per 100 km. Your usable battery is 82 kWh, so 80 percent is
-  65.6 kWh and the leg needs essentially all of it. <em>Leaving Kaiserwald at 80 percent arrives at
-  Kozina on nothing.</em> Two fixes, either is enough:
+  stop</strong>. <strong>Corrected 25 August to your own numbers rather than my guesses.</strong> Your
+  traveler profile already fixes these: <strong>79 kWh usable</strong> (82 is the gross figure, which I
+  had wrongly used), 185 kW peak DC, 10 to 80 percent in about 26 minutes, and a planning rate of
+  <strong>215 Wh per km</strong> loaded in summer, with a standing rule of <em>arrive at 15 percent,
+  charge to 80</em>. So: 270 km at 215 Wh per km is <strong>58 kWh</strong>. Your own 15 percent floor is
+  11.9 kWh. Add them and you need <strong>69.9 kWh at departure, which is 88 percent</strong>. Eighty
+  percent is 63.2 kWh, so it lands you at Kozina on about 5 kWh, well under your own floor. Two fixes,
+  either is enough:
   <ul style="margin:.4rem 0 .2rem 1.1rem">
-    <li><strong>Charge to 90 percent at Kaiserwald.</strong> Costs maybe six extra minutes on the taper
-      and lands you at Kozina near 11 percent. This is the lazy fix and it works.</li>
-    <li><strong>Or drive 115 to 120 rather than 130.</strong> That pulls consumption to roughly 21 kWh
-      per 100 km, the leg drops to about 55 kWh, and 80 percent is comfortable again. Cheaper in
+    <li><strong>Charge to 90 percent at Kaiserwald.</strong> Two points above the 88 you actually need,
+      so it costs a few extra minutes on the taper and lands you at Kozina at about 17 percent, just
+      above your own floor. This is the lazy fix and it works.</li>
+    <li><strong>Or drive 115 to 120 rather than 130.</strong> That pulls you under 200 Wh per km, the leg
+      drops to about 53 kWh, and 80 percent clears it with your 15 percent reserve intact. Cheaper in
       electricity, costs about 20 minutes in time.</li>
   </ul>
-  <strong>Being straight about what this is:</strong> a calculation from an assumed consumption figure,
-  not a measurement of your car. At 21 kWh per 100 km the leg is fine from 80 percent; at 26 it is not
-  fine even from 90. So watch the actual kWh per 100 km on the dash for the first hour out of Vienna and
-  you will know which world you are in well before Graz. Ionity does run 350 kW sites on the Slovenian
-  A1, but <em>I could not pin a specific one between Graz and Kozina</em>, so I am not naming one.
+  <strong>Why this one is firmer than the rest of the page.</strong> Unlike my first version, it is not
+  built on a figure I invented: 215 Wh per km and the arrive-15 charge-80 rule are <em>your own</em>
+  planning numbers, already written down before this trip. The sensitivity still matters though. At 200
+  Wh per km the leg is fine from 80 percent; at 240 it is not fine even from 90. <strong>Watch the dash
+  for the first hour out of Vienna.</strong> If it is sitting near 215 the plan holds; if the roof box or
+  the heat pushes it past 235, take Kaiserwald to 95 and stop worrying. Ionity does run 350 kW sites on
+  the Slovenian A1, but <em>I could not pin a specific one between Graz and Kozina</em>, so I am not
+  naming one.
+  <br><br>
+  <strong>Worth checking before you go, because this trip is unusually Ionity-heavy.</strong> Both
+  Kaiserwald and Kanfanar are Ionity, and your profile already notes considering an Ionity Passport or
+  Skoda Powerpass per trip and cancelling after. Four Ionity sessions at the ad-hoc rate is exactly the
+  shape of trip where that pays for itself.
   Let the car or ABRP place it if the number goes the wrong way.
 </div>
 
@@ -391,12 +424,13 @@ drive feel worse than it is. Three stops out, four back, and only two of them ar
 </div>
 
 <div class="rulenote">
-  <strong>What I am NOT telling you, so you can judge the rest.</strong> The kilometre figures for Trojane
-  are derived from the leg distances, not measured door to door, so treat them as within a few kilometres
+  <strong>What I am NOT telling you, so you can judge the rest.</strong> The kilometer figures for Trojane
+  are derived from the leg distances, not measured door to door, so treat them as within a few kilometers
   rather than exact. Trojane's charging status is <em>unverified rather than confirmed absent</em>: it may
   well have a charger I could not find, and if the car routes you through one there, take it and ignore the
-  90 percent rule. And the whole energy argument rests on 24 kWh per 100 km, which is an assumption about
-  your driving, not a measurement of your car.
+  90 percent rule. The energy argument now rests on YOUR profile figures, 79 kWh usable and 215 Wh per km with an
+  arrive-at-15 rule, rather than the 82 kWh and 24 kWh per 100 km I used on the first pass. 82 is the
+  gross battery, not the usable one, and that error made the margin look worse than it is.
 </div>
 
 <div class="tablewrap">
@@ -405,24 +439,24 @@ drive feel worse than it is. Three stops out, four back, and only two of them ar
 <tbody>
 <tr data-id="postojna">
   <td class="pickcell"></td>
-  <td><strong>Postojna Cave</strong><br><span class="meta">Postojna, Slovenia</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Postojnska%20jama%2C%20Postojna%2C%20Slovenia" target="_blank" rel="noopener" aria-label="Postojna Cave on Google Maps">map</a></td>
+  <td><strong>Postojna Cave</strong><br><span class="meta">Postojna, Slovenia</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Postojnska%20jama%2C%20Postojna%2C%20Slovenia" target="_blank" rel="noopener" aria-label="Postojna Cave on Google Maps">map</a></td>
   <td><span class="pill shut">dropped, you said no caves</span><br>
       Left on the page rather than deleted, because plans change and a wet Friday might change this one.
       90 minute tour, underground train, roughly hourly 09:00 to 18:00 in August, a constant 10 C so it
-      needs fleeces and closed shoes. Just over a kilometre on foot plus a 200 m section at a 20 percent
+      needs fleeces and closed shoes. Just over a kilometer on foot plus a 200 m section at a 20 percent
       gradient. Costs about two and a half hours of the drive day all in, which is the afternoon swim
       you now get instead.</td>
   <td class="num">from EUR 34.90<br>adult</td>
 </tr>
 <tr data-id="kaiserwald">
   <td class="pickcell"></td>
-  <td><strong>Ionity Kaiserwald</strong><br><span class="meta">Premstaetten, near Graz</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=IONITY%20Kaiserwald%2C%20Premstaetten%2C%20Austria" target="_blank" rel="noopener" aria-label="Ionity Kaiserwald on Google Maps">map</a></td>
+  <td><strong>Ionity Kaiserwald</strong><br><span class="meta">Premstaetten, near Graz</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=IONITY%20Kaiserwald%2C%20Premstaetten%2C%20Austria" target="_blank" rel="noopener" aria-label="Ionity Kaiserwald on Google Maps">map</a></td>
   <td>Charge one. Six stalls at 350 kW, motorway services, food and toilets on site.</td>
   <td class="num">~28 min</td>
 </tr>
 <tr data-id="kozina">
   <td class="pickcell"></td>
-  <td><strong>Petrol Kozina</strong><br><span class="meta">Pocivalisce Ravne 23a, Slovenia</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Petrol%20Kozina%2C%20Slovenia" target="_blank" rel="noopener" aria-label="Petrol Kozina on Google Maps">map</a></td>
+  <td><strong>Petrol Kozina</strong><br><span class="meta">Pocivalisce Ravne 23a, Slovenia</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Petrol%20Kozina%2C%20Slovenia" target="_blank" rel="noopener" aria-label="Petrol Kozina on Google Maps">map</a></td>
   <td>Charge two, at about 470 km. 350 kW DC, with a 50 kW and an AC point as backup. On the road to
       the Dragonja crossing, not off it.</td>
   <td class="num">~28 min</td>
@@ -440,7 +474,7 @@ drive feel worse than it is. Three stops out, four back, and only two of them ar
   <h3>Vestar, all day</h3>
   <p class="wx">Forecast: 30.0 C, 38 percent rain. Hottest and wettest of the window.
   <span class="pill sun">plan for heat</span> <span class="pill warn">watch the sky</span></p>
-  <p class="why"><strong>Vestar</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Vestar%20Beach%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Vestar Beach on Google Maps">map</a> is the one that actually answers what you
+  <p class="why"><strong>Vestar</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Vestar%20Beach%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Vestar Beach on Google Maps">map</a> is the one that actually answers what you
   asked for. Maistra, who run it, describe it as a <em>"Pebble, rocky beach"</em> with
   <em>"natural shade"</em>. Blue Flag, showers, loungers and parasols for hire, a spray park for when
   they are bored of swimming, and a restaurant so lunch is not a logistics problem. A wide shallow bay,
@@ -461,7 +495,7 @@ what the sky is doing.</p>
 <div class="daycard">
   <h3>A. Rabac, the white pebble day</h3>
   <p class="wx">Forecast: 29.1 C, 36 percent rain. <span class="pill warn">an hour each way</span></p>
-  <p class="why"><strong>Rabac</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Girandella%20Beach%2C%20Rabac%2C%20Croatia" target="_blank" rel="noopener" aria-label="Girandella Beach Rabac on Google Maps">map</a> is the honest answer to where the big
+  <p class="why"><strong>Rabac</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Girandella%20Beach%2C%20Rabac%2C%20Croatia" target="_blank" rel="noopener" aria-label="Girandella Beach Rabac on Google Maps">map</a> is the honest answer to where the big
   pebble beaches are. Its own tourist board calls it the pearl of Kvarner Bay <em>"due to its white
   pebble beaches"</em>. Girandella and Maslinica are the two named ones. <strong>Out by 09:00</strong>,
   and treat it as the whole day rather than something to fit around anything else.</p>
@@ -472,9 +506,9 @@ what the sky is doing.</p>
 
 <div class="daycard">
   <h3>B. Stay local, two beaches in one day</h3>
-  <p class="why">Morning at <strong>Cuvi</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Cuvi%20Beach%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Cuvi Beach on Google Maps">map</a>, seven minutes south, a gravel and sand
+  <p class="why">Morning at <strong>Cuvi</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Cuvi%20Beach%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Cuvi Beach on Google Maps">map</a>, seven minutes south, a gravel and sand
   cove with pine shade and a gentle entry. It fills early, so go early and bring food. Then late
-  afternoon in the <strong>Golden Cape</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Zlatni%20Rt%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Zlatni Rt on Google Maps">map</a> coves, which are five minutes from town and
+  afternoon in the <strong>Golden Cape</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Zlatni%20Rt%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Zlatni Rt on Google Maps">map</a> coves, which are five minutes from town and
   properly shaded by pine. No driving beyond ten minutes all day.</p>
   <p class="note">Or simply go back to Vestar. There is nothing wrong with doing the good beach twice,
   and with a five year old the second visit is usually the better one because nobody is working out
@@ -496,49 +530,49 @@ what the sky is doing.</p>
 <tbody>
 <tr data-id="baredine">
   <td class="pickcell"></td>
-  <td><strong>Baredine Cave</strong><br><span class="meta">Nova Vas, near Porec, 30 min</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Jama%20Baredine%2C%20Nova%20Vas%2C%20Porec%2C%20Croatia" target="_blank" rel="noopener" aria-label="Baredine Cave on Google Maps">map</a></td>
+  <td><strong>Baredine Cave</strong><br><span class="meta">Nova Vas, near Porec, 30 min</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Jama%20Baredine%2C%20Nova%20Vas%2C%20Porec%2C%20Croatia" target="_blank" rel="noopener" aria-label="Baredine Cave on Google Maps">map</a></td>
   <td><span class="pill shut">dropped, no caves</span> <span class="pill cool">14 C inside</span><br>Kept here because it is the single best wet-weather answer within 30 minutes and Friday carries a 38 percent chance. Open daily 10:00 to 18:00, tours every 30 min, walk in, no booking.</td>
   <td class="num">EUR 14 adult<br>EUR 10 age 5-15<br>under 5 free</td>
 </tr>
 <tr data-id="arena">
   <td class="pickcell"></td>
-  <td><strong>Pula Arena</strong><br><span class="meta">Pula, 41 min</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Pula%20Arena%2C%20Pula%2C%20Croatia" target="_blank" rel="noopener" aria-label="Pula Arena on Google Maps">map</a></td>
+  <td><strong>Pula Arena</strong><br><span class="meta">Pula, 41 min</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Pula%20Arena%2C%20Pula%2C%20Croatia" target="_blank" rel="noopener" aria-label="Pula Arena on Google Maps">map</a></td>
   <td><span class="pill warn">optional, one hour</span><br>Not the plan any more, but it is a Roman amphitheatre and it opens at 08:00, so you can be in and out by 09:30 and still have a full beach afternoon. Check the visitor page the night before for concert-week hours.</td>
   <td class="num">EUR 10 adult<br>EUR 5 child<br>under 5 free</td>
 </tr>
 <tr data-id="aquariumpula">
   <td class="pickcell"></td>
-  <td><strong>Aquarium Pula</strong><br><span class="meta">Fort Verudela, Pula</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Aquarium%20Pula%2C%20Fort%20Verudela%2C%20Pula%2C%20Croatia" target="_blank" rel="noopener" aria-label="Aquarium Pula on Google Maps">map</a></td>
+  <td><strong>Aquarium Pula</strong><br><span class="meta">Fort Verudela, Pula</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Aquarium%20Pula%2C%20Fort%20Verudela%2C%20Pula%2C%20Croatia" target="_blank" rel="noopener" aria-label="Aquarium Pula on Google Maps">map</a></td>
   <td><span class="pill shut">dropped, you said no aquarium</span><br>Left listed only because it runs to 22:00, so it is the one thing still open if a wet afternoon has gone badly and nobody wants another restaurant.</td>
   <td class="num">EUR 23 adult<br>EUR 20 age 7-18<br>EUR 16 age 3-6</td>
 </tr>
 <tr data-id="brijuni">
   <td class="pickcell"></td>
-  <td><strong>Brijuni National Park</strong><br><span class="meta">boat from Fazana, 31 min</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Brijuni%20National%20Park%20boat%20terminal%2C%20Fazana%2C%20Croatia" target="_blank" rel="noopener" aria-label="Brijuni National Park on Google Maps">map</a></td>
+  <td><strong>Brijuni National Park</strong><br><span class="meta">boat from Fazana, 31 min</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Brijuni%20National%20Park%20boat%20terminal%2C%20Fazana%2C%20Croatia" target="_blank" rel="noopener" aria-label="Brijuni National Park on Google Maps">map</a></td>
   <td><span class="pill shut">dropped, eats a whole beach day</span><br>Boat, island train, safari park, dinosaur footprints. Genuinely the most memorable thing in the area and it costs you an entire day, which is the trade you said no to. Free for the five year old if you change your mind.</td>
   <td class="num">~EUR 40 adult<br>EUR 15 age 7-18<br>free under 7</td>
 </tr>
 <tr data-id="zlatnirt">
   <td class="pickcell"></td>
-  <td><strong>Golden Cape, Zlatni Rt</strong><br><span class="meta">Rovinj, 5 min</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Zlatni%20Rt%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Golden Cape, Zlatni Rt on Google Maps">map</a></td>
+  <td><strong>Golden Cape, Zlatni Rt</strong><br><span class="meta">Rovinj, 5 min</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Zlatni%20Rt%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Golden Cape, Zlatni Rt on Google Maps">map</a></td>
   <td><span class="pill open">in the plan</span><br>52 hectares of pine shade dropping straight into pebble coves. Sunday morning, and a good Saturday afternoon too. One swim and a shaded walk tires them out before six hours in a car.</td>
   <td class="num">free</td>
 </tr>
 <tr data-id="ambrela">
   <td class="pickcell"></td>
-  <td><strong>Ambrela beach</strong><br><span class="meta">Verudela, Pula</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Ambrela%20Beach%2C%20Verudela%2C%20Pula%2C%20Croatia" target="_blank" rel="noopener" aria-label="Ambrela beach on Google Maps">map</a></td>
+  <td><strong>Ambrela beach</strong><br><span class="meta">Verudela, Pula</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Ambrela%20Beach%2C%20Verudela%2C%20Pula%2C%20Croatia" target="_blank" rel="noopener" aria-label="Ambrela beach on Google Maps">map</a></td>
   <td>Blue Flag, roped shallow swim zones, oak shade, lifeguard, showers, play area, big car park.</td>
   <td class="num">free</td>
 </tr>
 <tr data-id="pjescana">
   <td class="pickcell"></td>
-  <td><strong>Pjescana Uvala</strong><br><span class="meta">Pula</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Pjescana%20Uvala%2C%20Pula%2C%20Croatia" target="_blank" rel="noopener" aria-label="Pjescana Uvala on Google Maps">map</a></td>
+  <td><strong>Pjescana Uvala</strong><br><span class="meta">Pula</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Pjescana%20Uvala%2C%20Pula%2C%20Croatia" target="_blank" rel="noopener" aria-label="Pjescana Uvala on Google Maps">map</a></td>
   <td>The closest thing to genuine sand on this coast. Shallow for 150 to 200 m, mature tree shade, playground, water inflatable, food on the promenade.</td>
   <td class="num">free</td>
 </tr>
 <tr data-id="vestar">
   <td class="pickcell"></td>
-  <td><strong>Vestar beach</strong><br><span class="meta">Rovinj, 5 km south</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Vestar%20Beach%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Vestar beach on Google Maps">map</a></td>
+  <td><strong>Vestar beach</strong><br><span class="meta">Rovinj, 5 km south</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Vestar%20Beach%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Vestar beach on Google Maps">map</a></td>
   <td>Sand and gravel bottom, shallow a long way out, Blue Flag, full facilities including a spray park. Busiest on this list and the most forgiving for a five year old.</td>
   <td class="num">free</td>
 </tr>
@@ -557,7 +591,7 @@ entries.</p>
   <p class="why"><strong>Check out FIRST, then swim.</strong> The window is 08:00 to 10:00, so the old
   version of this line, a 09:00 swim of 60 to 90 minutes and on the road by 11:00, quietly had you
   missing it. Order that works: keys back by <strong>09:00</strong>, then Golden Cape
-  <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Zlatni%20Rt%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Golden Cape Zlatni Rt on Google Maps">map</a>
+  <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Zlatni%20Rt%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Golden Cape Zlatni Rt on Google Maps">map</a>
   from about 09:15, and on the road by 11:00. The car is packed either way, so nothing is lost by doing it
   in that order.</p>
   <p class="why"><strong>Worth knowing: Golden Cape and Lone Bay are the same park.</strong> Zlatni Rt IS
@@ -571,7 +605,12 @@ entries.</p>
 </div>
 
 <h2 id="lonebay">Lone Bay, the beach you asked for</h2>
-<p class="h2sub">Ul. Luje Adamovica 31 is Hotel Lone. The beach is Plaza Lone, inside the Zlatni Rt
+<p class="h2sub">Ul. Luje Adamovica 31 is
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Ul.%20Luje%20Adamovica%2031%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Ul. Luje Adamovica 31 on Google Maps">Hotel Lone</a>.
+The beach is
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Plaza%20Lone%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Plaza Lone beach on Google Maps">Plaza Lone</a>,
+inside the
+<a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Zlatni%20Rt%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Zlatni Rt forest park on Google Maps">Zlatni Rt</a>
 forest park, 1.5 km south of the center and about 2.2 km from your campsite.</p>
 
 <div class="rulenote">
@@ -608,7 +647,12 @@ It is 265 m from the beach. It is also, on the tourist board's own list, closed 
     The only thing in Rovinj that is literally what you asked for: underground, attended, chargers inside,
     and a four minute walk to the water. <strong>Two sources disagree and I am not going to pick one for
     you.</strong> The Rovinj tourist board lists the charger here as <em>for hotel guests only</em>, and
-    tags Hotel Lone, Monte Mulini and Amarin the same way. The town's parking guide separately lists this
+    tags
+    <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Hotel%20Lone%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Hotel Lone on Google Maps">Hotel Lone</a>,
+    <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Hotel%20Monte%20Mulini%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Hotel Monte Mulini on Google Maps">Monte Mulini</a>
+    and
+    <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Family%20Hotel%20Amarin%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Family Hotel Amarin on Google Maps">Amarin</a>
+    the same way. The town's parking guide separately lists this
     garage at a <em>public</em> hourly rate, which implies a non-guest can drive in. Both can be true at
     once: park as a visitor, charge only as a guest. That is worth one phone call, because if the charger
     is open to you then your beach day and your top-up are the same errand. <strong>Ask exactly two
@@ -675,7 +719,7 @@ than a line in a table.</p>
 <tbody>
 <tr data-id="vestarpebble">
   <td class="pickcell"></td>
-  <td><strong>Vestar</strong><br><span class="meta">Rovinj, 5 km south</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Vestar%20Beach%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Vestar, the pebble day on Google Maps">map</a></td>
+  <td><strong>Vestar</strong><br><span class="meta">Rovinj, 5 km south</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Vestar%20Beach%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Vestar, the pebble day on Google Maps">map</a></td>
   <td><span class="pill open">the pick</span> <span class="pill cool">natural shade</span><br>
     Maistra's own page: <em>"Pebble, rocky beach"</em>, with <em>"natural shade"</em>, a Blue Flag,
     showers, and loungers and parasols for hire. A wide shallow bay, a spray park and a restaurant on
@@ -685,7 +729,7 @@ than a line in a table.</p>
 </tr>
 <tr data-id="rabac">
   <td class="pickcell"></td>
-  <td><strong>Rabac</strong><br><span class="meta">east coast, Girandella and Maslinica</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Girandella%20Beach%2C%20Rabac%2C%20Croatia" target="_blank" rel="noopener" aria-label="Rabac white pebble beaches on Google Maps">map</a></td>
+  <td><strong>Rabac</strong><br><span class="meta">east coast, Girandella and Maslinica</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Girandella%20Beach%2C%20Rabac%2C%20Croatia" target="_blank" rel="noopener" aria-label="Rabac white pebble beaches on Google Maps">map</a></td>
   <td><span class="pill warn">the big-day option</span><br>
     The Labin and Rabac tourist board calls Rabac the pearl of Kvarner Bay <em>"due to its white pebble
     beaches"</em>. This is the pebble destination in this corner of Croatia and the honest answer to
@@ -695,14 +739,14 @@ than a line in a table.</p>
 </tr>
 <tr data-id="cuvi">
   <td class="pickcell"></td>
-  <td><strong>Cuvi</strong><br><span class="meta">Rovinj, 3 km south</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Cuvi%20Beach%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Cuvi beach on Google Maps">map</a></td>
+  <td><strong>Cuvi</strong><br><span class="meta">Rovinj, 3 km south</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Cuvi%20Beach%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Cuvi beach on Google Maps">map</a></td>
   <td>Gravel and sand cove, gentle entry, pine shade. Fills early and has few amenities, so bring food
     and water. A cove, not a big beach.</td>
   <td class="num">7 min</td>
 </tr>
 <tr data-id="portonbiondi">
   <td class="pickcell"></td>
-  <td><strong>Porton Biondi</strong><br><span class="meta">Rovinj, north of the old town</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Porton%20Biondi%20Beach%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Porton Biondi on Google Maps">map</a></td>
+  <td><strong>Porton Biondi</strong><br><span class="meta">Rovinj, north of the old town</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Porton%20Biondi%20Beach%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Porton Biondi on Google Maps">map</a></td>
   <td><span class="pill shut">not on a hot day</span><br>
     Istra.hr: <em>"a combination of paved and pebble"</em> with <em>"no natural shade"</em>. Bars and
     restaurants along it and a lovely view back at the old town, so it is a fine early evening swim and
@@ -737,13 +781,13 @@ do when it fell apart.</p>
 <div class="card">
   <div class="toprow"><span class="name">Parking</span> <span class="pill warn">two verified, the rest not</span></div>
   <p class="why"><strong>Postojna Cave.</strong> A full day at the Cave Park entrance is
-  <strong>EUR 6</strong>. Predjama Castle <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Predjama%20Castle%2C%20Postojna%2C%20Slovenia" target="_blank" rel="noopener" aria-label="Predjama Castle on Google Maps">map</a>, if you add it, is EUR 3 per hour. There is a motorhome area
+  <strong>EUR 6</strong>. Predjama Castle <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Predjama%20Castle%2C%20Postojna%2C%20Slovenia" target="_blank" rel="noopener" aria-label="Predjama Castle on Google Maps">map</a>, if you add it, is EUR 3 per hour. There is a motorhome area
   250 m from the cave entrance at EUR 25 a night, which you do not need but which tells you how close
   the parking is.</p>
   <p class="why"><strong>Rovinj old town.</strong> No cars at all, it is a full pedestrian zone.
-  <strong>Valdibora</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Parking%20Valdibora%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Parking Valdibora on Google Maps">map</a> by the harbour is the closest lot, about a five minute walk to the main
+  <strong>Valdibora</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Parking%20Valdibora%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Parking Valdibora on Google Maps">map</a> by the harbour is the closest lot, about a five minute walk to the main
   square, roughly EUR 2.50 an hour with a EUR 25 daily cap, paid by the Bmove or Aircash apps. It fills
-  fast in season, so go early or fall back to <strong>Boksiti</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Parking%20Boksiti%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Parking Boksiti on Google Maps">map</a>.</p>
+  fast in season, so go early or fall back to <strong>Boksiti</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Parking%20Boksiti%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Parking Boksiti on Google Maps">map</a>.</p>
   <p class="note"><strong>Not verified, and I am not going to invent it:</strong> parking at Baredine,
   at the Pula Arena, at Aquarium Pula or at any of the restaurants. Ambrela beach is described as having
   a large car park and Pjescana Uvala has parking on the promenade, but I have not confirmed either
@@ -837,7 +881,7 @@ restaurant guide at after5.hr.</p>
 <tbody>
 <tr data-id="viking">
   <td class="pickcell"></td>
-  <td><strong>Restoran Viking</strong><br><span class="meta">Limski kanal 1, about 20 min north</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Restoran%20Viking%2C%20Limski%20kanal%2C%20Vrsar%2C%20Croatia" target="_blank" rel="noopener" aria-label="Restoran Viking on Google Maps">map</a></td>
+  <td><strong>Restoran Viking</strong><br><span class="meta">Limski kanal 1, about 20 min north</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Restoran%20Viking%2C%20Limski%20kanal%2C%20Vrsar%2C%20Croatia" target="_blank" rel="noopener" aria-label="Restoran Viking on Google Maps">map</a></td>
   <td><span class="pill open">the find</span> <span class="pill warn">booking mandatory</span><br>
     Dobra Hrana, in a piece headed "three places in Rovinj and around you may not have heard of":
     <em>"Ovdje dolazimo vec gotovo dvadeset godina"</em>, we have been coming here for almost twenty
@@ -850,7 +894,7 @@ restaurant guide at after5.hr.</p>
 </tr>
 <tr data-id="rio">
   <td class="pickcell"></td>
-  <td><strong>Snack Bar Rio</strong><br><span class="meta">Obala Alda Rismonda 13, Rovinj</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Snack%20Bar%20Rio%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Snack Bar Rio on Google Maps">map</a></td>
+  <td><strong>Snack Bar Rio</strong><br><span class="meta">Obala Alda Rismonda 13, Rovinj</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Snack%20Bar%20Rio%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Snack Bar Rio on Google Maps">map</a></td>
   <td><span class="pill open">closed Mondays</span><br>
     Open since 1968 and, in after5.hr's words, <em>"sve samo ne klasican snack bar"</em>, anything but
     a classic snack bar. Lobster, premium fish, seafood pasta, and a local favorite in spite of the
@@ -859,7 +903,7 @@ restaurant guide at after5.hr.</p>
 </tr>
 <tr data-id="kantinon">
   <td class="pickcell"></td>
-  <td><strong>Kantinon</strong><br><span class="meta">Obala Alda Rismonda 18, Rovinj</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Konoba%20Kantinon%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Kantinon on Google Maps">map</a></td>
+  <td><strong>Kantinon</strong><br><span class="meta">Obala Alda Rismonda 18, Rovinj</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Konoba%20Kantinon%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Kantinon on Google Maps">map</a></td>
   <td><span class="pill open">daily 12:00 to 22:00</span><br>
     A <em>"nekadasnji vinski podrum"</em>, a former wine cellar, serving <em>"originalna i tradicionalna
     jela"</em>. Prsut, pancetta, local cheeses, raw fish carpaccio. after5.hr flags it as favored by
@@ -868,7 +912,7 @@ restaurant guide at after5.hr.</p>
 </tr>
 <tr data-id="skatuleta">
   <td class="pickcell"></td>
-  <td><strong>Skatuleta Food Station</strong><br><span class="meta">Giordana Paliage 8, Rovinj</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Skatuleta%20Food%20Station%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Skatuleta Food Station on Google Maps">map</a></td>
+  <td><strong>Skatuleta Food Station</strong><br><span class="meta">Giordana Paliage 8, Rovinj</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Skatuleta%20Food%20Station%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Skatuleta Food Station on Google Maps">map</a></td>
   <td><span class="pill open">for the boys</span><br>
     <em>"mali raj za ljubitelje kvalitetnog fast fooda"</em>, a small paradise for people who like good
     fast food. Burgers, hot dogs and sandwiches in homemade focaccia. Mon to Sat 08:00 to 22:00. The
@@ -877,7 +921,7 @@ restaurant guide at after5.hr.</p>
 </tr>
 <tr data-id="tunaholic">
   <td class="pickcell"></td>
-  <td><strong>Tunaholic Fish Bar</strong><br><span class="meta">Zdenac 11, Rovinj</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Tunaholic%20Fish%20Bar%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Tunaholic Fish Bar on Google Maps">map</a></td>
+  <td><strong>Tunaholic Fish Bar</strong><br><span class="meta">Zdenac 11, Rovinj</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Tunaholic%20Fish%20Bar%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Tunaholic Fish Bar on Google Maps">map</a></td>
   <td><span class="pill open">for the boys</span><br>
     <em>"moderni pristup ribljim jelima"</em>. Tuna burgers and grilled fish served in a cone. Daily
     11:00 to 23:00, April to October only, so it is open for you. Fish the children will actually eat.</td>
@@ -885,7 +929,7 @@ restaurant guide at after5.hr.</p>
 </tr>
 <tr data-id="elbugadur">
   <td class="pickcell"></td>
-  <td><strong>El Bugadur</strong><br><span class="meta">Rovinj</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=El%20Bugadur%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="El Bugadur on Google Maps">map</a></td>
+  <td><strong>El Bugadur</strong><br><span class="meta">Rovinj</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=El%20Bugadur%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="El Bugadur on Google Maps">map</a></td>
   <td>The third of Dobra Hrana's three. Casual fine dining from fresh local ingredients, a short menu
     joining the Mediterranean and Istria, and a sea view from the terrace. The grown-up evening of the
     list. <span class="pill warn">hours not published, call</span></td>
@@ -898,7 +942,9 @@ restaurant guide at after5.hr.</p>
     Added 25 August, and it is here because the base moved. Croatia's <em>journal.hr</em> gastro guide
     frames Rovinj by direction: <em>"ako odete u sjeverniji dio Rovinja uz obalu pronaci cete restoran
     Locanda Blu"</em>, if you go to the more northern part of Rovinj along the coast you will find Locanda
-    Blu, against Trattoria Feral to the south. <strong>North is now your side.</strong> Open 08:00 to
+    Blu, against
+    <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Trattoria%20Feral%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Trattoria Feral on Google Maps">Trattoria Feral</a>
+    to the south. <strong>North is now your side.</strong> Open 08:00 to
     22:00, and its one closing rule is Tuesdays after breakfast, which never touches a Thursday to Sunday
     trip. Sea and pine views. Book a table by phone or on their site.</td>
   <td class="num"><a href="tel:+38552811265">+385 52 811 265</a></td>
@@ -941,43 +987,43 @@ restaurant guide at after5.hr.</p>
 <tbody>
 <tr data-id="giannino">
   <td class="pickcell"></td>
-  <td><strong>Giannino</strong><br><span class="meta">Ul. Augusta Ferrija 38, Rovinj, 2 min from the old town</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Giannino%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Giannino on Google Maps">map</a></td>
+  <td><strong>Giannino</strong><br><span class="meta">Ul. Augusta Ferrija 38, Rovinj, 2 min from the old town</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Giannino%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Giannino on Google Maps">map</a></td>
   <td><span class="pill open">no rest day now</span><br>Daily in August. Mon to Fri 18:00 to 23:00, Sat and Sun also 12:00 to 14:00. Its own closure note reads "Tuesdays through June" only. <strong>The Thursday arrival pick.</strong></td>
   <td class="num"><a href="tel:+38552813402">+385 52 813 402</a></td>
 </tr>
 <tr data-id="beccaccia">
   <td class="pickcell"></td>
-  <td><strong>Konoba Alla Beccaccia</strong><br><span class="meta">Ul. Pineta 25, Valbandon, Fazana, 20 to 25 min</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Konoba%20Alla%20Beccaccia%2C%20Valbandon%2C%20Fazana%2C%20Croatia" target="_blank" rel="noopener" aria-label="Konoba Alla Beccaccia on Google Maps">map</a></td>
+  <td><strong>Konoba Alla Beccaccia</strong><br><span class="meta">Ul. Pineta 25, Valbandon, Fazana, 20 to 25 min</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Konoba%20Alla%20Beccaccia%2C%20Valbandon%2C%20Fazana%2C%20Croatia" target="_blank" rel="noopener" aria-label="Konoba Alla Beccaccia on Google Maps">map</a></td>
   <td><span class="pill open">closed Mondays only</span><br>Tue to Sun 17:00 to 24:00, so open all three of your evenings. Family run, traditional, the Istarska plata platter. <strong>The one worth the drive.</strong></td>
   <td class="num"><a href="tel:+38552520753">+385 52 520 753</a></td>
 </tr>
 <tr data-id="lavela">
   <td class="pickcell"></td>
-  <td><strong>La Vela Gostionica</strong><br><span class="meta">Ul. Giuseppea Mazzinia 1, Rovinj</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=La%20Vela%20Gostionica%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="La Vela Gostionica on Google Maps">map</a></td>
+  <td><strong>La Vela Gostionica</strong><br><span class="meta">Ul. Giuseppea Mazzinia 1, Rovinj</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=La%20Vela%20Gostionica%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="La Vela Gostionica on Google Maps">map</a></td>
   <td><span class="pill open">daily 11:00 to 22:00</span><br>Casual pizza and Mediterranean. No rest day found. The right shape for four tired people.</td>
   <td class="num"><a href="tel:+38552841616">+385 52 841 616</a></td>
 </tr>
 <tr data-id="sanrocco">
   <td class="pickcell"></td>
-  <td><strong>San Rocco</strong><br><span class="meta">Srednja ulica 2, Brtonigla, about 45 min</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=San%20Rocco%2C%20Brtonigla%2C%20Croatia" target="_blank" rel="noopener" aria-label="San Rocco on Google Maps">map</a></td>
+  <td><strong>San Rocco</strong><br><span class="meta">Srednja ulica 2, Brtonigla, about 45 min</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=San%20Rocco%2C%20Brtonigla%2C%20Croatia" target="_blank" rel="noopener" aria-label="San Rocco on Google Maps">map</a></td>
   <td><span class="pill warn">closing day not published</span><br>Michelin recognized. Truffle, fish and game tasting menus. Needs booking one to two weeks out for late August, which means today.</td>
   <td class="num"><a href="tel:+38552725000">+385 52 725 000</a></td>
 </tr>
 <tr data-id="puntulina">
   <td class="pickcell"></td>
-  <td><strong>Puntulina</strong><br><span class="meta">Ul. Sv. Kriza 38, Rovinj</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Puntulina%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Puntulina on Google Maps">map</a></td>
+  <td><strong>Puntulina</strong><br><span class="meta">Ul. Sv. Kriza 38, Rovinj</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Puntulina%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Puntulina on Google Maps">map</a></td>
   <td><span class="pill warn">uncertain, kept anyway</span><br>Sources conflict: daily 13:00 to 23:00 in one, Tue and Wed 17:00 to 23:00 in another. Gorgeous seaside terrace on stone steps, which is the wrong thing an hour after a six hour drive. Backup, and phone first.</td>
   <td class="num"><a href="tel:+385916136435">+385 91 613 6435</a></td>
 </tr>
 <tr data-id="zigante">
   <td class="pickcell"></td>
-  <td><strong>Zigante Tartufi</strong><br><span class="meta">Plovanija, Buje, Motovun valley, 55 to 65 min</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Zigante%20Tartufi%2C%20Livade%2C%20Croatia" target="_blank" rel="noopener" aria-label="Zigante Tartufi on Google Maps">map</a></td>
+  <td><strong>Zigante Tartufi</strong><br><span class="meta">Plovanija, Buje, Motovun valley, 55 to 65 min</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Zigante%20Tartufi%2C%20Livade%2C%20Croatia" target="_blank" rel="noopener" aria-label="Zigante Tartufi on Google Maps">map</a></td>
   <td><span class="pill warn">closing day not published</span><br>The iconic Istrian truffle house. Better as a lunch on a Motovun-direction day than a dinner with tired children.</td>
   <td class="num"><a href="tel:+38552777409">+385 52 777 409</a></td>
 </tr>
 <tr data-id="monte">
   <td class="pickcell"></td>
-  <td><strong>Monte</strong><br><span class="meta">Montalbano 75, Rovinj old town</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Monte%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Monte on Google Maps">map</a></td>
+  <td><strong>Monte</strong><br><span class="meta">Montalbano 75, Rovinj old town</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Monte%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Monte on Google Maps">map</a></td>
   <td><span class="pill shut">not for this trip</span><br>Daily 18:00 to 23:00, Michelin starred. Listed so you know it exists and so you know why I am steering you off it: no children's menu.</td>
   <td class="num"><a href="tel:+38552830203">+385 52 830 203</a></td>
 </tr>
@@ -992,14 +1038,14 @@ Jure and Neptun carry the biggest review counts in town, which is the safer bet 
 <table>
 <thead><tr><th>Add</th><th>Place</th><th>Where</th><th class="num">Rating</th></tr></thead>
 <tbody>
-<tr data-id="barbadanilo"><td class="pickcell"></td><td><strong>Barba Danilo</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Barba%20Danilo%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Barba Danilo on Google Maps">map</a></td><td>Polari 25, EUR 25 to 50</td><td class="num">4.7 (517)</td></tr>
-<tr data-id="rovignese"><td class="pickcell"></td><td><strong>Konoba Rovignese</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Konoba%20Rovignese%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Konoba Rovignese on Google Maps">map</a></td><td>Polari 21, EUR 15 to 20</td><td class="num">4.6 (1101)</td></tr>
-<tr data-id="serafin"><td class="pickcell"></td><td><strong>Konoba Serafin</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Konoba%20Serafin%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Konoba Serafin on Google Maps">map</a></td><td>Ul. Domenica Medelina 12, EUR 20 to 40</td><td class="num">4.8 (443)</td></tr>
-<tr data-id="santacroce"><td class="pickcell"></td><td><strong>Restoran Santa Croce</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Restoran%20Santa%20Croce%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Restoran Santa Croce on Google Maps">map</a></td><td>Sveti Kriz 11</td><td class="num">4.8 (778)</td></tr>
-<tr data-id="nonnamarija"><td class="pickcell"></td><td><strong>Konoba Nonna Marija</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Konoba%20Nonna%20Marija%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Konoba Nonna Marija on Google Maps">map</a></td><td>Ul. Josipa Tankovica 9, country food</td><td class="num">4.7 (285)</td></tr>
-<tr data-id="kvartin"><td class="pickcell"></td><td><strong>Konoba Kvartin</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Konoba%20Kvartin%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Konoba Kvartin on Google Maps">map</a></td><td>Monsena 7-a, EUR 15 to 35</td><td class="num">4.6 (887)</td></tr>
-<tr data-id="jure"><td class="pickcell"></td><td><strong>Konoba Jure</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Konoba%20Jure%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Konoba Jure on Google Maps">map</a></td><td>Cademia ul. 22, EUR 20 to 45</td><td class="num">4.5 (1987)</td></tr>
-<tr data-id="neptun"><td class="pickcell"></td><td><strong>Konoba Restaurant Neptun</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Konoba%20Neptun%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Konoba Restaurant Neptun on Google Maps">map</a></td><td>Ul. Joakima Rakovca 10, EUR 15 to 35</td><td class="num">4.5 (1391)</td></tr>
+<tr data-id="barbadanilo"><td class="pickcell"></td><td><strong>Barba Danilo</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Barba%20Danilo%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Barba Danilo on Google Maps">map</a></td><td>Polari 25, EUR 25 to 50</td><td class="num">4.7 (517)</td></tr>
+<tr data-id="rovignese"><td class="pickcell"></td><td><strong>Konoba Rovignese</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Konoba%20Rovignese%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Konoba Rovignese on Google Maps">map</a></td><td>Polari 21, EUR 15 to 20</td><td class="num">4.6 (1101)</td></tr>
+<tr data-id="serafin"><td class="pickcell"></td><td><strong>Konoba Serafin</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Konoba%20Serafin%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Konoba Serafin on Google Maps">map</a></td><td>Ul. Domenica Medelina 12, EUR 20 to 40</td><td class="num">4.8 (443)</td></tr>
+<tr data-id="santacroce"><td class="pickcell"></td><td><strong>Restoran Santa Croce</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Restoran%20Santa%20Croce%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Restoran Santa Croce on Google Maps">map</a></td><td>Sveti Kriz 11</td><td class="num">4.8 (778)</td></tr>
+<tr data-id="nonnamarija"><td class="pickcell"></td><td><strong>Konoba Nonna Marija</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Konoba%20Nonna%20Marija%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Konoba Nonna Marija on Google Maps">map</a></td><td>Ul. Josipa Tankovica 9, country food</td><td class="num">4.7 (285)</td></tr>
+<tr data-id="kvartin"><td class="pickcell"></td><td><strong>Konoba Kvartin</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Konoba%20Kvartin%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Konoba Kvartin on Google Maps">map</a></td><td>Monsena 7-a, EUR 15 to 35</td><td class="num">4.6 (887)</td></tr>
+<tr data-id="jure"><td class="pickcell"></td><td><strong>Konoba Jure</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Konoba%20Jure%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Konoba Jure on Google Maps">map</a></td><td>Cademia ul. 22, EUR 20 to 45</td><td class="num">4.5 (1987)</td></tr>
+<tr data-id="neptun"><td class="pickcell"></td><td><strong>Konoba Restaurant Neptun</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Konoba%20Neptun%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Konoba Restaurant Neptun on Google Maps">map</a></td><td>Ul. Joakima Rakovca 10, EUR 15 to 35</td><td class="num">4.5 (1391)</td></tr>
 </tbody>
 </table>
 </div>
@@ -1007,15 +1053,15 @@ Jure and Neptun carry the biggest review counts in town, which is the safer bet 
 
 <h2>Two calls worth making</h2>
 <ul class="plain">
-  <li><strong>Glavani Park</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Glavani%20Park%2C%20Barban%2C%20Croatia" target="_blank" rel="noopener" aria-label="Glavani Park on Google Maps">map</a>, the rope and adventure park near Barban, <a href="tel:+38598224314">+385 98 224 314</a>.
+  <li><strong>Glavani Park</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Glavani%20Park%2C%20Barban%2C%20Croatia" target="_blank" rel="noopener" aria-label="Glavani Park on Google Maps">map</a>, the rope and adventure park near Barban, <a href="tel:+38598224314">+385 98 224 314</a>.
   Their own routes page lists a yellow, a blue and a black course and states no minimum age or height
   anywhere, so the "from age 2" marketing line is unconfirmed. Ask whether a five year old clears the
   yellow route before you build a morning around it.</li>
-  <li><strong>Aquarium Porec</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Aquarium%20Porec%2C%20Porec%2C%20Croatia" target="_blank" rel="noopener" aria-label="Aquarium Porec on Google Maps">map</a>, <a href="tel:+38552428720">+385 52 428 720</a>. A search result
+  <li><strong>Aquarium Porec</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Aquarium%20Porec%2C%20Porec%2C%20Croatia" target="_blank" rel="noopener" aria-label="Aquarium Porec on Google Maps">map</a>, <a href="tel:+38552428720">+385 52 428 720</a>. A search result
   claimed it was temporarily closed. That looks like an artifact rather than a fact: the operator's own
   site shows normal July and August hours, and the third-party page the claim came from actually reads
   open. One call settles it.</li>
-  <li><strong>Istra Premium Camping Resort, Funtana</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Istra%20Premium%20Camping%20Resort%2C%20Funtana%2C%20Croatia" target="_blank" rel="noopener" aria-label="Istra Premium Camping Resort on Google Maps">map</a>, <a href="tel:+38552465000">+385 52 465 000</a>.
+  <li><strong>Istra Premium Camping Resort, Funtana</strong> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Istra%20Premium%20Camping%20Resort%2C%20Funtana%2C%20Croatia" target="_blank" rel="noopener" aria-label="Istra Premium Camping Resort on Google Maps">map</a>, <a href="tel:+38552465000">+385 52 465 000</a>.
   Not on Booking, so I could not check availability, but their own site lists a Bella Vista Villa for
   4 plus 2 with a private pool, on a resort with a five-pool water park. If Porton goes, this is the call to make.</li>
 </ul>
@@ -1061,7 +1107,7 @@ Jure and Neptun carry the biggest review counts in town, which is the safer bet 
   Porton Nature Hideouts is what let one place look like two.
   <br><br>
   <strong>Five.</strong> The drive said charge at 200 km and again at 470 km and left it there. That is a
-  270 km middle leg needing about 65 kWh from an 82 kWh battery, so <em>leaving Kaiserwald at 80 percent
+  270 km middle leg needing about 58 kWh from a 79 kWh battery, so <em>leaving Kaiserwald at 80 percent
   arrives at Kozina on empty</em>. I had checked that both chargers existed and never checked the car
   could reach the second one. Existence is not reachability.
   <br><br>
@@ -1221,6 +1267,149 @@ const TRIP = {
     });
   }
 
+  // ONE BAR PER TABLE. Andrew asked twice for the ability to select the ones he wants;
+  // the per-row checkbox already worked, what was missing was doing a whole table at once.
+  // The bar is built from the rows it actually governs, so a table with no pickable row
+  // never gets a control that would do nothing.
+  function injectBulkControls() {
+    var wraps = document.querySelectorAll('.tablewrap');
+    Array.prototype.forEach.call(wraps, function (wrap, n) {
+      if (wrap.previousElementSibling &&
+          wrap.previousElementSibling.classList.contains('bulkbar')) return;
+      var hosts = wrap.querySelectorAll('[data-id]');
+      if (!hosts.length) return;
+      var ids = Array.prototype.map.call(hosts, function (h) { return h.getAttribute('data-id'); });
+
+      var bar = document.createElement('div');
+      bar.className = 'bulkbar';
+      bar.setAttribute('data-bulk', String(n));
+
+      var cnt = document.createElement('span');
+      cnt.className = 'bcount';
+      bar.appendChild(cnt);
+
+      var all = document.createElement('button');
+      all.type = 'button'; all.className = 'btn';
+      all.addEventListener('click', function () {
+        ids.forEach(function (id) { if (!(id in state.picks)) state.picks[id] = null; });
+        save(); syncAll();
+      });
+
+      var none = document.createElement('button');
+      none.type = 'button'; none.className = 'btn quiet'; none.textContent = 'clear these';
+      none.addEventListener('click', function () {
+        ids.forEach(function (id) { delete state.picks[id]; });
+        save(); syncAll();
+      });
+
+      bar.appendChild(all);
+      bar.appendChild(none);
+      wrap.parentNode.insertBefore(bar, wrap);
+      // remember what this bar governs so syncAll can relabel it without re-querying
+      bar._ids = ids; bar._all = all; bar._none = none; bar._cnt = cnt;
+    });
+  }
+
+  function syncBulkBars() {
+    var bars = document.querySelectorAll('.bulkbar');
+    Array.prototype.forEach.call(bars, function (bar) {
+      var ids = bar._ids || [];
+      var on = ids.filter(function (id) { return id in state.picks; }).length;
+      bar._cnt.textContent = on ? on + ' of ' + ids.length + ' picked here' : ids.length + ' here';
+      bar._all.textContent = 'pick all ' + ids.length;
+      bar._all.disabled = (on === ids.length);
+      bar._none.disabled = (on === 0);
+    });
+  }
+
+  // "at the end we'll discuss what worked". This produces the list in a shape that can be
+  // annotated and handed straight back, one line per place with the verdict words spelled
+  // out. It deliberately carries the DATE and the SLOT, because a verdict without when it
+  // happened cannot be checked against the source that said the place would be open.
+  function exportText() {
+    var ids = Object.keys(state.picks);
+    if (!ids.length) return '';
+    var lines = ['ISTRIA 27 to 30 AUGUST 2026, what we picked',
+                 'Mark each one: good / bad / mixed / shut, and say why in a few words.',
+                 'shut means we turned up and it was closed, which is the most useful one of all.',
+                 ''];
+    var seen = {};
+    TRIP.slots.concat([null]).forEach(function (slot) {
+      var members = ids.filter(function (i) { return (state.picks[i] || null) === slot; });
+      if (!members.length) return;
+      lines.push(slot === null ? '[not placed in a day]' : '[' + slot + ']');
+      members.forEach(function (id) {
+        seen[id] = 1;
+        var p = byId[id] || { name: id, where: '' };
+        var nm = p.name + (p.where ? ' (' + p.where + ')' : '');
+        // pad so the verdict column lines up when pasted into a monospace chat
+        while (nm.length < 46) nm += ' ';
+        lines.push('  ' + nm + '  verdict: ______  why: ');
+      });
+      lines.push('');
+    });
+    var orphan = ids.filter(function (i) { return !seen[i]; });
+    if (orphan.length) lines.push('[unrecognized ids, tell me about these] ' + orphan.join(', '));
+    return lines.join('\n');
+  }
+
+  function renderPlanActions() {
+    var acts = document.getElementById('planacts');
+    var hint = document.getElementById('exporthint');
+    if (!acts) return;
+    var ids = Object.keys(state.picks);
+    acts.textContent = '';
+    // If the box is OPEN, keep it open and refresh its text. Destroying it on every sync
+    // meant ticking one more row silently closed the list the user was reading, and the
+    // alternative (leaving it alone) would show a list that no longer matches the picks.
+    var open = document.getElementById('exportbox');
+    if (!ids.length) {
+      if (open) open.parentNode.removeChild(open);
+      if (hint) hint.textContent = '';
+      return;
+    }
+
+    var clear = document.createElement('button');
+    clear.type = 'button'; clear.className = 'btn quiet';
+    clear.textContent = 'clear all ' + ids.length;
+    clear.addEventListener('click', function () {
+      state.picks = {}; save(); syncAll();
+    });
+
+    var HINT = 'Selected already. Copy it, add a verdict and a reason to each line, and paste '
+      + 'it back after the trip. A bad or shut verdict needs the reason, because "bad" on its '
+      + 'own teaches the next trip nothing.';
+
+    if (open) {                       // already showing: just bring it up to date
+      open.value = exportText();
+      if (hint) hint.textContent = HINT;
+    }
+
+    var exp = document.createElement('button');
+    exp.type = 'button'; exp.className = 'btn';
+    exp.textContent = open ? 'hide the list' : 'list for the after-trip chat';
+    exp.addEventListener('click', function () {
+      var box = document.getElementById('exportbox');
+      if (box) { box.parentNode.removeChild(box); if (hint) hint.textContent = ''; syncAll(); return; }
+      box = document.createElement('textarea');
+      box.id = 'exportbox'; box.readOnly = true; box.spellcheck = false;
+      box.setAttribute('aria-label', 'the picked list, ready to copy');
+      box.value = exportText();
+      acts.parentNode.insertBefore(box, acts.nextSibling);
+      box.focus(); box.select();
+      if (hint) hint.textContent = HINT;
+      syncAll();
+    });
+
+    var pr = document.createElement('button');
+    pr.type = 'button'; pr.className = 'btn quiet'; pr.textContent = 'print';
+    pr.addEventListener('click', function () { window.print(); });
+
+    acts.appendChild(exp);
+    acts.appendChild(pr);
+    acts.appendChild(clear);
+  }
+
   // Rebuilding the panel destroys whatever the user just tapped. Without this,
   // removing an entry drops focus to body and a phone scrolls back to the top.
   function focusToken() {
@@ -1371,10 +1560,15 @@ const TRIP = {
       if (picked) host.classList.add('picked'); else host.classList.remove('picked');
     });
     renderPlan();
+    // both of these read state.picks, so they belong INSIDE the one sync path. Calling them
+    // from the click handlers instead is how a bar count and the panel end up disagreeing.
+    syncBulkBars();
+    renderPlanActions();
     restoreFocus(tok);
   }
 
   injectControls();
+  injectBulkControls();
   syncAll();
 
   window.addEventListener('beforeprint', function () {
