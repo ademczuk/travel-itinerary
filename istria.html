@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="build-stamp" content="2026-08-30T12:10">
+<meta name="build-stamp" content="2026-08-30T12:25">
 <title>Istria, 27 to 30 August: the plan</title>
 <style>
   :root {
@@ -165,7 +165,7 @@
   Your picks save on this device.</p>
 </header>
 
-<div class="live-strip"><strong>LAST UPDATED: Sunday 30 August, 12:10. LUNCH IS DECIDED: Konoba Pod Voltom, Motovun. Details below.</strong><br>SUNDAY, DRIVE-HOME MODE. This page is trimmed to today: charging and food for the road are directly below, and the rest of the trip is collapsed underneath. Tap any grey bar to reopen it.</div>
+<div class="live-strip"><strong>LAST UPDATED: Sunday 30 August, 12:25. Lunch: Pod Voltom, Motovun. Dinner: Heuriger Spaetrot. One-tap plan buttons now match.</strong><br>SUNDAY, DRIVE-HOME MODE. This page is trimmed to today: charging and food for the road are directly below, and the rest of the trip is collapsed underneath. Tap any grey bar to reopen it.</div>
 <div class="card" id="sundayhero">
   <h3>Today, in order: swim, charge, lunch in Croatia, charge, Heuriger dinner near home</h3>
   <p class="why"><strong>09:00 keys back, swim at Golden Cape <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Zlatni%20Rt%2C%20Rovinj%2C%20Croatia" target="_blank" rel="noopener" aria-label="Golden Cape on Google Maps">map</a>, on the road by 11:00.</strong> Detail in the Sunday section below.</p>
@@ -196,7 +196,7 @@
   Operator data corrected today: the fast bank is four 250 kW CCS units (not 350), which changes nothing for this car, and 8 of 9 connectors were free at the 11:40 check. The next planned stop is 270 km away and that stretch punishes optimism.</p>
   <p class="why"><strong>Charge 3: IONITY Kaiserwald, charge only.</strong> About 200 km from home
   <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=IONITY%20Kaiserwald%2C%20Premstaetten%2C%20Austria" target="_blank" rel="noopener" aria-label="IONITY Kaiserwald on Google Maps">map</a>.
-  Use the Landzeit playground and toilets while the car charges, 25 to 30 minutes (open Sunday to 21:00 per its own site), but do NOT eat here.
+  Use the Landzeit playground and toilets <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Landzeit%20Graz-Kaiserwald%2C%20Premstaetten%2C%20Austria" target="_blank" rel="noopener" aria-label="Landzeit Graz-Kaiserwald on Google Maps">map</a> while the car charges, 25 to 30 minutes (open Sunday to 21:00 per its own site), but do NOT eat here.
   Dinner is better and it is nearly home:</p>
   <p class="why"><strong>DINNER: Heuriger Spaetrot, Wienerstrasse 1, Gumpoldskirchen, +43 2252 62230</strong>
   <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Heuriger%20Spaetrot%2C%20Gumpoldskirchen%2C%20Austria" target="_blank" rel="noopener" aria-label="Heuriger Spaetrot on Google Maps">map</a>.
@@ -459,7 +459,7 @@ drive feel worse than it is. Three stops out, four back, and only two of them ar
   <td class="pickcell"></td>
   <td><strong>Gostisce Trojane</strong><br><span class="meta">lunch on the way home too</span> <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Gostisce%20Trojane%2C%20Trojane%2C%20Slovenia" target="_blank" rel="noopener" aria-label="Gostisce Trojane on Google Maps">map</a></td>
   <td class="num">~210</td>
-  <td><span class="pill open">this is lunch</span><br>
+  <td><span class="pill warn">fallback lunch and krofi stop</span><br>
     SUPERSEDED 30 Aug: today Trojane is the krofi stop and the FALLBACK hot lunch, not the plan; the lunch plan is at the top of the page. Open till
     23:00 so there is no version of this drive where you arrive too late. Buy a bag of krofi for the car;
     that is the actual local custom and it buys you quiet in the back seat for an hour.</td>
@@ -470,7 +470,7 @@ drive feel worse than it is. Three stops out, four back, and only two of them ar
   <td class="num">~365</td>
   <td><span class="pill cool">charge for the run home</span><br>
     Vienna is 200 km from here, which is about 48 kWh, so leave at 80 percent and you roll into the drive
-    with a fifth of the battery spare. Arrive here around 16:00, home for about 19:00. If anyone is hungry
+    with a fifth of the battery spare. Arrive around 16:30, charge and playground 25-30 min; dinner is Heuriger Spaetrot about 19:15, home about 20:15. If anyone is hungry
     this WAS the meal-stop advice; superseded 30 Aug, today it is charge-and-playground only and dinner is the Heuriger, see the top of the page.</td>
 </tr>
 </tbody>
@@ -665,7 +665,7 @@ entries.</p>
   rather the last swim be somewhere new, Cuvi is seven minutes the other way.</p>
   <p class="why">Sunday sits inside the late-August northbound return peak, but the Graz line avoids the
   Karawanken entirely, which is where the queues actually form. Stops and charges are in
-  <a href="#stops">the drive section</a>: Kanfanar, then LUNCH IN CROATIA at Zminj (see the top of this
+  <a href="#stops">the drive section</a>: Kanfanar, then LUNCH at Konoba Pod Voltom in Motovun (see the top of this
   page), Kozina at 90 percent, Trojane demoted to a krofi stop, charge-and-playground at Kaiserwald, dinner at Heuriger Spaetrot in Gumpoldskirchen, 25 minutes from home.</p>
 </div>
 
@@ -1388,6 +1388,8 @@ const TRIP = {
     {id:'kanfanarback',name:'Ionity Kanfanar, the big charge', where:'20 km out of Rovinj, Sunday', maps:'IONITY Kanfanar, Croatia'},
     {id:'kozinaback',  name:'Petrol Kozina, charge to 90 pct', where:'~95 km, before the 270 km stretch', maps:'Petrol Kozina, Slovenia'},
     {id:'trojaneback', name:'Trojane, lunch on the way home', where:'~210 km, Slovenia', phone:'+38617233600', maps:'Gostisce Trojane, Trojane, Slovenia'},
+    {id:'podvoltom', name:'Konoba Pod Voltom, lunch', where:'Trg Josefa Ressela 6, Motovun', phone:'+38552681923', maps:'Konoba Pod Voltom, Motovun, Croatia'},
+    {id:'spaetrot', name:'Heuriger Spaetrot, dinner', where:'Wienerstrasse 1, Gumpoldskirchen', phone:'+43225262230', maps:'Heuriger Spaetrot, Gumpoldskirchen, Austria'},
     {id:'landzeitback',name:'Landzeit Kaiserwald, last charge', where:'~365 km, 200 km from home', phone:'+43313653972', maps:'Landzeit Graz-Kaiserwald, Premstaetten, Austria'},
     {id:'grandparkgarage',name:'Grand Park garage',  where:'A. Smareglia 1a, 265 m from Lone Bay', phone:'+38552800250', maps:'Grand Park Hotel Rovinj, Rovinj, Croatia'},
     {id:'skaraba',     name:'Skaraba or Punta lot', where:'Zlatni Rt park edge, Zone 4', maps:'Skaraba parking, Rovinj, Croatia'},
@@ -1578,7 +1580,8 @@ const TRIP = {
     ['locandablu',  'Thu 27 - dinner'],
     ['vestarpebble','Fri 28 - morning'],
     ['viking',      'Fri 28 - dinner'],
-    ['trojaneback', 'Sun 30 - on the way home']
+    ['podvoltom',   'Sun 30 - lunch'],
+    ['spaetrot',    'Sun 30 - dinner']
   ];
   var MEALS_RABAC = [['rabac', 'Sat 29 - morning'], ['beccaccia', 'Sat 29 - dinner']];
   var MEALS_LONE  = [['zlatnirt', 'Sat 29 - morning'], ['tomazova', 'Sat 29 - afternoon']];
