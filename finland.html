@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Demczuk Family - Finland and Lapland, 4 to 15 July 2027</title>
+<meta name="build-stamp" content="20260919-0001">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<style>
+  :root{
+    --fi-ink:#1c2733;
+    --fi-sub:#4a5a68;
+    --fi-line:#dbe3ea;
+    --fi-bg:#f6f8fa;
+    --fi-card:#ffffff;
+    --fi-blue:#1e5a8a;
+    --fi-ice:#2f8fb0;
+    --fi-warn:#9a5b12;
+    --fi-warn-bg:#fdf2e2;
+    --fi-verify:#b3261e;
+    --fi-verify-bg:#fdecea;
+    --fi-good-bg:#eaf5ef;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--fi-ink);
+    background:var(--fi-bg);
+    line-height:1.5;
+  }
+  header.top{
+    background:linear-gradient(135deg,#0e3a5c,#1e5a8a 55%,#2f8fb0);
+    color:#fff;
+    padding:28px 20px 34px;
+  }
+  header.top .wrap{max-width:980px;margin:0 auto}
+  header.top h1{margin:0 0 6px;font-size:1.7rem;font-weight:700}
+  header.top .dates{font-size:1rem;opacity:.92}
+  header.top .tagline{margin-top:10px;font-size:.95rem;opacity:.85;max-width:640px}
+  nav.tabs{
+    position:sticky;top:0;z-index:20;
+    background:#0e3a5c;
+    display:flex;flex-wrap:wrap;gap:2px;
+    padding:6px 12px;
+  }
+  nav.tabs a{
+    color:#dceaf4;text-decoration:none;font-size:.85rem;
+    padding:8px 10px;border-radius:6px;
+  }
+  nav.tabs a:hover{background:rgba(255,255,255,.12);color:#fff}
+  main{max-width:980px;margin:0 auto;padding:22px 16px 60px}
+  section{margin-bottom:34px}
+  h2{
+    font-size:1.25rem;margin:0 0 12px;color:var(--fi-blue);
+    border-bottom:2px solid var(--fi-line);padding-bottom:8px;
+  }
+  h3{font-size:1.05rem;margin:0 0 6px;color:var(--fi-ink)}
+  .card{
+    background:var(--fi-card);border:1px solid var(--fi-line);
+    border-radius:10px;padding:16px 18px;margin-bottom:14px;
+  }
+  .now-list{padding-left:20px}
+  .now-list li{margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:.92rem}
+  table caption{text-align:left;font-size:.8rem;color:var(--fi-sub);margin-bottom:6px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--fi-line);vertical-align:top}
+  th{color:var(--fi-sub);font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.02em}
+  tr:last-child td{border-bottom:none}
+  .facts-table td:first-child{width:150px;color:var(--fi-sub);font-weight:600}
+  .verify{
+    display:inline-block;font-size:.72rem;font-weight:700;color:var(--fi-verify);
+    background:var(--fi-verify-bg);border-radius:4px;padding:1px 6px;margin-left:4px;
+    vertical-align:middle;
+  }
+  .rec{
+    background:var(--fi-good-bg);border-left:4px solid #2c7a4b;
+    padding:10px 14px;border-radius:6px;margin-top:10px;font-size:.92rem;
+  }
+  .warn{
+    background:var(--fi-warn-bg);border-left:4px solid var(--fi-warn);
+    padding:10px 14px;border-radius:6px;margin:10px 0;font-size:.92rem;
+  }
+  .day{
+    background:var(--fi-card);border:1px solid var(--fi-line);border-radius:10px;
+    padding:16px 18px;margin-bottom:12px;position:relative;
+  }
+  .day .daynum{
+    display:inline-block;background:var(--fi-blue);color:#fff;font-size:.75rem;
+    font-weight:700;padding:2px 9px;border-radius:12px;margin-right:8px;
+  }
+  .day h3{display:inline;font-size:1.05rem}
+  .day .datebar{color:var(--fi-sub);font-size:.85rem;margin:4px 0 10px}
+  .day p{margin:6px 0;font-size:.92rem}
+  .day p b{color:var(--fi-ink)}
+  .day .planb{
+    margin-top:10px;font-size:.86rem;color:var(--fi-sub);
+    border-top:1px dashed var(--fi-line);padding-top:8px;
+  }
+  .drive-day{border-left:4px solid var(--fi-ice)}
+  .lapland-day{border-left:4px solid #6a4c93}
+  #map{height:420px;border-radius:10px;border:1px solid var(--fi-line)}
+  .legend-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+  .skip-list li{margin-bottom:8px;font-size:.92rem}
+  footer{
+    max-width:980px;margin:0 auto;padding:20px 16px 50px;
+    font-size:.78rem;color:var(--fi-sub);border-top:1px solid var(--fi-line);
+  }
+  footer a{color:var(--fi-blue)}
+  .stamp{font-size:.72rem;color:#9aa7b2;text-align:center;margin-top:18px}
+  @media print{
+    nav.tabs{display:none}
+    header.top{background:#0e3a5c !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .day{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <h1>Finland and Lapland road trip</h1>
+    <div class="dates">Sun 4 Jul to Thu 15 Jul 2027, 11 nights. Vienna to Helsinki, one-way van to Rovaniemi, fly home from Rovaniemi.</div>
+    <div class="tagline">Draft plan, not yet booked. Every figure marked <span class="verify">VERIFY</span> still needs a live source before it goes near a booking. Built 19 Sep 2026.</div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <a href="#now">Do now</a>
+  <a href="#facts">Trip facts</a>
+  <a href="#route">Route</a>
+  <a href="#vehicle">Vehicle</a>
+  <a href="#cost">Cost</a>
+  <a href="#days">Day by day</a>
+  <a href="#map">Map</a>
+  <a href="#practical">Practical</a>
+</nav>
+
+<main>
+
+<section id="now">
+  <h2>Three things to do now</h2>
+  <div class="card">
+    <ol class="now-list">
+      <li><b>Book the one-way van as soon as it is quotable.</b> Helsinki to Rovaniemi one-way, 9-seat class, first two weeks of July (Finnish school summer holidays, peak season) will have thin availability. Aim to book 6 to 9 months out, roughly Oct to Dec 2026. <span class="verify">VERIFY</span> exact open-date window.</li>
+      <li><b>Decide the vehicle now.</b> 8 people, 2 kids aged 6 and 7 with their own boosters, and 11 days of luggage. See the Vehicle section below, it drives the rest of the cost comparison.</li>
+      <li><b>Book flights the moment July 2027 schedules open</b>, Vienna to Helsinki out, Rovaniemi to Helsinki to Vienna back. Airlines typically release a rolling 11 to 12 month window, so start watching from around Jul to Aug 2026. <span class="verify">VERIFY</span> at booking.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="facts">
+  <h2>Trip facts</h2>
+  <div class="card">
+    <table class="facts-table">
+      <tr><td>Travelers</td><td>8 total. Family A: 2 adults + kids 6, 7 (own boosters). Family B: 1 adult + kids 12, 14. Friend: 1 adult, joins at Vaasa.</td></tr>
+      <tr><td>Dates</td><td>Thu 4 Jul (arrive Helsinki) to Thu 15 Jul 2027 (fly home from Rovaniemi). 11 nights. Return date is fixed; outbound is flexible.</td></tr>
+      <tr><td>Origin</td><td>Vienna to Helsinki (international), then domestic Rovaniemi to Helsinki to Vienna on the way back.</td></tr>
+      <tr><td>Vehicle</td><td>One-way rental, pick up Helsinki, drop off Rovaniemi. Recommend the long-wheelbase 9-seat minibus or an 8-seat V-Class-class van over the short-wheelbase 9-seater, for luggage reasons. See Vehicle section.</td></tr>
+      <tr><td>Child seats</td><td>2 boosters for ages 6 and 7, family bringing their own (confirmed).</td></tr>
+      <tr><td>Route shape</td><td>Helsinki (2 nights) to Jyvaskyla/Paijanne (1 night) to Vaasa (2 nights, meet 8th traveler) to Oulu (1 night) to Rovaniemi (5 nights) to fly home.</td></tr>
+      <tr><td>Helsinki hotel</td><td><b>Hobo Helsinki</b>, Kluuvikatu 4, 00100 Helsinki, confirmed choice. Central, 6 minutes to Helsinki Cathedral, about 5 minutes to Central Station and the Market Square ferry terminal. 183 rooms across 6 categories. Room max-occupancy is not published on the hotel's own site <span class="verify">VERIFY</span> directly, reservations@hobohotel.fi / +358 9 5619 2707, that Family A (2 adults + 2 kids) gets one room sleeping 4 or two connecting rooms.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="route">
+  <h2>Why the route is shaped this way</h2>
+  <div class="card">
+    <p><b>Vaasa to Rovaniemi cannot be driven in one day with this group.</b> Direct distance is about 541 km, OSRM baseline 7.6 hours with zero stops, realistically 10 to 11 hours padded for fuel, meals, and a 6-year-old's patience. Splitting it through <b>Oulu</b> (about 322 km / 4.5 h padded, then 224 km / 4.5 h padded) turns one brutal day into two manageable ones. Oulu itself is a genuine, well-regarded family stop on this corridor, not just a motorway town, per Visit Oulu's own "Oulu with Kids" page.</p>
+    <p><b>The lake stop: Jyvaskyla over a smaller Paijanne village.</b> Both sit on Lake Paijanne. Jyvaskyla is the smaller detour off the direct Helsinki to Vaasa line (about 132 km extra vs about 156 km for Sysma) and it splits the drive into two balanced days instead of one easy day followed by one long day. It also has real backup options if the weather turns. A quieter lake-village feel (Sysma/Padasjoki, sandy family beaches at Suopelto Beach) is the alternative, at the cost of a second long driving day.</p>
+    <table>
+      <caption>Baseline distances (OSRM, no traffic). Pad every number 30 to 50 percent for a real day with kids.</caption>
+      <tr><th>Leg</th><th>Distance</th><th>Baseline</th><th>Realistic, padded</th></tr>
+      <tr><td>Helsinki to Jyvaskyla</td><td>~270 km</td><td>3.4 h</td><td>4.5 to 5 h</td></tr>
+      <tr><td>Jyvaskyla to Vaasa</td><td>~284 km</td><td>4.0 h</td><td>5 to 6 h</td></tr>
+      <tr><td>Vaasa to Oulu</td><td>~322 km</td><td>4.6 h</td><td>6 to 6.8 h</td></tr>
+      <tr><td>Oulu to Rovaniemi</td><td>~224 km</td><td>3.25 h</td><td>4.2 to 4.9 h</td></tr>
+      <tr><td><b>Total driving</b></td><td><b>~1,100 km</b></td><td><b>15.2 h</b></td><td><b>~20 to 23 h across 4 driving days</b></td></tr>
+    </table>
+    <p style="font-size:.85rem;color:var(--fi-sub);margin-top:8px">Routed via this kit's OSRM baseline script, 19 Sep 2026. Re-verify against live-traffic maps closer to the date, and check Fintraffic/Traficom advisories for the specific travel days once known.</p>
+  </div>
+</section>
+
+<section id="vehicle">
+  <h2>Vehicle: what fits 8 people and 11 days of luggage</h2>
+  <div class="card">
+    <p>A 9-seat minibus with all 9 seats occupied has famously little boot space left, the single most common complaint in reviews for this class. With 8 travelers there is a real choice between an 8-seat van (one less seat, more boot) and a 9-seat minibus (one spare seat, useful for bags, but check the boot number first).</p>
+    <table>
+      <tr><th>Model</th><th>Seats</th><th>Boot, all seats up</th></tr>
+      <tr><td>Ford Transit Custom Kombi, short wheelbase (L1)</td><td>9</td><td>787 L</td></tr>
+      <tr><td>Ford Transit Custom Kombi, long wheelbase (L2)</td><td>9</td><td>999 L</td></tr>
+      <tr><td>Mercedes V-Class, Long</td><td>8</td><td>1,030 L</td></tr>
+      <tr><td>VW Caravelle / Multivan (9-seat, common in rental fleets)</td><td>9</td><td><span class="verify">VERIFY</span> locally, varies by trim</td></tr>
+    </table>
+    <div class="rec">
+      <b>Recommendation:</b> the long-wheelbase 9-seat Kombi (L2, about 999 L) or the 8-seat V-Class Long (1,030 L) if it prices out cheaper and losing the spare seat is fine. 8 people for 11 days, including Arctic-Circle-in-July layers, realistically needs 700 to 900 L of hard luggage capacity before day bags. The short-wheelbase 787 L Kombi is tight to the point of risky.
+    </div>
+    <p style="margin-top:10px">If the preferred vehicle only comes in the shorter wheelbase, a roof box is a common add-on at Finnish firms, typically an extra daily fee. <span class="verify">VERIFY</span> exact price locally, expect roughly EUR 10 to 20/day as a general European add-on figure, not yet checked against a Finnish firm directly.</p>
+  </div>
+</section>
+
+<section id="cost">
+  <h2>Car hire cost comparison</h2>
+  <div class="card">
+    <p><b>One-way (Helsinki pickup, Rovaniemi drop-off) is a genuinely offered service, not a special request.</b></p>
+    <ul>
+      <li><b>Sixt</b> operates one-way rentals between Finnish cities, with locations at Helsinki and Rovaniemi Airport (RVN) and Rovaniemi Railway Station. A one-way fee applies, route and vehicle specific, only shown once real dates are entered, not quotable this far out. Sixt's Finland terms also mention a separate EUR 20.08 "Flexi Return" fee for returning to an undeclared station, which should not apply since Rovaniemi is declared as drop-off up front. Confirm at booking anyway.</li>
+      <li><b>24Rent</b> explicitly advertises a flexible one-way service across Finland, worth quoting directly against Sixt.</li>
+      <li><b>GoMore</b> (peer-to-peer) lists 7 and 9-seat minibuses across many Finnish cities including Helsinki and Oulu, worth checking for one-way terms since peer-to-peer platforms sometimes handle this differently from classic chains.</li>
+    </ul>
+    <table>
+      <caption>Two real, current (checked 19 Sep 2026) data points, not 2027 quotes, but concrete rather than a vague range.</caption>
+      <tr><th>Signal</th><th>Figure</th></tr>
+      <tr><td>Live aggregator, 9-passenger van, Helsinki, today's dates</td><td>USD 70 to 120/day (Green Motion ~$71, Thrifty ~$105, Budget ~$108)</td></tr>
+      <tr><td>Enterprise, explicit one-way surcharge, Helsinki Metro area</td><td>EUR 155.00 incl. VAT per delivery/collection (not the Helsinki-Rovaniemi fee itself, which will likely be larger given the distance, but the first real one-way figure found)</td></tr>
+      <tr><td>Europcar, Rovaniemi to Helsinki named as a popular one-way route</td><td>Standard-car pricing shown (Fiat 500 from USD 28.38/day to VW T-Cross USD 41.95/day); minivan-class pricing not shown on that page</td></tr>
+    </table>
+    <div class="warn">
+      <b>Working budget estimate</b>, built from the above rather than invented: for an 11-day one-way rental of a 9-seat (or 8-seat) minivan in July 2027 peak season, plan for roughly <b>EUR 100 to 180/day x 11 days = EUR 1,100 to 2,000</b>, plus a one-way fee that could plausibly land anywhere from <b>EUR 150 to EUR 400+</b>, given the Helsinki-Rovaniemi distance is roughly 3 to 4x the Helsinki-Metro radius Enterprise's EUR 155 covers. Treat this as a planning range, not a quote.
+    </div>
+    <p style="margin-top:10px;font-size:.88rem;color:var(--fi-sub)">Not yet possible: Sixt's actual 20 percent discount price, or a true side-by-side against 24Rent and GoMore, for this route and these dates, since July 2027 is not accepted by any booking engine yet. Chrome browser automation was unavailable this session for an interactive date-search attempt; the figures above come from static page fetches and aggregator snapshots instead. Re-run all three the moment any engine accepts real dates.</p>
+  </div>
+</section>
+
+<section id="days">
+  <h2>Day by day</h2>
+
+  <div class="day">
+    <span class="daynum">Day 1</span><h3>Arrive Helsinki from Vienna</h3>
+    <div class="datebar">Sun 4 Jul</div>
+    <p><b>Logistics:</b> Finnair and Ryanair fly Vienna to Helsinki direct, about 2h25 to 2h40, 19 weekly departures on the route as currently scheduled, a well-served route rather than a connection risk. <span class="verify">VERIFY</span> exact July 2027 flight once bookable. Only 1 hour time difference (CEST to EEST), so this is a travel-tired day, not a jet-lag day, useful for pacing with a 6-year-old.</p>
+    <p>Check into <b>Hobo Helsinki, Kluuvikatu 4</b>, a 5 to 10 minute walk to the Market Square (Kauppatori) harbour and ferry terminal. Confirm room configuration with the hotel directly before booking: one room sleeping 4 (Family A) and one sleeping 3 (Family B).</p>
+    <p><b>Rhythm:</b> No fixed plan needed. If there is energy after check-in, the Market Square and harbour are an easy, no-booking wander directly from the hotel. If everyone is just tired, that is fine too, Day 2 is the full day.</p>
+    <div class="planb"><b>Plan B:</b> Nothing to fall back on, nothing is booked, that is the point of an arrival day.</div>
+  </div>
+
+  <div class="day">
+    <span class="daynum">Day 2</span><h3>Helsinki, the one full day</h3>
+    <div class="datebar">Mon 5 Jul</div>
+    <p><b>Anchor: Linnanmaki amusement park.</b> This came out clearly ahead in Finnish-language family-travel sources, not just English tourist content, alongside Korkeasaari zoo and Suomenlinna. 40+ rides, 3 playgrounds, dozens of arcade games, the rare thing that genuinely spans the 6 to 14 age range without splitting the group. Entrance is free, pay per ride or buy a wristband. <span class="verify">VERIFY</span> exact 2027 pricing closer to the date.</p>
+    <p><b>Logistics:</b> Reachable by tram from central Helsinki, no car needed since the rental is not picked up until Day 3. <span class="verify">VERIFY</span> exact tram number and journey time.</p>
+    <p><b>On the Lego front:</b> there is no LEGOLAND Discovery Center in Finland (nearest is LEGOLAND Billund, Denmark, not reachable on this trip), and Pii Poo, the well-loved unofficial LEGO store in Kamppi, announced closure in autumn 2024 and is very likely gone by 2027, do not route a day around it without confirming. What survives: the official LEGO store at Italahdenkatu 15-17 (Ruoholahti/Jatkasaari, west Helsinki), a real shop, a genuine 20 to 30 minute stop if convenient, not worth a special trip on its own.</p>
+    <p><b>Rhythm:</b> Linnanmaki as the anchor (late morning to mid-afternoon), then Market Square/harbour in the evening, or Suomenlinna's sea fortress and ferry (15 minutes each way, HSL ticket about EUR 3.30 adult, no separate entrance fee to the fortress) as the calmer alternative.</p>
+    <div class="planb"><b>Plan B (rain):</b> Korkeasaari Zoo has covered sections, the other major Finnish-sourced family pick.</div>
+  </div>
+
+  <div class="day drive-day">
+    <span class="daynum">Day 3</span><h3>Helsinki to Jyvaskyla, lake stop</h3>
+    <div class="datebar">Tue 6 Jul</div>
+    <p><b>Logistics:</b> Pick up the 9-seater in Helsinki, confirm car-seat-compatible anchor points at pickup. Drive about 270 km, 4.5 to 5 h padded with stops. Arrive Jyvaskyla mid to late afternoon.</p>
+    <p><b>Rhythm:</b> Lake swim or beach time on arrival if weather allows. <span class="verify">VERIFY</span> specific beach and accommodation on Lake Paijanne near Jyvaskyla.</p>
+    <div class="planb"><b>Plan B:</b> Jyvaskyla has indoor family options if a swim is not appealing. <span class="verify">VERIFY</span> locally.</div>
+  </div>
+
+  <div class="day drive-day">
+    <span class="daynum">Day 4</span><h3>Jyvaskyla to Vaasa</h3>
+    <div class="datebar">Wed 7 Jul</div>
+    <p><b>Logistics:</b> About 284 km, 5 to 6 h padded. Arrive at the friend's house near Vaasa. Party now complete at 8.</p>
+    <p><b>Rhythm:</b> Reunion evening, no other plans needed.</p>
+  </div>
+
+  <div class="day">
+    <span class="daynum">Day 5</span><h3>Vaasa</h3>
+    <div class="datebar">Thu 8 Jul</div>
+    <p><b>Anchor:</b> the friend's local knowledge is the best source here, ask what they would recommend near their own house rather than researching this one blind.</p>
+    <p><b>Rhythm:</b> Rest day for the driving done so far, and for the 12+ hours still ahead.</p>
+  </div>
+
+  <div class="day drive-day">
+    <span class="daynum">Day 6</span><h3>Vaasa to Oulu</h3>
+    <div class="datebar">Fri 9 Jul</div>
+    <p><b>Logistics:</b> About 322 km, 6 to 6.8 h padded. A genuine travel day, budget it as such, no sightseeing detours.</p>
+    <p><b>Rhythm:</b> Arrive Oulu afternoon or evening. Nallikari beach if weather and energy allow.</p>
+    <div class="planb"><b>Plan B (rain/cold):</b> Tietomaa science museum (hands-on, good for the 6 to 14 spread) or Super Park indoor activity center, both named as Oulu family standards by Visit Oulu.</div>
+  </div>
+
+  <div class="day drive-day">
+    <span class="daynum">Day 7</span><h3>Oulu to Rovaniemi</h3>
+    <div class="datebar">Sat 10 Jul</div>
+    <p><b>Logistics:</b> About 224 km, 4.2 to 4.9 h padded. Shortest driving day of the trip, arrive Rovaniemi with the afternoon free.</p>
+    <p><b>Rhythm:</b> Settle in, first look at the Arctic Circle line if there is energy, otherwise rest.</p>
+  </div>
+
+  <div class="day lapland-day">
+    <span class="daynum">Days 8-11</span><h3>Rovaniemi and Lapland (4 nights)</h3>
+    <div class="datebar">Sun 11 Jul to Wed 14 Jul</div>
+    <p><b>Santa's Pets</b>, Santa Claus Village at the Arctic Circle. Summer hours 11:00 to 18:00 daily. Reindeer, alpacas, goats, rabbits, feeding included, 30 to 60 minute visit. Treat as one part of a Santa Claus Village day (also has the Arctic Circle crossing line, Santa's post office, other small attractions), not a full day on its own.</p>
+    <p><b>Reindeer and husky farm visit (summer format):</b> multiple operators run this June to August, hand-feeding reindeer lichen and husky-kennel visits (sledding replaced by hikes/dry-land activities in summer, and it is puppy season). Groups capped at 8 people on at least one operator's tours, this fits the party size exactly, worth booking as a private or small-group slot rather than joining a larger public tour.</p>
+    <p>One free or lower-cost day for rest, a river or lake activity, and slower Arctic Circle village time. <span class="verify">VERIFY</span> and research specific options, rafting, a lake beach, or similar, pending pace preference.</p>
+    <p style="font-size:.85rem;color:var(--fi-sub)"><b>Practical:</b> confirm 2027 summer pricing for all of the above closer to booking, the figures found (EUR 15 adult / EUR 10 child for Santa's Pets) were the most recent published, not yet 2027-dated.</p>
+  </div>
+
+  <div class="day">
+    <span class="daynum">Day 12</span><h3>Fly home</h3>
+    <div class="datebar">Thu 15 Jul</div>
+    <p><b>Logistics:</b> Return the hire van at Rovaniemi (airport or city depot, confirm which at booking, fees may differ). Rovaniemi to Helsinki is a dense, well-served domestic route today, Finnair alone runs roughly 4x/day, about 1h20 flight time, so a same-day RVN to HEL to VIE connection is structurally very feasible, but July 2027 schedules do not exist yet to book against. Lock this as the first thing once airlines open that far out, since the return date is fixed and everything above is built backward from it.</p>
+  </div>
+
+</section>
+
+<section id="map">
+  <h2>Route map</h2>
+  <div class="card">
+    <div id="map"></div>
+    <p style="font-size:.82rem;color:var(--fi-sub);margin-top:8px">
+      <span class="legend-dot" style="background:#1e5a8a"></span>Helsinki
+      &nbsp; <span class="legend-dot" style="background:#2f8fb0"></span>Jyvaskyla
+      &nbsp; <span class="legend-dot" style="background:#6a4c93"></span>Vaasa
+      &nbsp; <span class="legend-dot" style="background:#9a5b12"></span>Oulu
+      &nbsp; <span class="legend-dot" style="background:#b3261e"></span>Rovaniemi
+    </p>
+  </div>
+</section>
+
+<section id="practical">
+  <h2>Skip list and practical block</h2>
+  <div class="card">
+    <ul class="skip-list">
+      <li><b>Driving Vaasa to Rovaniemi direct</b>, 10 to 11 h padded with 4 kids aged 6 to 14 is not a day, it is an ordeal. See route rationale above.</li>
+      <li><b>Treating Santa's Pets as a full day</b>, it is a 30 to 60 minute visit inside a larger village.</li>
+    </ul>
+    <p style="margin-top:14px"><b>Emergency number: 112</b> (EU-wide, works in Finland).</p>
+    <p><b>Child seats:</b> family bringing their own boosters for the 6 and 7-year-olds. Confirm at pickup that the rental van's anchor points (ISOFIX or belt-fitting) match what is being brought.</p>
+    <p style="font-size:.85rem;color:var(--fi-sub)">Pharmacy/supermarket notes, precise beach-flag system, and taxi-fallback pricing are deferred to the next research pass once the itinerary skeleton above is confirmed.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Plan researched 19 Sep 2026. Prices and rules change, re-verify anything marked VERIFY before booking. Flight schedules for Jul 2027 are not released yet, airlines typically open about 11 to 12 months out; routes and frequencies shown are the current pattern, a feasibility signal only, not a bookable time.</p>
+  <p>Full source list with links: <code>sources.md</code> in this trip folder. Draft page, not yet published.</p>
+  <div class="stamp">build 20260919-0001, draft, not published</div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+(function(){
+  var stops = [
+    {name:"Helsinki",   lat:60.16662, lon:24.943541, color:"#1e5a8a", note:"Days 1-2, Hobo Helsinki hotel"},
+    {name:"Jyvaskyla",  lat:62.241672,lon:25.749581, color:"#2f8fb0", note:"Day 3, lake stop"},
+    {name:"Vaasa",      lat:63.095772,lon:21.615919, color:"#6a4c93", note:"Days 4-5, friend's house"},
+    {name:"Oulu",       lat:65.011791,lon:25.470197, color:"#9a5b12", note:"Day 6, overnight break"},
+    {name:"Rovaniemi",  lat:66.502554,lon:25.730391, color:"#b3261e", note:"Days 7-11, fly home"}
+  ];
+  var map = L.map('map', {scrollWheelZoom:false}).setView([63.4, 25.0], 5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom:18,
+    attribution:'&copy; OpenStreetMap contributors'
+  }).addTo(map);
+  var latlngs = [];
+  stops.forEach(function(s){
+    latlngs.push([s.lat, s.lon]);
+    L.circleMarker([s.lat, s.lon], {radius:8, color:'#fff', weight:2, fillColor:s.color, fillOpacity:1})
+      .addTo(map)
+      .bindPopup('<b>' + s.name + '</b><br>' + s.note);
+  });
+  L.polyline(latlngs, {color:'#1e5a8a', weight:3, opacity:0.6, dashArray:'6,6'}).addTo(map);
+})();
+</script>
+</body>
+</html>
